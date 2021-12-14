@@ -4,10 +4,10 @@ import * as Tone from "tone";
 export const Looper = () => {
   const [looping, setLooping] = useState(false)
 
-  const synthA = new Tone.FMSynth().toDestination();
+  const synth = new Tone.FMSynth().toDestination();
   new Tone.Loop(time => {
-    synthA.triggerAttackRelease("C2", "8n", time);
-  }, "4n").start(Tone.now());
+    synth.triggerAttackRelease("C2", "8n", time);
+  }, "4n").start();
 
   return <button onClick={() => {
     if (looping) {
