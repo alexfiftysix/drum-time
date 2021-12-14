@@ -3,10 +3,6 @@ import { useCallback, useEffect, useState } from 'react'
 import styles from './SequencerRow.module.scss'
 import { SequencerCell } from './SequencerCell'
 
-type Note = string | undefined
-
-type Sequence = Note[]
-
 type SequencerRowProps = {
   note: string
   size: number
@@ -14,34 +10,28 @@ type SequencerRowProps = {
 
 export const SequencerRow = (props: SequencerRowProps) => {
   const [looping, setLooping] = useState(false)
-  const [sequence, setSequence] = useState<Sequence>(
-    // @ts-ignore
-    [...Array(5).keys()].map(() => undefined),
-  )
 
   const synth = new Tone.Synth().toDestination()
-  const toneSequence = new Tone.Sequence((time, note) => {
-    if (note) synth.triggerAttackRelease(note, 0.1, time)
-  }, sequence).start(0)
+  const toneSequence = new Tone.Sequence(
+    (time, note) => {
+      if (note) synth.triggerAttackRelease(note, 0.1, time)
+    },
+    // @ts-ignore
+    [...Array(props.size).keys()].map(() => undefined)
+  ).start(0)
 
   useEffect(() => {
-    console.log(sequence)
-    toneSequence.events = sequence
-  }, [toneSequence, sequence])
+    console.log(toneSequence.events)
+  }, [toneSequence.events])
 
   const flip = useCallback(
     (index: number) => {
-      setSequence(
-        sequence.map((x, i) => {
-          if (i === index) {
-            if (x === undefined) return props.note
-            else return undefined
-          }
-          return x
-        }),
-      )
+      toneSequence.events = toneSequence.events.map((note, i) => {
+        if (i === index) return note === undefined ? props.note : undefined
+        return note
+      })
     },
-    [props.note, sequence],
+    [props.note, toneSequence]
   )
 
   const onClick = useCallback(() => {
@@ -58,11 +48,11 @@ export const SequencerRow = (props: SequencerRowProps) => {
     <div className={styles.root}>
       <button onClick={onClick}>{looping ? 'Stop' : 'Go'}</button>
       <div className={styles.blocks}>
-        {sequence.map((note, index) => (
+        {toneSequence.events.map((note, index) => (
           <SequencerCell
             key={index}
             text={`${index + 1}`}
-            isOn={note !== undefined}
+            initialState={note !== undefined}
             flip={() => flip(index)}
             className={styles.cell}
           />

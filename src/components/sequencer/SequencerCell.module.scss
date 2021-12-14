@@ -1,9 +1,20 @@
+$off: #ddd;
+$on: #ADFF2FFF;
+$darkenAmount: 15%;
+
 .root {
-  border-radius: 0;
-  border-style: none;
   padding: 1rem;
+  background: $off;
+  &:hover {
+    background: darken($off, $darkenAmount);
+  }
 
   &.on {
     background: greenyellow;
+    &:hover {
+      background: darken($on, $darkenAmount);
+    }
   }
+
+
 }
