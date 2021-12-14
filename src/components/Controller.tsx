@@ -1,9 +1,9 @@
-import {Looper} from "./Looper";
-import {Bleep} from "./Bleep";
+import { Looper } from "./Looper";
+import { Bleep } from "./Bleep";
 
 export const Controller = () => (
   <div>
-    <Bleep/>
-    <Looper/>
+    <Bleep />
+    <Looper />
   </div>
-)
+);

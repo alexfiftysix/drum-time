@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
-import {Controller} from "./components/Controller";
+import React from "react";
+import "./App.css";
+import { Controller } from "./components/Controller";
 
 function App() {
   return (
     <div className="App">
-      <Controller/>
+      <Controller />
     </div>
   );
 }
