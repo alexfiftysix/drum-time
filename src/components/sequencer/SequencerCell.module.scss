@@ -1,0 +1,9 @@
+.root {
+  border-radius: 0;
+  border-style: none;
+  padding: 1rem;
+
+  &.on {
+    background: greenyellow;
+  }
+}

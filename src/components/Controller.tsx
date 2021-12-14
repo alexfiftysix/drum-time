@@ -1,11 +1,7 @@
-import { Bleep } from "./Bleep";
-import { Kick } from "./Kick";
-import { Sequencer } from "./Sequencer";
+import { SequencerRow } from './sequencer/SequencerRow'
 
 export const Controller = () => (
-  <div>
-    <Sequencer />
-    <Kick />
-    <Bleep />
-  </div>
-);
+  <>
+    <SequencerRow note="C4" size={5} />
+  </>
+)

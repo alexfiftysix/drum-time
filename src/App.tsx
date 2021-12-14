@@ -1,13 +1,13 @@
-import React from "react";
-import "./App.css";
-import { Controller } from "./components/Controller";
+import React from 'react'
+import { Controller } from './components/Controller'
+import styles from './App.module.scss'
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.root}>
       <Controller />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
