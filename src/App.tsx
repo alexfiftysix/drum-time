@@ -1,12 +1,12 @@
 import React from 'react'
 import './reset.scss'
-import { Controller } from './components/Controller'
+import { Controller } from './components/sequencer/Controller'
 import styles from './App.module.scss'
 
 function App() {
   return (
     <div className={styles.root}>
-      <Controller />
+      <Controller size={8} />
     </div>
   )
 }

@@ -3,7 +3,6 @@ import cn from 'classnames'
 import { useState } from 'react'
 
 type SequenceBlockProps = {
-  text: string
   initialState: boolean
   flip: () => void
   className?: string
@@ -20,7 +19,7 @@ export const SequencerCell = (props: SequenceBlockProps) => {
         setOn(!on)
       }}
     >
-      {props.text}
+      {' '}
     </button>
   )
 }
