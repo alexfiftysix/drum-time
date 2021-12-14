@@ -5,10 +5,13 @@ import * as Tone from 'tone'
 
 type ControllerProps = {
   size: number
+  notes: string[]
 }
 
 export const Controller = (props: ControllerProps) => {
   const [looping, setLooping] = useState(false)
+
+  const synth = new Tone.PolySynth(Tone.Synth).toDestination()
 
   const onClick = useCallback(() => {
     if (looping) {
@@ -23,10 +26,9 @@ export const Controller = (props: ControllerProps) => {
   return (
     <div className={styles.root}>
       <button onClick={onClick}> {looping ? 'Stop' : 'Go'}</button>
-      <SequencerRow note="C5" size={props.size} />
-      <SequencerRow note="G4" size={props.size} />
-      <SequencerRow note="E4" size={props.size} />
-      <SequencerRow note="C4" size={props.size} />
+      {props.notes.map((note, index) => (
+        <SequencerRow key={index} note={note} size={props.size} synth={synth} />
+      ))}
     </div>
   )
 }

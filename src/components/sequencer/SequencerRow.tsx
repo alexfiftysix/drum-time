@@ -2,17 +2,18 @@ import * as Tone from 'tone'
 import { useCallback } from 'react'
 import styles from './SequencerRow.module.scss'
 import { SequencerCell } from './SequencerCell'
+import { Synth } from 'tone'
 
 type SequencerRowProps = {
   note: string
   size: number
+  synth: Synth | Tone.PolySynth
 }
 
 export const SequencerRow = (props: SequencerRowProps) => {
-  const synth = new Tone.Synth().toDestination()
   const toneSequence = new Tone.Sequence(
     (time, note) => {
-      if (note) synth.triggerAttackRelease(note, 0.1, time)
+      if (note) props.synth.triggerAttackRelease(note, 0.1, time)
     },
     // @ts-ignore
     [...Array(props.size).keys()].map(() => undefined)
@@ -30,7 +31,6 @@ export const SequencerRow = (props: SequencerRowProps) => {
 
   return (
     <div className={styles.blocks}>
-      <p className={styles.noteName}>{props.note}</p>
       {toneSequence.events.map((note, index) => (
         <SequencerCell
           key={index}
