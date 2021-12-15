@@ -1,44 +1,57 @@
 import * as Tone from 'tone'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import styles from './SequencerRow.module.scss'
 import { SequencerCell } from './SequencerCell'
 import { Synth } from 'tone'
+import { Seconds } from 'tone/build/esm/core/type/Units'
+import { range } from '../../utilities/array-helpers'
+import { useStore } from '../../hooks/use-store'
+import { observer } from 'mobx-react-lite'
+import { toJS } from 'mobx'
 
 type SequencerRowProps = {
-  note: string
+  note: string | string[]
   size: number
   synth: Synth | Tone.PolySynth
 }
 
-export const SequencerRow = (props: SequencerRowProps) => {
-  const toneSequence = new Tone.Sequence(
-    (time, note) => {
+export const SequencerRow = observer((props: SequencerRowProps) => {
+  const { sequenceStore } = useStore()
+
+  useEffect(() => {
+    sequenceStore.setEvents(range(0, props.size).map(() => undefined))
+  }, [props.size, sequenceStore])
+
+  useEffect(() => {
+    sequenceStore.setCallback((time: Seconds, note: string | undefined) => {
       if (note) props.synth.triggerAttackRelease(note, 0.1, time)
-    },
-    // @ts-ignore
-    [...Array(props.size).keys()].map(() => undefined)
-  ).start(0)
+      Tone.Draw.schedule(() => sequenceStore.increment(), time)
+    })
+  }, [props.synth, sequenceStore])
 
   const flip = useCallback(
     (index: number) => {
-      toneSequence.events = toneSequence.events.map((note, i) => {
-        if (i === index) return note === undefined ? props.note : undefined
-        return note
-      })
+      sequenceStore.setEvents(
+        sequenceStore.sequence.events.map((note, i) => {
+          if (i === index) return note === undefined ? props.note : undefined
+          return note
+        })
+      )
     },
-    [props.note, toneSequence]
+    [props.note, sequenceStore]
   )
 
   return (
     <div className={styles.blocks}>
-      {toneSequence.events.map((note, index) => (
+      {toJS(sequenceStore.sequence.events).map((note, index) => (
         <SequencerCell
           key={index}
           initialState={note !== undefined}
           flip={() => flip(index)}
           className={styles.cell}
+          playingNow={sequenceStore.currentNote === index}
         />
       ))}
     </div>
   )
-}
+})

@@ -3,13 +3,14 @@ import styles from './Sequencer.module.scss'
 import { useCallback, useState } from 'react'
 import * as Tone from 'tone'
 import { TempoSetter } from './tempoSetter/TempoSetter'
+import { observer } from 'mobx-react-lite'
 
 type ControllerProps = {
   size: number
-  notes: string[]
+  notes: (string | string[])[]
 }
 
-export const Sequencer = (props: ControllerProps) => {
+export const Sequencer = observer((props: ControllerProps) => {
   const [looping, setLooping] = useState(false)
 
   const synth = new Tone.PolySynth(Tone.Synth).toDestination()
@@ -19,7 +20,7 @@ export const Sequencer = (props: ControllerProps) => {
       Tone.Transport.stop()
       setLooping(false)
     } else {
-      Tone.Transport.start()
+      Tone.Transport.start('+0.1')
       setLooping(true)
     }
   }, [looping])
@@ -33,4 +34,4 @@ export const Sequencer = (props: ControllerProps) => {
       <TempoSetter />
     </div>
   )
-}
+})
