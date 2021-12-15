@@ -2,31 +2,51 @@ import * as Tone from 'tone'
 import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
 import { makeAutoObservable } from 'mobx'
 
-export class SequenceStore {
+type Sequence = {
   sequence: Tone.Sequence
-  currentNote: number = 0
   length: number
+  currentNote: number
+}
+
+export class SequenceStore {
+  bag: Map<string, Sequence> = new Map<string, Sequence>()
 
   constructor() {
-    this.sequence = new Tone.Sequence().start('+0.1')
-    this.length = 8
     makeAutoObservable(this)
   }
 
-  setEvents(events: (string | string[] | undefined)[]) {
-    this.sequence.events = events
-    this.length = events.length
+  getSequencer(id: string) {
+    const seq = this.bag.get(id)
+    if (seq) {
+      return seq
+    } else {
+      const newSeq: Sequence = {
+        sequence: new Tone.Sequence().start('+0.1'),
+        length: 8,
+        currentNote: 0,
+      }
+      this.bag.set(id, newSeq)
+      return newSeq
+    }
+  }
+
+  setEvents(id: string, events: (string | undefined)[]) {
+    const seq = this.getSequencer(id)
+    seq.sequence.events = events
+    seq.length = events.length
   }
 
   setCallback(
+    id: string,
     callback:
       | RecursivePartial<Tone.ToneEventCallback<string | undefined>>
       | undefined
   ) {
-    this.sequence.set({ callback })
+    this.getSequencer(id).sequence.set({ callback })
   }
 
-  increment() {
-    this.currentNote = (this.currentNote + 1) % this.length
+  increment(id: string) {
+    const seq = this.getSequencer(id)
+    seq.currentNote = (seq.currentNote + 1) % seq.length
   }
 }

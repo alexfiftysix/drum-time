@@ -1,5 +1,5 @@
 import * as Tone from 'tone'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import styles from './SequencerRow.module.scss'
 import { SequencerCell } from './SequencerCell'
 import { Synth } from 'tone'
@@ -15,43 +15,52 @@ type SequencerRowProps = {
   synth: Synth | Tone.PolySynth
 }
 
+const getRandom = (length: number) => `${Math.random() * length}`
+
 export const SequencerRow = observer((props: SequencerRowProps) => {
+  const [id] = useState(getRandom(10))
   const { sequenceStore } = useStore()
 
   useEffect(() => {
-    sequenceStore.setEvents(range(0, props.size).map(() => undefined))
-  }, [props.size, sequenceStore])
+    sequenceStore.setEvents(
+      id,
+      range(0, props.size).map(() => undefined)
+    )
+  }, [id, props.size, sequenceStore])
 
   useEffect(() => {
-    sequenceStore.setCallback((time: Seconds, note: string | undefined) => {
+    sequenceStore.setCallback(id, (time: Seconds, note: string | undefined) => {
       if (note) props.synth.triggerAttackRelease(note, 0.1, time)
-      Tone.Draw.schedule(() => sequenceStore.increment(), time)
+      Tone.Draw.schedule(() => sequenceStore.increment(id), time)
     })
-  }, [props.synth, sequenceStore])
+  }, [id, props.synth, sequenceStore])
 
   const flip = useCallback(
     (index: number) => {
       sequenceStore.setEvents(
-        sequenceStore.sequence.events.map((note, i) => {
+        id,
+        sequenceStore.getSequencer(id).sequence.events.map((note, i) => {
           if (i === index) return note === undefined ? props.note : undefined
           return note
         })
       )
     },
-    [props.note, sequenceStore]
+    [id, props.note, sequenceStore]
   )
 
   return (
     <div className={styles.blocks}>
-      {toJS(sequenceStore.sequence.events).map((note, index) => (
-        <SequencerCell
-          key={index}
-          initialState={note !== undefined}
-          flip={() => flip(index)}
-          className={styles.cell}
-          playingNow={sequenceStore.currentNote === index}
-        />
-      ))}
+      {toJS(sequenceStore.getSequencer(id).sequence.events).map(
+        (note, index) => (
+          <SequencerCell
+            key={index}
+            initialState={note !== undefined}
+            flip={() => flip(index)}
+            className={styles.cell}
+            playingNow={sequenceStore.getSequencer(id).currentNote === index}
+          />
+        )
+      )}
     </div>
   )
 })

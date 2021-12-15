@@ -11,7 +11,7 @@ function App() {
   return (
     <StoreContext.Provider value={new RootStore()}>
       <div className={styles.root}>
-        <Sequencer size={8} notes={scales.thirds} />
+        <Sequencer size={8} notes={scales.triadC} />
       </div>
     </StoreContext.Provider>
   )
