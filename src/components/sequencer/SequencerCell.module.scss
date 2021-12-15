@@ -1,26 +1,26 @@
 $off: #ddd;
-$active: #ADFF2FFF;
-$playing: yellow;
+$active: chartreuse;
+$playing: cyan;
 $darkenAmount: 15%;
 
 .root {
   padding: 1rem;
   background: $off;
 
-  border: .2rem solid #fff;
+  border: 0.2rem solid #fff;
 
   &:hover {
     background: darken($off, $darkenAmount);
   }
 
   &.active {
-    background: greenyellow;
+    background: $active;
     &:hover {
       background: darken($active, $darkenAmount);
     }
   }
 
   &.playingNow {
-    border: .2rem solid $playing;
+    border: 0.2rem solid $playing;
   }
 }

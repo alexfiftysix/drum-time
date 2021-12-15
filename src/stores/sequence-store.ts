@@ -10,6 +10,7 @@ type Sequence = {
 
 export class SequenceStore {
   bag: Map<string, Sequence> = new Map<string, Sequence>()
+  stopped: boolean = true
 
   constructor() {
     makeAutoObservable(this)
@@ -46,7 +47,19 @@ export class SequenceStore {
   }
 
   increment(id: string) {
+    if (this.stopped) return
     const seq = this.getSequencer(id)
     seq.currentNote = (seq.currentNote + 1) % seq.length
+  }
+
+  stop() {
+    this.stopped = true
+    this.bag.forEach((value, key) =>
+      this.bag.set(key, { ...value, currentNote: 0 })
+    )
+  }
+
+  go() {
+    this.stopped = false
   }
 }
