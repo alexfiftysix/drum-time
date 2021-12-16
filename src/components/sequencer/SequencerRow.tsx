@@ -12,12 +12,13 @@ import { toJS } from 'mobx'
 type SequencerRowProps = {
   note: string | string[]
   size: number
-  synth: Synth | Tone.PolySynth
+  synth: Synth | Tone.PolySynth | Tone.Sampler
 }
 
 const getRandom = (length: number) => `${Math.random() * length}`
 
 export const SequencerRow = observer((props: SequencerRowProps) => {
+  console.log('render')
   const [id] = useState(getRandom(10))
   const { sequenceStore } = useStore()
 

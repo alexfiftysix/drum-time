@@ -13,9 +13,21 @@ type ControllerProps = {
 
 export const Sequencer = observer((props: ControllerProps) => {
   const { sequenceStore } = useStore()
+  const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
 
-  const synth = new Tone.PolySynth(Tone.Synth).toDestination()
+  const sampler = new Tone.Sampler({
+    urls: {
+      G2: '/samples/hat.mp3',
+      E2: '/samples/snare.mp3',
+      C2: '/samples/kick.mp3',
+    },
+    onload: () => {
+      setLoading(false)
+      console.log('loaded')
+    },
+    onerror: () => console.error('oh no'),
+  }).toDestination()
 
   const onClick = useCallback(() => {
     if (!looping) {
@@ -31,18 +43,24 @@ export const Sequencer = observer((props: ControllerProps) => {
 
   return (
     <div className={styles.root}>
-      <button onClick={onClick}> {looping ? 'Stop' : 'Go'}</button>
-      <div className={styles.sequencer}>
-        {props.notes.map((note, index) => (
-          <SequencerRow
-            key={index}
-            note={note}
-            size={props.size}
-            synth={synth}
-          />
-        ))}
-      </div>
-      <TempoSetter />
+      {!loading ? (
+        <>
+          <button onClick={onClick}> {looping ? 'Stop' : 'Go'}</button>
+          <div className={styles.sequencer}>
+            {props.notes.map((note, index) => (
+              <SequencerRow
+                key={index}
+                note={note}
+                size={props.size}
+                synth={sampler}
+              />
+            ))}
+          </div>
+          <TempoSetter />
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   )
 })

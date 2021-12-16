@@ -7,14 +7,10 @@ import { IRootStore, RootStore } from './stores/root-store'
 
 export const StoreContext = createContext<IRootStore | undefined>(undefined)
 
-function App() {
-  return (
-    <StoreContext.Provider value={new RootStore()}>
-      <div className={styles.root}>
-        <Sequencer size={8} notes={scales.triadC} />
-      </div>
-    </StoreContext.Provider>
-  )
-}
-
-export default App
+export const App = () => (
+  <StoreContext.Provider value={new RootStore()}>
+    <div className={styles.root}>
+      <Sequencer size={8} notes={scales.drums} />
+    </div>
+  </StoreContext.Provider>
+)
