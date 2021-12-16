@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add in some colours">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

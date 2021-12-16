@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react'
 import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
-import { Sequencer } from '../sequencer/Sequencer'
+import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
 import { scales } from '../../utilities/scales'
 import cn from 'classnames'
 
@@ -51,6 +51,24 @@ export const Controller = observer((props: ControllerProps) => {
     }
   }, [])
 
+  const sequencers: Omit<SequencerProps, 'size'>[] = [
+    {
+      notes: scale.triad,
+      synth: simpleSynth,
+      colour: 'green',
+    },
+    {
+      notes: scale.bassTriad,
+      synth: simpleSynth,
+      colour: 'purple',
+    },
+    {
+      notes: scale.drums,
+      synth: drumSampler,
+      colour: 'blue',
+    },
+  ]
+
   return (
     <div className={styles.root}>
       {!loading ? (
@@ -84,24 +102,14 @@ export const Controller = observer((props: ControllerProps) => {
               />
             </label>
           </form>
-          <Sequencer
-            size={props.size}
-            notes={scale.triad}
-            synth={simpleSynth}
-            colour="green"
-          />
-          <Sequencer
-            size={props.size}
-            notes={scale.bassTriad}
-            synth={simpleSynth}
-            colour="purple"
-          />
-          <Sequencer
-            size={props.size}
-            notes={scale.drums}
-            synth={drumSampler}
-            colour="blue"
-          />
+          {sequencers.map((s) => (
+            <Sequencer
+              size={props.size}
+              notes={s.notes}
+              synth={s.synth}
+              colour={s.colour}
+            />
+          ))}
           <TempoSetter />
         </>
       ) : (

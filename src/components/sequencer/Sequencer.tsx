@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import { Synth } from 'tone'
 import { SequenceCellProps } from './SequencerCell'
 
-type SequencerProps = {
+export type SequencerProps = {
   size: number
   notes: string[]
   synth: Synth | Tone.PolySynth | Tone.Sampler
