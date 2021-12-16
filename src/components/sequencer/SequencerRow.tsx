@@ -1,7 +1,7 @@
 import * as Tone from 'tone'
 import { useCallback, useEffect, useState } from 'react'
 import styles from './SequencerRow.module.scss'
-import { SequencerCell } from './SequencerCell'
+import { SequenceCellProps, SequencerCell } from './SequencerCell'
 import { Synth } from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { range } from '../../utilities/array-helpers'
@@ -13,6 +13,7 @@ type SequencerRowProps = {
   note: string
   size: number
   synth: Synth | Tone.PolySynth | Tone.Sampler
+  colour: SequenceCellProps['colour']
 }
 
 const getRandom = (length: number) => `${Math.random() * length}`
@@ -67,6 +68,7 @@ export const SequencerRow = observer((props: SequencerRowProps) => {
             flip={() => flip(index)}
             className={styles.cell}
             playingNow={sequenceStore.getSequencer(id).currentNote === index}
+            colour={props.colour}
           />
         )
       )}

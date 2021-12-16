@@ -3,12 +3,13 @@ import styles from './Sequencer.module.scss'
 import * as Tone from 'tone'
 import { observer } from 'mobx-react-lite'
 import { Synth } from 'tone'
+import { SequenceCellProps } from './SequencerCell'
 
-// TODO: Pass in highlight colour
 type SequencerProps = {
   size: number
   notes: string[]
   synth: Synth | Tone.PolySynth | Tone.Sampler
+  colour: SequenceCellProps['colour']
 }
 
 export const Sequencer = observer((props: SequencerProps) => {
@@ -20,6 +21,7 @@ export const Sequencer = observer((props: SequencerProps) => {
           note={note}
           size={props.size}
           synth={props.synth}
+          colour={props.colour}
         />
       ))}
     </div>

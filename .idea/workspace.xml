@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add Bass">
-      <change afterPath="$PROJECT_DIR$/src/styles/mixins.scss" afterDir="false" />
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Major/Minor switch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerRow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/sampler-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/sampler-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/sequence-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/sequence-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utilities/scales.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/scales.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1639533550766</updated>
       <workItem from="1639533554409" duration="3910000" />
-      <workItem from="1639627811317" duration="6658000" />
+      <workItem from="1639627811317" duration="7164000" />
     </task>
     <task id="LOCAL-00003" summary="Use a drum sampler">
       <created>1639633209767</created>
@@ -129,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639635017688</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Major/Minor switch">
+      <created>1639637333578</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639637333578</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +168,7 @@
     <MESSAGE value="Use a drum sampler" />
     <MESSAGE value="2 samplers" />
     <MESSAGE value="Add Bass" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Bass" />
+    <MESSAGE value="Major/Minor switch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major/Minor switch" />
   </component>
 </project>

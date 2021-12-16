@@ -88,16 +88,19 @@ export const Controller = observer((props: ControllerProps) => {
             size={props.size}
             notes={scale.triad}
             synth={simpleSynth}
+            colour="green"
           />
           <Sequencer
             size={props.size}
             notes={scale.bassTriad}
             synth={simpleSynth}
+            colour="purple"
           />
           <Sequencer
             size={props.size}
             notes={scale.drums}
             synth={drumSampler}
+            colour="blue"
           />
           <TempoSetter />
         </>

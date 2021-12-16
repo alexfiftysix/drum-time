@@ -14,9 +14,25 @@ $darkenAmount: 15%;
   }
 
   &.active {
-    background: $active;
-    &:hover {
-      background: darken($active, $darkenAmount);
+    &.green {
+      background: chartreuse;
+      &:hover {
+        background: darken(chartreuse, $darkenAmount);
+      }
+    }
+
+    &.purple {
+      background: #d400d4;
+      &:hover {
+        background: darken(#d400d4, $darkenAmount);
+      }
+    }
+
+    &.blue {
+      background: #0053ff;
+      &:hover {
+        background: darken(#0053ff, $darkenAmount);
+      }
     }
   }
 
