@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Use a drum sampler">
-      <change afterPath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="2 samplers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utilities/scales.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/scales.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1639533550766</updated>
       <workItem from="1639533554409" duration="3910000" />
-      <workItem from="1639627811317" duration="3631000" />
+      <workItem from="1639627811317" duration="4305000" />
     </task>
     <task id="LOCAL-00003" summary="Use a drum sampler">
       <created>1639633209767</created>
@@ -112,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639633209767</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="2 samplers">
+      <created>1639634288813</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1639634288813</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +149,7 @@
     <MESSAGE value="[WIP] add in some drawings" />
     <MESSAGE value="Allow multiple sequences again" />
     <MESSAGE value="Use a drum sampler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Use a drum sampler" />
+    <MESSAGE value="2 samplers" />
+    <option name="LAST_COMMIT_MESSAGE" value="2 samplers" />
   </component>
 </project>

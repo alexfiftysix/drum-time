@@ -16,7 +16,7 @@ export const Controller = observer((props: ControllerProps) => {
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
 
-  const polySynth = new Tone.PolySynth(Tone.Synth).toDestination()
+  const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
     urls: {
       G2: '/samples/hat.mp3',
@@ -50,7 +50,12 @@ export const Controller = observer((props: ControllerProps) => {
           <Sequencer
             size={props.size}
             notes={scales.triadC}
-            synth={polySynth}
+            synth={simpleSynth}
+          />
+          <Sequencer
+            size={props.size}
+            notes={scales.bassTriadC}
+            synth={simpleSynth}
           />
           <Sequencer
             size={props.size}
