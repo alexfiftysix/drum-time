@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Major/Minor switch">
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add in some colours">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerRow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +46,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/sequencer" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -103,7 +101,8 @@
       <option name="presentableId" value="Default" />
       <updated>1639533550766</updated>
       <workItem from="1639533554409" duration="3910000" />
-      <workItem from="1639627811317" duration="7164000" />
+      <workItem from="1639627811317" duration="7296000" />
+      <workItem from="1639695163406" duration="334000" />
     </task>
     <task id="LOCAL-00003" summary="Use a drum sampler">
       <created>1639633209767</created>
@@ -133,7 +132,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639637333578</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add in some colours">
+      <created>1639637883699</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639637883699</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add in some colours">
+      <created>1639637897015</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639637897015</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +182,7 @@
     <MESSAGE value="2 samplers" />
     <MESSAGE value="Add Bass" />
     <MESSAGE value="Major/Minor switch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major/Minor switch" />
+    <MESSAGE value="Add in some colours" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add in some colours" />
   </component>
 </project>
