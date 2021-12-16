@@ -4,9 +4,10 @@ import * as Tone from 'tone'
 import { observer } from 'mobx-react-lite'
 import { Synth } from 'tone'
 
+// TODO: Pass in highlight colour
 type SequencerProps = {
   size: number
-  notes: (string | string[])[]
+  notes: string[]
   synth: Synth | Tone.PolySynth | Tone.Sampler
 }
 

@@ -1,9 +1,26 @@
-.root {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    background: white;
+@use 'src/styles/mixins';
 
-    border: 1px solid black;
-    box-shadow: 5px 5px #0003;
+.root {
+  @include mixins.paper;
+
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.scaleButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.scaleButton {
+  @include mixins.paper;
+
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+
+  &.checked {
+    background: #b8ffff;
+  }
 }

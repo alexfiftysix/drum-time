@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../../hooks/use-store'
-import { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer } from '../sequencer/Sequencer'
 import { scales } from '../../utilities/scales'
+import cn from 'classnames'
 
 type ControllerProps = {
   size: number
@@ -15,6 +16,7 @@ export const Controller = observer((props: ControllerProps) => {
   const { sequenceStore } = useStore()
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
+  const [scale, setScale] = useState(scales.c)
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -25,7 +27,6 @@ export const Controller = observer((props: ControllerProps) => {
     },
     onload: () => {
       setLoading(false)
-      console.log('loaded')
     },
     onerror: () => console.error('oh no'),
   }).toDestination()
@@ -42,24 +43,60 @@ export const Controller = observer((props: ControllerProps) => {
     }
   }, [looping, sequenceStore])
 
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === 'c') {
+      setScale(scales.c)
+    } else {
+      setScale(scales.cMinor)
+    }
+  }, [])
+
   return (
     <div className={styles.root}>
       {!loading ? (
         <>
           <button onClick={onClick}> {looping ? 'Stop' : 'Go'}</button>
+          <form className={styles.scaleButtons}>
+            <label
+              className={cn(styles.scaleButton, {
+                [styles.checked]: scale === scales.c,
+              })}
+            >
+              <span>C major</span>
+              <input
+                type="radio"
+                value="c"
+                name="scale"
+                onChange={handleChange}
+              />
+            </label>
+            <label
+              className={cn(styles.scaleButton, {
+                [styles.checked]: scale === scales.cMinor,
+              })}
+            >
+              <span>C minor</span>
+              <input
+                type="radio"
+                value="cMinor"
+                name="scale"
+                onChange={handleChange}
+              />
+            </label>
+          </form>
           <Sequencer
             size={props.size}
-            notes={scales.triadC}
+            notes={scale.triad}
             synth={simpleSynth}
           />
           <Sequencer
             size={props.size}
-            notes={scales.bassTriadC}
+            notes={scale.bassTriad}
             synth={simpleSynth}
           />
           <Sequencer
             size={props.size}
-            notes={scales.drums}
+            notes={scale.drums}
             synth={drumSampler}
           />
           <TempoSetter />

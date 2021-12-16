@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 
 type SequencerRowProps = {
-  note: string | string[]
+  note: string
   size: number
   synth: Synth | Tone.PolySynth | Tone.Sampler
 }
@@ -18,7 +18,6 @@ type SequencerRowProps = {
 const getRandom = (length: number) => `${Math.random() * length}`
 
 export const SequencerRow = observer((props: SequencerRowProps) => {
-  console.log('render')
   const [id] = useState(getRandom(10))
   const { sequenceStore } = useStore()
 
@@ -35,6 +34,15 @@ export const SequencerRow = observer((props: SequencerRowProps) => {
       Tone.Draw.schedule(() => sequenceStore.increment(id), time)
     })
   }, [id, props.synth, sequenceStore])
+
+  useEffect(() => {
+    sequenceStore.setEvents(
+      id,
+      sequenceStore
+        .getSequencer(id)
+        .sequence.events.map((n) => (n === undefined ? undefined : props.note))
+    )
+  }, [id, props.note, sequenceStore])
 
   const flip = useCallback(
     (index: number) => {

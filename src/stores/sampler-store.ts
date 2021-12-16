@@ -14,7 +14,6 @@ export class SamplerStore {
       },
       onload: () => {
         this.isLoaded = true
-        console.log('loaded')
       },
       onerror: () => console.error('oh no'),
     }).toDestination()
