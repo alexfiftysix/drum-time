@@ -1,3 +1,17 @@
+@use 'src/styles/mixins';
+
+.root {
+  @include mixins.paper;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .label {
-margin-right: .5rem;
+  margin-right: 0.5rem;
+}
+
+.numberInput {
+  width: 20%;
 }

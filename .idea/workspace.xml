@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Move scale selector into its own component">
-      <change afterPath="$PROJECT_DIR$/src/styles/gaps.scss" afterDir="false" />
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add a slider to tempo setter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/scaleSelector/ScaleSelector.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scaleSelector/ScaleSelector.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/SequencerCell.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sequencer/tempoSetter/TempoSetter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/tempoSetter/TempoSetter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +190,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639716244506</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Consistent-up the styling some">
+      <created>1639716634660</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1639716634660</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add a slider to tempo setter">
+      <created>1639718012842</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1639718012842</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +247,9 @@
     <MESSAGE value="Add in all the major modes" />
     <MESSAGE value="Scales should only ascend" />
     <MESSAGE value="Move scale selector into its own component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move scale selector into its own component" />
+    <MESSAGE value="Consistent-up the styling some" />
+    <MESSAGE value="Add a slider to tempo setter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a slider to tempo setter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

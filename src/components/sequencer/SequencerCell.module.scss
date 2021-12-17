@@ -39,6 +39,6 @@ $darkenAmount: 15%;
   }
 
   &.playingNow {
-    border: 0.2rem solid $playing;
+    border-color: $playing;
   }
 }
