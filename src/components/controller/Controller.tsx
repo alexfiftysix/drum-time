@@ -5,7 +5,12 @@ import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
-import { scales } from '../../utilities/scales'
+import {
+  getScale,
+  majorModifier,
+  ScaleModifier,
+  scales,
+} from '../../utilities/scales'
 import cn from 'classnames'
 
 type ControllerProps = {
@@ -16,7 +21,8 @@ export const Controller = observer((props: ControllerProps) => {
   const { sequenceStore } = useStore()
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
-  const [scale, setScale] = useState(scales.c)
+  const [scale, setScale] = useState<'C' | 'G'>('C')
+  const [scaleMod, setScaleMod] = useState<ScaleModifier>(majorModifier)
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -43,27 +49,26 @@ export const Controller = observer((props: ControllerProps) => {
     }
   }, [looping, sequenceStore])
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === 'c') {
-      setScale(scales.c)
-    } else {
-      setScale(scales.cMinor)
-    }
-  }, [])
+  const handleScaleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setScale(e.target.value as 'C' | 'G')
+    },
+    []
+  )
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
-      notes: scale.triad,
+      notes: getScale(scale, 4, scaleMod, 'full').reverse(),
       synth: simpleSynth,
       colour: 'green',
     },
     {
-      notes: scale.bassTriad,
+      notes: getScale(scale, 2, scaleMod, 'triad').reverse(),
       synth: simpleSynth,
       colour: 'purple',
     },
     {
-      notes: scale.drums,
+      notes: scales.c.drums,
       synth: drumSampler,
       colour: 'blue',
     },
@@ -77,28 +82,28 @@ export const Controller = observer((props: ControllerProps) => {
           <form className={styles.scaleButtons}>
             <label
               className={cn(styles.scaleButton, {
-                [styles.checked]: scale === scales.c,
+                [styles.checked]: scale === 'C',
               })}
             >
-              <span>C major</span>
+              <span>C</span>
               <input
                 type="radio"
-                value="c"
+                value="C"
                 name="scale"
-                onChange={handleChange}
+                onChange={handleScaleChange}
               />
             </label>
             <label
               className={cn(styles.scaleButton, {
-                [styles.checked]: scale === scales.cMinor,
+                [styles.checked]: scale === 'G',
               })}
             >
-              <span>C minor</span>
+              <span>G</span>
               <input
                 type="radio"
-                value="cMinor"
+                value="G"
                 name="scale"
-                onChange={handleChange}
+                onChange={handleScaleChange}
               />
             </label>
           </form>

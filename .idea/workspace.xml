@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add in some colours">
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Refactor sampler rendering">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utilities/array-helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/array-helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utilities/scales.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/scales.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +57,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\amill\source\repos\drum-time\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
     <property name="ts.external.directory.path" value="C:\Users\amill\source\repos\drum-time\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -146,7 +148,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639637897015</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Sort out the styling on short screens">
+      <created>1639698072818</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1639698072818</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Refactor sampler rendering">
+      <created>1639698090124</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1639698090124</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +199,12 @@
     <MESSAGE value="Add Bass" />
     <MESSAGE value="Major/Minor switch" />
     <MESSAGE value="Add in some colours" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add in some colours" />
+    <MESSAGE value="Sort out the styling on short screens" />
+    <MESSAGE value="Refactor sampler rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor sampler rendering" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
