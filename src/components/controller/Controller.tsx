@@ -9,10 +9,9 @@ import {
   getScale,
   majorModifier,
   ScaleModifier,
-  scaleModifiers,
   scales,
 } from '../../utilities/scales'
-import { RadioButton } from '../radioButton/RadioButton'
+import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 
 type ControllerProps = {
   size: number
@@ -54,7 +53,7 @@ export const Controller = observer((props: ControllerProps) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setScale(e.target.value as 'C' | 'G')
     },
-    []
+    [setScale]
   )
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
@@ -83,40 +82,12 @@ export const Controller = observer((props: ControllerProps) => {
             {' '}
             {looping ? 'Stop' : 'Go'}
           </button>
-          <form className={styles.buttons}>
-            <div className={styles.radioGroup}>
-              <RadioButton
-                groupName="scale"
-                value="C"
-                onChange={handleScaleChange}
-                checked={scale === 'C'}
-              />
-              <RadioButton
-                groupName="scale"
-                value="G"
-                onChange={handleScaleChange}
-                checked={scale === 'G'}
-              />
-            </div>
-            <div className={styles.radioGroup}>
-              {Object.keys(scaleModifiers).map((m) => {
-                // @ts-ignore . TODO: Ergh - why doesn't this work?
-                const mod = scaleModifiers[m]
-                return (
-                  <RadioButton
-                    key={m}
-                    value={m}
-                    onChange={(e) => {
-                      if (!e.target.checked) return
-                      setScaleMod(mod)
-                    }}
-                    checked={scaleMod === mod}
-                    groupName="mod"
-                  />
-                )
-              })}
-            </div>
-          </form>
+          <ScaleSelector
+            handleScaleChange={handleScaleChange}
+            selectedScale={scale}
+            setScaleModifier={setScaleMod}
+            selectedModifier={scaleMod}
+          />
           {sequencers.map((s, i) => (
             <Sequencer
               key={i}

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add in all the major modes">
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Move scale selector into its own component">
+      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/scaleSelector/ScaleSelector.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/scaleSelector/ScaleSelector.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utilities/scales.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/scales.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639712073404</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Scales should only ascend">
+      <created>1639712698813</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1639712698813</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +227,9 @@
     <MESSAGE value="Refactor sampler rendering" />
     <MESSAGE value="Generate scales more cleverly" />
     <MESSAGE value="Add in all the major modes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add in all the major modes" />
+    <MESSAGE value="Scales should only ascend" />
+    <MESSAGE value="Move scale selector into its own component" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move scale selector into its own component" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
