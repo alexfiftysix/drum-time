@@ -1,0 +1,14 @@
+@use 'src/styles/mixins';
+@use 'src/styles/shadows';
+
+.radioButton {
+  @include mixins.button;
+
+  &.checked {
+    background: #b8ffff;
+  }
+
+  input {
+    @include mixins.visually-hidden;
+  }
+}

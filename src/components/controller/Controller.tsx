@@ -9,9 +9,10 @@ import {
   getScale,
   majorModifier,
   ScaleModifier,
+  scaleModifiers,
   scales,
 } from '../../utilities/scales'
-import cn from 'classnames'
+import { RadioButton } from '../radioButton/RadioButton'
 
 type ControllerProps = {
   size: number
@@ -63,7 +64,7 @@ export const Controller = observer((props: ControllerProps) => {
       colour: 'green',
     },
     {
-      notes: getScale(scale, 2, scaleMod, 'triad').reverse(),
+      notes: getScale(scale, 3, scaleMod, 'triad').reverse(),
       synth: simpleSynth,
       colour: 'purple',
     },
@@ -78,37 +79,47 @@ export const Controller = observer((props: ControllerProps) => {
     <div className={styles.root}>
       {!loading ? (
         <>
-          <button onClick={onClick}> {looping ? 'Stop' : 'Go'}</button>
-          <form className={styles.scaleButtons}>
-            <label
-              className={cn(styles.scaleButton, {
-                [styles.checked]: scale === 'C',
-              })}
-            >
-              <span>C</span>
-              <input
-                type="radio"
+          <button className={styles.goButton} onClick={onClick}>
+            {' '}
+            {looping ? 'Stop' : 'Go'}
+          </button>
+          <form className={styles.buttons}>
+            <div className={styles.radioGroup}>
+              <RadioButton
+                groupName="scale"
                 value="C"
-                name="scale"
                 onChange={handleScaleChange}
+                checked={scale === 'C'}
               />
-            </label>
-            <label
-              className={cn(styles.scaleButton, {
-                [styles.checked]: scale === 'G',
-              })}
-            >
-              <span>G</span>
-              <input
-                type="radio"
+              <RadioButton
+                groupName="scale"
                 value="G"
-                name="scale"
                 onChange={handleScaleChange}
+                checked={scale === 'G'}
               />
-            </label>
+            </div>
+            <div className={styles.radioGroup}>
+              {Object.keys(scaleModifiers).map((m) => {
+                // @ts-ignore . TODO: Ergh - why doesn't this work?
+                const mod = scaleModifiers[m]
+                return (
+                  <RadioButton
+                    key={m}
+                    value={m}
+                    onChange={(e) => {
+                      if (!e.target.checked) return
+                      setScaleMod(mod)
+                    }}
+                    checked={scaleMod === mod}
+                    groupName="mod"
+                  />
+                )
+              })}
+            </div>
           </form>
-          {sequencers.map((s) => (
+          {sequencers.map((s, i) => (
             <Sequencer
+              key={i}
               size={props.size}
               notes={s.notes}
               synth={s.synth}

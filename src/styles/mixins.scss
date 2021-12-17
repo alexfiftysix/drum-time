@@ -1,6 +1,30 @@
+@use 'src/styles/shadows';
+
 @mixin paper {
   padding: 0.5rem;
   border: 1px solid black;
-  box-shadow: 5px 5px #0003;
   background: white;
+  box-shadow: shadows.$medium;
+}
+
+@mixin visually-hidden {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@mixin button {
+  @include paper;
+  box-shadow: shadows.$low;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: #eee;
+  }
+
+  &:active {
+    background: #ddd;
+  }
 }

@@ -1,7 +1,11 @@
+@use 'src/styles/mixins';
+@use 'src/styles/shadows';
+
 .root {
+  @include mixins.paper;
   padding: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid black;
-  box-shadow: 5px 5px #0003;
+
+  box-shadow: shadows.$low;
 }

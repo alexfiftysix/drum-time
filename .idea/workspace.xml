@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Refactor sampler rendering">
+    <list default="true" id="3d11ed21-4523-4d87-8793-46a36aedfdf9" name="Changes" comment="Add in all the major modes">
+      <change afterPath="$PROJECT_DIR$/src/components/radioButton/RadioButton.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/radioButton/RadioButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/shadows.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/controller/Controller.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/Controller.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utilities/array-helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/array-helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sequencer/Sequencer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sequencer/Sequencer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/mixins.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utilities/scales.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/scales.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -50,7 +56,7 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/sequencer" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -162,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639698090124</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Generate scales more cleverly">
+      <created>1639705103133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639705103133</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +214,9 @@
     <MESSAGE value="Add in some colours" />
     <MESSAGE value="Sort out the styling on short screens" />
     <MESSAGE value="Refactor sampler rendering" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor sampler rendering" />
+    <MESSAGE value="Generate scales more cleverly" />
+    <MESSAGE value="Add in all the major modes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add in all the major modes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

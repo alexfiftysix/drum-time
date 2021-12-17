@@ -1,4 +1,5 @@
 @use 'src/styles/mixins';
+@use 'src/styles/shadows';
 
 .root {
   @include mixins.paper;
@@ -8,19 +9,20 @@
   flex-direction: column;
 }
 
-.scaleButtons {
-  display: flex;
-  flex-direction: column;
+.goButton {
+  @include mixins.button;
 }
 
-.scaleButton {
-  @include mixins.paper;
+.buttons {
+  margin-top: 1rem;
 
-  display: flex;
-  justify-content: center;
-  margin-top: 0.5rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 0.5rem;
+}
 
-  &.checked {
-    background: #b8ffff;
-  }
+.radioGroup {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 0.5rem;
 }

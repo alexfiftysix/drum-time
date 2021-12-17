@@ -43,6 +43,70 @@ const mySpecialScales = {
 
 type NoteModifier = 'natural' | 'sharpen' | 'flatten'
 export type ScaleModifier = NoteModifier[]
+export const scaleModifiers = {
+  ionian: Array(8).fill('natural'),
+  dorian: [
+    'natural',
+    'natural',
+    'flatten',
+    'natural',
+    'natural',
+    'natural',
+    'flatten',
+    'natural',
+  ],
+  phrygian: [
+    'natural',
+    'flatten',
+    'flatten',
+    'natural',
+    'natural',
+    'flatten',
+    'flatten',
+    'natural',
+  ],
+  lydian: [
+    'natural',
+    'natural',
+    'natural',
+    'sharpen',
+    'natural',
+    'natural',
+    'natural',
+    'natural',
+  ],
+  mixolydian: [
+    'natural',
+    'natural',
+    'natural',
+    'natural',
+    'natural',
+    'natural',
+    'flatten',
+    'natural',
+  ],
+  aeolian: [
+    'natural',
+    'natural',
+    'flatten',
+    'natural',
+    'natural',
+    'flatten',
+    'flatten',
+    'natural',
+  ],
+  locrian: [
+    'natural',
+    'flatten',
+    'flatten',
+    'natural',
+    'flatten',
+    'flatten',
+    'flatten',
+    'natural',
+  ],
+}
+
 export const majorModifier: ScaleModifier = Array(8).fill('natural')
 export const minorModifier: ScaleModifier = [
   'natural',
@@ -52,6 +116,7 @@ export const minorModifier: ScaleModifier = [
   'natural',
   'flatten',
   'flatten',
+  'natural',
 ]
 
 const modifyNote = (note: NoteOnly, mod: NoteModifier) =>
