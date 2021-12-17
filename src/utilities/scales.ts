@@ -129,8 +129,13 @@ const modifyScale = (scale: MajorScale, modifier: ScaleModifier): Scale => {
 }
 
 type ScaleInOctave = Note[]
-const scaleToOctave = (scale: Scale, octave: Octave): ScaleInOctave =>
-  scale.map((note) => noteToOctave(note, octave))
+const scaleToOctave = (scale: Scale, octave: Octave): ScaleInOctave => {
+  let currentOctave = octave
+  return scale.map((note, index) => {
+    if (index !== 0 && note.startsWith('C')) currentOctave++
+    return noteToOctave(note, currentOctave)
+  })
+}
 
 const scaleToTriad = (scale: ScaleInOctave): ScaleInOctave => {
   if (scale.length < 8) throw Error('need 8 notes to make a triad')
