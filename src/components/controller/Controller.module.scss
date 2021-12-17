@@ -1,12 +1,16 @@
 @use 'src/styles/mixins';
 @use 'src/styles/shadows';
+@use 'src/styles/gaps';
 
 .root {
   @include mixins.paper;
 
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
+
+  max-width: 1200px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: gaps.$medium;
 }
 
 .goButton {

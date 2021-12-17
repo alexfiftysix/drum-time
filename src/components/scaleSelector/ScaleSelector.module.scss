@@ -1,13 +1,13 @@
-.buttons {
-  margin-top: 1rem;
+@use 'src/styles/gaps';
 
+.buttons {
   display: grid;
   grid-auto-flow: column;
-  grid-column-gap: 0.5rem;
+  grid-gap: gaps.$small;
 }
 
 .radioGroup {
   display: grid;
   grid-auto-flow: row;
-  grid-row-gap: 0.5rem;
+  grid-gap: gaps.$small;
 }

@@ -4,8 +4,5 @@
 .root {
   @include mixins.paper;
   padding: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-
   box-shadow: shadows.$low;
 }

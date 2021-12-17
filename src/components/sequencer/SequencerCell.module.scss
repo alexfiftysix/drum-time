@@ -1,13 +1,15 @@
+@use 'src/styles/gaps';
+
 $off: #ddd;
 $active: chartreuse;
 $playing: cyan;
 $darkenAmount: 15%;
 
 .root {
-  padding: 1rem;
+  padding: gaps.$medium;
   background: $off;
 
-  border: 0.2rem solid #fff;
+  border: gaps.$tiny solid #fff;
 
   &:hover {
     background: darken($off, $darkenAmount);
