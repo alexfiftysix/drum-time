@@ -5,7 +5,7 @@ import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
-import { majorModifier, ScaleModifier, scales } from '../../utilities/scales'
+import { scales } from '../../utilities/scales'
 import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import {
   makeScale,
@@ -24,7 +24,7 @@ export const Controller = observer((props: ControllerProps) => {
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
   const [startNote, setStartNote] = useState<NoteOnly>('c')
-  const [scaleMod, setScaleMod] = useState<ScaleModifier>(majorModifier)
+  const [mode, setMode] = useState<number>(modes.ionan)
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -64,11 +64,22 @@ export const Controller = observer((props: ControllerProps) => {
         startNotes[startNote],
         undefined,
         scaleBlueprints.major,
-        modes.ionan,
+        mode,
         3
       ),
       synth: simpleSynth,
       colour: 'green',
+    },
+    {
+      notes: makeScale(
+        startNotes[startNote],
+        undefined,
+        scaleBlueprints.major,
+        mode,
+        1
+      ),
+      synth: simpleSynth,
+      colour: 'purple',
     },
     {
       notes: scales.c.drums,
@@ -82,14 +93,13 @@ export const Controller = observer((props: ControllerProps) => {
       {!loading ? (
         <>
           <button className={styles.goButton} onClick={onClick}>
-            {' '}
             {looping ? 'Stop' : 'Go'}
           </button>
           <ScaleSelector
             handleScaleChange={handleScaleChange}
             selectedScale={startNote}
-            setScaleModifier={setScaleMod}
-            selectedModifier={scaleMod}
+            setScaleModifier={setMode}
+            selectedModifier={mode}
           />
           {sequencers.map((s, i) => (
             <Sequencer

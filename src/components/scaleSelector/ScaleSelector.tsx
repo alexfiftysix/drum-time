@@ -1,14 +1,13 @@
 import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
-import { ScaleModifier, scaleModifiers } from '../../utilities/scales'
 import React from 'react'
-import { startNotesOnly } from '../../utilities/numbered-scales'
+import { modes, startNotesOnly } from '../../utilities/numbered-scales'
 
 type ScaleSelectorProps = {
   handleScaleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   selectedScale: string
-  setScaleModifier: (mod: ScaleModifier) => void
-  selectedModifier: ScaleModifier
+  setScaleModifier: (mod: number) => void
+  selectedModifier: number
 }
 
 export const ScaleSelector = (props: ScaleSelectorProps) => (
@@ -25,9 +24,9 @@ export const ScaleSelector = (props: ScaleSelectorProps) => (
       ))}
     </div>
     <div className={styles.radioGroup}>
-      {Object.keys(scaleModifiers).map((m) => {
+      {Object.keys(modes).map((m) => {
         // @ts-ignore . TODO: Ergh - why doesn't this work?
-        const mod = scaleModifiers[m]
+        const mod: number = modes[m]
         return (
           <RadioButton
             key={m}

@@ -38,7 +38,7 @@ export const startNotes = {
 
 const rotateScale = (scale: number[], mode: number) => {
   if (mode > scale.length) throw new Error('rotation too big')
-  return scale.slice(0, mode).concat(scale.slice(mode))
+  return scale.slice(mode).concat(scale.slice(0, mode))
 }
 
 type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
@@ -57,9 +57,23 @@ export const makeScale = (
 ) =>
   [
     startNote + octave * 12,
-    ...rotateScale(toUsefulBlueprint(scaleBlueprint), mode).map(
+    ...toUsefulBlueprint(rotateScale(scaleBlueprint, mode)).map(
       (n) => addAccidental(startNote, accidental) + n + octave * 12
     ),
   ]
     .map((n) => mtof(n as MidiNote))
     .reverse()
+
+export const makeMidiScale = (
+  startNote: number,
+  accidental: Accidental,
+  scaleBlueprint: number[],
+  mode: number,
+  octave: Octave
+) =>
+  [
+    startNote + octave * 12,
+    ...toUsefulBlueprint(rotateScale(scaleBlueprint, mode)).map(
+      (n) => addAccidental(startNote, accidental) + n + octave * 12
+    ),
+  ].reverse()
