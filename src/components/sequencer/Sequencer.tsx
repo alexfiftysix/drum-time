@@ -7,7 +7,7 @@ import { SequenceCellProps } from './SequencerCell'
 
 export type SequencerProps = {
   size: number
-  notes: string[]
+  notes: string[] | number[]
   synth: Synth | Tone.PolySynth | Tone.Sampler
   colour: SequenceCellProps['colour']
 }

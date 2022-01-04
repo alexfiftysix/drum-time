@@ -37,8 +37,8 @@ type MajorScale = NoteOnly[]
 const cScale: MajorScale = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C']
 const gScale: MajorScale = ['G', 'A', 'B', 'C', 'D', 'E', 'F#', 'G']
 const mySpecialScales = {
-  C: cScale,
-  G: gScale,
+  c: cScale,
+  g: gScale,
 }
 
 type NoteModifier = 'natural' | 'sharpen' | 'flatten'
@@ -143,7 +143,7 @@ const scaleToTriad = (scale: ScaleInOctave): ScaleInOctave => {
 }
 
 export const getScale = (
-  scale: 'C' | 'G',
+  scale: 'c' | 'g',
   octave: Octave,
   modifier: ScaleModifier,
   type: 'full' | 'triad'

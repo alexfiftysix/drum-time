@@ -2,6 +2,7 @@ import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
 import { ScaleModifier, scaleModifiers } from '../../utilities/scales'
 import React from 'react'
+import { startNotesOnly } from '../../utilities/numbered-scales'
 
 type ScaleSelectorProps = {
   handleScaleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -13,18 +14,15 @@ type ScaleSelectorProps = {
 export const ScaleSelector = (props: ScaleSelectorProps) => (
   <form className={styles.buttons}>
     <div className={styles.radioGroup}>
-      <RadioButton
-        groupName="scale"
-        value="C"
-        onChange={props.handleScaleChange}
-        checked={props.selectedScale === 'C'}
-      />
-      <RadioButton
-        groupName="scale"
-        value="G"
-        onChange={props.handleScaleChange}
-        checked={props.selectedScale === 'G'}
-      />
+      {startNotesOnly.map((startNote) => (
+        <RadioButton
+          key={startNote}
+          groupName="scale"
+          value={startNote}
+          onChange={props.handleScaleChange}
+          checked={props.selectedScale === startNote}
+        />
+      ))}
     </div>
     <div className={styles.radioGroup}>
       {Object.keys(scaleModifiers).map((m) => {

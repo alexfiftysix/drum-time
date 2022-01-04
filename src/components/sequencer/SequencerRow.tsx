@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 
 type SequencerRowProps = {
-  note: string
+  note: string | number
   size: number
   synth: Synth | Tone.PolySynth | Tone.Sampler
   colour: SequenceCellProps['colour']

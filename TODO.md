@@ -6,4 +6,7 @@
   - Change notes to midi
   - Change scale def to [2, 1, 2] (semitones) style
   - For modes, rotate the scale def
+- Some keyboard control
+  - Space to go/stop
+- Swing
 

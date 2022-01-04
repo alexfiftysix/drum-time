@@ -5,13 +5,15 @@ import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
-import {
-  getScale,
-  majorModifier,
-  ScaleModifier,
-  scales,
-} from '../../utilities/scales'
+import { majorModifier, ScaleModifier, scales } from '../../utilities/scales'
 import { ScaleSelector } from '../scaleSelector/ScaleSelector'
+import {
+  makeScale,
+  modes,
+  NoteOnly,
+  scaleBlueprints,
+  startNotes,
+} from '../../utilities/numbered-scales'
 
 type ControllerProps = {
   size: number
@@ -21,7 +23,7 @@ export const Controller = observer((props: ControllerProps) => {
   const { sequenceStore } = useStore()
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
-  const [scale, setScale] = useState<'C' | 'G'>('C')
+  const [startNote, setStartNote] = useState<NoteOnly>('c')
   const [scaleMod, setScaleMod] = useState<ScaleModifier>(majorModifier)
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
@@ -51,21 +53,22 @@ export const Controller = observer((props: ControllerProps) => {
 
   const handleScaleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setScale(e.target.value as 'C' | 'G')
+      setStartNote(e.target.value as 'c' | 'g')
     },
-    [setScale]
+    [setStartNote]
   )
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
-      notes: getScale(scale, 4, scaleMod, 'full').reverse(),
+      notes: makeScale(
+        startNotes[startNote],
+        undefined,
+        scaleBlueprints.major,
+        modes.ionan,
+        3
+      ),
       synth: simpleSynth,
       colour: 'green',
-    },
-    {
-      notes: getScale(scale, 3, scaleMod, 'triad').reverse(),
-      synth: simpleSynth,
-      colour: 'purple',
     },
     {
       notes: scales.c.drums,
@@ -84,7 +87,7 @@ export const Controller = observer((props: ControllerProps) => {
           </button>
           <ScaleSelector
             handleScaleChange={handleScaleChange}
-            selectedScale={scale}
+            selectedScale={startNote}
             setScaleModifier={setScaleMod}
             selectedModifier={scaleMod}
           />

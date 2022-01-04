@@ -31,7 +31,7 @@ export class SequenceStore {
     }
   }
 
-  setEvents(id: string, events: (string | undefined)[]) {
+  setEvents(id: string, events: (string | undefined | number)[]) {
     const seq = this.getSequencer(id)
     seq.sequence.events = events
     seq.length = events.length
