@@ -2,6 +2,7 @@
 - [ ] More scales
 
 ### To Do:
+- [ ] Allow different note counts
 - [ ] Delete old sequencers
 - [ ] Separate the various components
 - [ ] [BUG] Buffer not set or not loaded on change
@@ -12,6 +13,7 @@
   - [ ] Space to go/stop
 - [ ] Swing
 - [ ] Reset button
+- [ ] Allow scales with different note counts
 
 ### Done:
 - [x] Modes

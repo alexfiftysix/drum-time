@@ -4,6 +4,7 @@ import React from 'react'
 import {
   modes,
   ScaleBase,
+  scaleBlueprints,
   startNotesOnly,
 } from '../../utilities/numbered-scales'
 
@@ -20,7 +21,7 @@ export const ScaleSelector = (props: ScaleSelectorProps) => (
   <form className={styles.buttons}>
     <div className={styles.radioGroup}>
       {/*  TODO: Split out RadioGroup into a new component */}
-      {['major', 'harmonicMinor'].map((scaleBase) => (
+      {Object.keys(scaleBlueprints).map((scaleBase) => (
         <RadioButton
           key={scaleBase}
           groupName="scaleBase"
