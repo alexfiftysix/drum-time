@@ -11,6 +11,7 @@ import {
   makeScale,
   modes,
   NoteOnly,
+  ScaleBase,
   scaleBlueprints,
   startNotes,
 } from '../../utilities/numbered-scales'
@@ -25,6 +26,7 @@ export const Controller = observer((props: ControllerProps) => {
   const [looping, setLooping] = useState(false)
   const [startNote, setStartNote] = useState<NoteOnly>('c')
   const [mode, setMode] = useState<number>(modes.ionan)
+  const [scaleBase, setScaleBase] = useState<ScaleBase>('major')
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -63,7 +65,7 @@ export const Controller = observer((props: ControllerProps) => {
       notes: makeScale(
         startNotes[startNote],
         undefined,
-        scaleBlueprints.major,
+        scaleBlueprints[scaleBase],
         mode,
         3
       ),
@@ -74,7 +76,7 @@ export const Controller = observer((props: ControllerProps) => {
       notes: makeScale(
         startNotes[startNote],
         undefined,
-        scaleBlueprints.major,
+        scaleBlueprints[scaleBase],
         mode,
         1
       ),
@@ -100,6 +102,8 @@ export const Controller = observer((props: ControllerProps) => {
             selectedScale={startNote}
             setScaleModifier={setMode}
             selectedModifier={mode}
+            selectedScaleBase={scaleBase}
+            setScaleBase={setScaleBase}
           />
           {sequencers.map((s, i) => (
             <Sequencer

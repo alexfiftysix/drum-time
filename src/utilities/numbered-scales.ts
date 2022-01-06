@@ -1,6 +1,7 @@
 import { mtof } from 'tone'
 import { MidiNote } from 'tone/build/esm/core/type/NoteUnits'
 
+export type ScaleBase = 'major' | 'harmonicMinor'
 // Numbers are gaps in semitones to the next note
 export const scaleBlueprints = {
   major: [2, 2, 1, 2, 2, 2, 1],
