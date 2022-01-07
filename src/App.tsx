@@ -9,7 +9,7 @@ export const StoreContext = createContext<IRootStore | undefined>(undefined)
 export const App = () => (
   <StoreContext.Provider value={new RootStore()}>
     <div className={styles.root}>
-      <Controller size={8} />
+      <Controller />
     </div>
   </StoreContext.Provider>
 )

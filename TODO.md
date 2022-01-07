@@ -1,8 +1,8 @@
 ### Doing:
-- [ ] More scales
+- [x] Allow different note counts
 
 ### To Do:
-- [ ] Allow different note counts
+- [ ] More scales
 - [ ] Delete old sequencers
 - [ ] Separate the various components
 - [ ] [BUG] Buffer not set or not loaded on change

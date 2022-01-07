@@ -15,18 +15,16 @@ import {
   scaleBlueprints,
   startNotes,
 } from '../../utilities/numbered-scales'
+import { SizeSetter } from '../sizeSetter/SizeSetter'
 
-type ControllerProps = {
-  size: number
-}
-
-export const Controller = observer((props: ControllerProps) => {
+export const Controller = observer(() => {
   const { sequenceStore } = useStore()
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
   const [startNote, setStartNote] = useState<NoteOnly>('c')
   const [mode, setMode] = useState<number>(modes.ionan)
   const [scaleBase, setScaleBase] = useState<ScaleBase>('major')
+  const [size, setSize] = useState(8)
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -105,10 +103,11 @@ export const Controller = observer((props: ControllerProps) => {
             selectedScaleBase={scaleBase}
             setScaleBase={setScaleBase}
           />
+          <SizeSetter size={size} setSize={setSize} />
           {sequencers.map((s, i) => (
             <Sequencer
               key={i}
-              size={props.size}
+              size={size}
               notes={s.notes}
               synth={s.synth}
               colour={s.colour}
