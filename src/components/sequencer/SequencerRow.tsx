@@ -32,7 +32,6 @@ export const SequencerRow = observer((props: SequencerRowProps) => {
   useEffect(() => {
     sequenceStore.setCallback(id, (time: Seconds, note: string | undefined) => {
       if (note) props.synth.triggerAttackRelease(note, 0.1, time)
-      Tone.Draw.schedule(() => sequenceStore.increment(id), time)
     })
   }, [id, props.synth, sequenceStore])
 
@@ -67,7 +66,7 @@ export const SequencerRow = observer((props: SequencerRowProps) => {
             initialState={note !== undefined}
             flip={() => flip(index)}
             className={styles.cell}
-            playingNow={sequenceStore.getSequencer(id).currentNote === index}
+            playingNow={sequenceStore.transport.currentNote === index}
             colour={props.colour}
           />
         )

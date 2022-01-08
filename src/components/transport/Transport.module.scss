@@ -1,0 +1,8 @@
+@use './src/styles/mixins';
+
+.root {
+  @include mixins.paper;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

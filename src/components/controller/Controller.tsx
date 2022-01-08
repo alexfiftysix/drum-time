@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../../hooks/use-store'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
@@ -15,7 +15,7 @@ import {
   scaleBlueprints,
   startNotes,
 } from '../../utilities/numbered-scales'
-import { SizeSetter } from '../sizeSetter/SizeSetter'
+import { Seconds } from 'tone/build/esm/core/type/Units'
 
 export const Controller = observer(() => {
   const { sequenceStore } = useStore()
@@ -25,6 +25,14 @@ export const Controller = observer(() => {
   const [mode, setMode] = useState<number>(modes.ionan)
   const [scaleBase, setScaleBase] = useState<ScaleBase>('major')
   const [size, setSize] = useState(8)
+
+  useEffect(() => {
+    sequenceStore.setTransportCallback(
+      (time: Seconds, _: string | undefined) => {
+        Tone.Draw.schedule(() => sequenceStore.increment(), time)
+      }
+    )
+  }, [sequenceStore])
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -103,7 +111,8 @@ export const Controller = observer(() => {
             selectedScaleBase={scaleBase}
             setScaleBase={setScaleBase}
           />
-          <SizeSetter size={size} setSize={setSize} />
+          {/*<Transport />*/}
+          {/*<SizeSetter size={size} setSize={setSize} />*/}
           {sequencers.map((s, i) => (
             <Sequencer
               key={i}
