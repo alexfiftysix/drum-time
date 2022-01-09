@@ -1,4 +1,4 @@
-import styles from '../sequencer/tempoSetter/TempoSetter.module.scss'
+import styles from '../range/Range.module.scss'
 import React, { useCallback } from 'react'
 
 type SizeSetterProps = {

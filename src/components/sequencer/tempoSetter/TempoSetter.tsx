@@ -1,6 +1,6 @@
-import styles from './TempoSetter.module.scss'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Tone from 'tone'
+import { Range } from '../../range/Range'
 
 const minTempo = 1
 const maxTempo = 300
@@ -12,35 +12,14 @@ export const TempoSetter = () => {
     Tone.Transport.bpm.rampTo(tempo, 0.1)
   }, [tempo])
 
-  const handleSetTempo = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = parseInt(event.target.value)
-      if (Number.isNaN(value) || value < minTempo || value > maxTempo) return
-      setTempo(value)
-    },
-    [setTempo]
-  )
-
   return (
-    <label className={styles.root}>
-      <span className={styles.label}>bpm</span>
-      <input
-        type="range"
-        min={minTempo}
-        max={maxTempo}
-        step={1}
-        onInput={handleSetTempo}
-        value={tempo}
-      />
-      <input
-        className={styles.numberInput}
-        type="number"
-        min={minTempo}
-        max={maxTempo}
-        step={0}
-        onInput={handleSetTempo}
-        value={tempo}
-      />
-    </label>
+    <Range
+      value={tempo}
+      setValue={setTempo}
+      label="bpm"
+      min={minTempo}
+      max={maxTempo}
+      step={0}
+    />
   )
 }

@@ -16,6 +16,7 @@ import {
   startNotes,
 } from '../../utilities/numbered-scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
+import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 
 export const Controller = observer(() => {
   const { sequenceStore } = useStore()
@@ -123,6 +124,7 @@ export const Controller = observer(() => {
             />
           ))}
           <TempoSetter />
+          <SwingSetter />
         </>
       ) : (
         <p>Loading...</p>
