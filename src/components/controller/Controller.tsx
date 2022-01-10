@@ -25,7 +25,7 @@ export const Controller = observer(() => {
   const [startNote, setStartNote] = useState<NoteOnly>('c')
   const [mode, setMode] = useState<number>(modes.ionan)
   const [scaleBase, setScaleBase] = useState<ScaleBase>('major')
-  const [size, setSize] = useState(8)
+  const [size] = useState(8)
 
   useEffect(() => {
     sequenceStore.setTransportCallback(
