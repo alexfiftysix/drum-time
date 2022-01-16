@@ -4,6 +4,7 @@
 
 ### To Do:
 - [ ] More scales
+- [ ] Save and Load
 - [ ] Delete old sequencers
 - [ ] Separate the various components
 - [ ] [BUG] Buffer not set or not loaded on change

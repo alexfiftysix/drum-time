@@ -7,6 +7,7 @@ type RadioButtonProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   checked: boolean
   groupName: string
+  children?: React.ReactNode
 }
 
 export const RadioButton = (props: RadioButtonProps) => (
@@ -15,7 +16,7 @@ export const RadioButton = (props: RadioButtonProps) => (
       [styles.checked]: props.checked,
     })}
   >
-    <span>{props.value}</span>
+    <span>{props.children ?? props.value}</span>
     <input
       type="radio"
       value={props.value}

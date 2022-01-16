@@ -2,18 +2,17 @@ import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
 import React from 'react'
 import {
-  modes,
-  ScaleBase,
   scaleBlueprints,
+  ScaleBase,
   startNotesOnly,
 } from '../../utilities/numbered-scales'
 
 type ScaleSelectorProps = {
   handleScaleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  selectedScale: string
-  setScaleModifier: (mod: number) => void
-  selectedModifier: number
-  selectedScaleBase: ScaleBase
+  scale: string
+  setModeIndex: (mod: number) => void
+  modeIndex: number
+  scaleBase: ScaleBase
   setScaleBase: (s: ScaleBase) => void
 }
 
@@ -30,7 +29,7 @@ export const ScaleSelector = (props: ScaleSelectorProps) => (
             if (!e.target.checked) return
             props.setScaleBase(scaleBase as ScaleBase)
           }}
-          checked={props.selectedScaleBase === scaleBase}
+          checked={props.scaleBase === scaleBase}
         />
       ))}
     </div>
@@ -41,27 +40,25 @@ export const ScaleSelector = (props: ScaleSelectorProps) => (
           groupName="startNote"
           value={startNote}
           onChange={props.handleScaleChange}
-          checked={props.selectedScale === startNote}
+          checked={props.scale === startNote}
         />
       ))}
     </div>
     <div className={styles.radioGroup}>
-      {Object.keys(modes).map((m) => {
-        // @ts-ignore . TODO: Ergh - why doesn't this work?
-        const mod: number = modes[m]
-        return (
-          <RadioButton
-            key={m}
-            value={m}
-            onChange={(e) => {
-              if (!e.target.checked) return
-              props.setScaleModifier(mod)
-            }}
-            checked={props.selectedModifier === mod}
-            groupName="mod"
-          />
-        )
-      })}
+      {scaleBlueprints[props.scaleBase].map((scaleDegree, i) => (
+        <RadioButton
+          key={i}
+          value={i.toString()}
+          onChange={(e) => {
+            if (!e.target.checked) return
+            props.setModeIndex(i)
+          }}
+          checked={props.modeIndex === i}
+          groupName="mode"
+        >
+          {scaleDegree.mode}
+        </RadioButton>
+      ))}
     </div>
   </form>
 )

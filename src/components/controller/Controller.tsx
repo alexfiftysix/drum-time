@@ -9,10 +9,9 @@ import { scales } from '../../utilities/scales'
 import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import {
   makeScale,
-  modes,
+  scaleBlueprints,
   NoteOnly,
   ScaleBase,
-  scaleBlueprints,
   startNotes,
 } from '../../utilities/numbered-scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
@@ -23,7 +22,7 @@ export const Controller = observer(() => {
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
   const [startNote, setStartNote] = useState<NoteOnly>('c')
-  const [mode, setMode] = useState<number>(modes.ionan)
+  const [mode, setMode] = useState(0)
   const [scaleBase, setScaleBase] = useState<ScaleBase>('major')
   const [size] = useState(8)
 
@@ -72,7 +71,7 @@ export const Controller = observer(() => {
       notes: makeScale(
         startNotes[startNote],
         undefined,
-        scaleBlueprints[scaleBase],
+        scaleBlueprints[scaleBase].map((p) => p.semitonesToNextNote),
         mode,
         3
       ),
@@ -83,7 +82,7 @@ export const Controller = observer(() => {
       notes: makeScale(
         startNotes[startNote],
         undefined,
-        scaleBlueprints[scaleBase],
+        scaleBlueprints[scaleBase].map((p) => p.semitonesToNextNote),
         mode,
         1
       ),
@@ -106,10 +105,10 @@ export const Controller = observer(() => {
           </button>
           <ScaleSelector
             handleScaleChange={handleScaleChange}
-            selectedScale={startNote}
-            setScaleModifier={setMode}
-            selectedModifier={mode}
-            selectedScaleBase={scaleBase}
+            scale={startNote}
+            setModeIndex={setMode}
+            modeIndex={mode}
+            scaleBase={scaleBase}
             setScaleBase={setScaleBase}
           />
           {/*<Transport />*/}
