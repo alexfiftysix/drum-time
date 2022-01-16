@@ -16,14 +16,14 @@ import {
 } from '../../utilities/numbered-scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
+import { useQueryParams } from '../../hooks/use-query-params'
 
 export const Controller = observer(() => {
+  const { getParam } = useQueryParams()
+
   const { sequenceStore } = useStore()
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
-  const [startNote, setStartNote] = useState<NoteOnly>('c')
-  const [mode, setMode] = useState(0)
-  const [scaleBase, setScaleBase] = useState<ScaleBase>('major')
   const [size] = useState(8)
 
   useEffect(() => {
@@ -59,12 +59,9 @@ export const Controller = observer(() => {
     }
   }, [looping, sequenceStore])
 
-  const handleScaleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setStartNote(e.target.value as 'c' | 'g')
-    },
-    [setStartNote]
-  )
+  const scaleBase = (getParam('scaleBase') || 'major') as ScaleBase
+  const startNote = (getParam('startNote') || 'c') as NoteOnly
+  const mode = parseInt(getParam('mode') || '0')
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
@@ -103,14 +100,7 @@ export const Controller = observer(() => {
           <button className={styles.goButton} onClick={onClick}>
             {looping ? 'Stop' : 'Go'}
           </button>
-          <ScaleSelector
-            handleScaleChange={handleScaleChange}
-            scale={startNote}
-            setModeIndex={setMode}
-            modeIndex={mode}
-            scaleBase={scaleBase}
-            setScaleBase={setScaleBase}
-          />
+          <ScaleSelector />
           {/*<Transport />*/}
           {/*<SizeSetter size={size} setSize={setSize} />*/}
           {sequencers.map((s, i) => (

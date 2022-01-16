@@ -1,10 +1,14 @@
 ### Doing:
 - [x] Allow different note counts
   - [ ] Update note count visualization right away
+- [ ] Save and Load
+  - [x] Store major vs minor in the URL
+  - [x] Store start note in URL
+  - [x] Store mode in URL
 
 ### To Do:
 - [ ] More scales
-- [ ] Save and Load
+
 - [ ] Delete old sequencers
 - [ ] Separate the various components
 - [ ] [BUG] Buffer not set or not loaded on change
@@ -16,6 +20,7 @@
 - [ ] Allow scales with different note counts
 - [ ] Title / favicon
 - [ ] sharp and flat scales
+- [ ] Title + Favicon
 
 ### Done:
 - [x] Modes
