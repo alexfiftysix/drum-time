@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as Tone from 'tone'
 import { Range } from '../../range/Range'
+import { useQueryParams } from '../../../hooks/use-query-params'
 
 export const SwingSetter = () => {
-  const [swing, setSwing] = useState(0)
+  const { swing, setParam } = useQueryParams()
 
   useEffect(() => {
     Tone.Transport.swing = swing / 100
@@ -12,9 +13,9 @@ export const SwingSetter = () => {
   return (
     <Range
       value={swing}
-      setValue={setSwing}
+      setValue={(v) => setParam(['swing', v])}
       label="swing"
-      min={1}
+      min={0}
       max={100}
       step={1}
     />

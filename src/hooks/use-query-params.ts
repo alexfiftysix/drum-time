@@ -16,6 +16,8 @@ export const useQueryParams = () => {
     scaleBase: (getParam('scaleBase') || 'major') as ScaleBase,
     startNote: (getParam('startNote') || 'c') as NoteOnly,
     mode: parseInt(getParam('mode') || '0'),
+    tempo: parseInt(getParam('tempo') || '120'),
+    swing: parseInt(getParam('swing') || '0'),
 
     setParam,
   }
@@ -25,6 +27,8 @@ type Param = {
   scaleBase: ScaleBase
   startNote: NoteOnly
   mode: number
+  tempo: number
+  swing: number
 }
 
 type MyParamKeyValuePair<T extends keyof Param> = [T, Param[T]]

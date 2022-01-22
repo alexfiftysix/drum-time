@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as Tone from 'tone'
 import { Range } from '../../range/Range'
+import { useQueryParams } from '../../../hooks/use-query-params'
 
 const minTempo = 1
 const maxTempo = 300
 
 export const TempoSetter = () => {
-  const [tempo, setTempo] = useState(120)
+  const { tempo, setParam } = useQueryParams()
 
   useEffect(() => {
     Tone.Transport.bpm.rampTo(tempo, 0.1)
@@ -15,7 +16,7 @@ export const TempoSetter = () => {
   return (
     <Range
       value={tempo}
-      setValue={setTempo}
+      setValue={(v) => setParam(['tempo', v])}
       label="bpm"
       min={minTempo}
       max={maxTempo}

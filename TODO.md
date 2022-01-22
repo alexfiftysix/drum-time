@@ -5,6 +5,8 @@
   - [x] Store major vs minor in the URL
   - [x] Store start note in URL
   - [x] Store mode in URL
+  - [x] Store tempo in URL
+  - [x] Store swing in URL
 
 ### To Do:
 - [ ] Encode the whole thing in a big JSON blob
