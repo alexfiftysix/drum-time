@@ -39,7 +39,7 @@ const toUsefulBlueprint = (scaleBlueprint: number[]) => {
 }
 
 export type NoteOnly = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b'
-export const startNotesOnly = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
+export const startNotesOnly: NoteOnly[] = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
 
 export const startNotes = {
   c: 24,

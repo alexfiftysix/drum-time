@@ -2,6 +2,7 @@ import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
 import React from 'react'
 import {
+  ScaleBase,
   scaleBlueprints,
   startNotesOnly,
 } from '../../utilities/numbered-scales'
@@ -14,7 +15,7 @@ export const ScaleSelector = () => {
     <form className={styles.buttons}>
       <div className={styles.radioGroup}>
         {/*  TODO: Split out RadioGroup into a new component */}
-        {Object.keys(scaleBlueprints).map((thisScaleBase) => (
+        {(Object.keys(scaleBlueprints) as ScaleBase[]).map((thisScaleBase) => (
           <RadioButton
             key={thisScaleBase}
             groupName="scaleBase"
@@ -46,7 +47,7 @@ export const ScaleSelector = () => {
             key={i}
             value={i.toString()}
             onChange={() => {
-              setParam(['mode', i.toString()])
+              setParam(['mode', i])
             }}
             checked={mode === i}
             groupName="mode"

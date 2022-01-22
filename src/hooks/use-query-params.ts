@@ -1,14 +1,12 @@
-import { ParamKeyValuePair, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { NoteOnly, ScaleBase } from '../utilities/numbered-scales'
 
 export const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  // TODO: Don't ignore here, do the other thing
-  const setParam = (toAdd: ParamKeyValuePair) => {
+  const setParam = <T extends keyof Param>(toAdd: MyParamKeyValuePair<T>) => {
     setSearchParams({
-      // @ts-ignore
       ...Object.fromEntries([...searchParams]),
-      [toAdd[0]]: toAdd[1],
+      [toAdd[0]]: toAdd[1].toString(),
     })
   }
 
@@ -28,3 +26,5 @@ type Param = {
   startNote: NoteOnly
   mode: number
 }
+
+type MyParamKeyValuePair<T extends keyof Param> = [T, Param[T]]
