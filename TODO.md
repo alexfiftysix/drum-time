@@ -1,14 +1,17 @@
 ### Doing:
-- [x] Allow different note counts
-  - [ ] Update note count visualization right away
 - [ ] Save and Load
   - [x] Store major vs minor in the URL
   - [x] Store start note in URL
   - [x] Store mode in URL
   - [x] Store tempo in URL
   - [x] Store swing in URL
+  - [ ] Store the treble notes in URL
+  - [ ] Store the bass notes in URL
+  - [ ] Store the drums in URL
 
 ### To Do:
+- [x] Allow different note counts
+  - [ ] Update note count visualization right away
 - [ ] Encode the whole thing in a big JSON blob
 - [ ] More scales
 - [ ] Delete old sequencers
