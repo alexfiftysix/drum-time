@@ -2,61 +2,58 @@ import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
 import React from 'react'
 import {
-  ScaleBase,
   scaleBlueprints,
   startNotesOnly,
 } from '../../utilities/numbered-scales'
 import { useQueryParams } from '../../hooks/use-query-params'
 
 export const ScaleSelector = () => {
-  const { getParam, addParam } = useQueryParams()
+  const { scaleBase, mode, startNote, setParam } = useQueryParams()
 
   return (
     <form className={styles.buttons}>
       <div className={styles.radioGroup}>
         {/*  TODO: Split out RadioGroup into a new component */}
-        {Object.keys(scaleBlueprints).map((scaleBase) => (
+        {Object.keys(scaleBlueprints).map((thisScaleBase) => (
           <RadioButton
-            key={scaleBase}
+            key={thisScaleBase}
             groupName="scaleBase"
-            value={scaleBase}
+            value={thisScaleBase}
             onChange={(e) => {
               if (!e.target.checked) return
-              addParam(['scaleBase', scaleBase])
+              setParam(['scaleBase', thisScaleBase])
             }}
-            checked={getParam('scaleBase') === scaleBase}
+            checked={scaleBase === thisScaleBase}
           />
         ))}
       </div>
       <div className={styles.radioGroup}>
-        {startNotesOnly.map((startNote) => (
+        {startNotesOnly.map((thisStartNote) => (
           <RadioButton
-            key={startNote}
+            key={thisStartNote}
             groupName="startNote"
-            value={startNote}
+            value={thisStartNote}
             onChange={() => {
-              addParam(['startNote', startNote])
+              setParam(['startNote', thisStartNote])
             }}
-            checked={getParam('startNote') === startNote}
+            checked={startNote === thisStartNote}
           />
         ))}
       </div>
       <div className={styles.radioGroup}>
-        {scaleBlueprints[getParam('scaleBase') as ScaleBase].map(
-          (scaleDegree, i) => (
-            <RadioButton
-              key={i}
-              value={i.toString()}
-              onChange={() => {
-                addParam(['mode', i.toString()])
-              }}
-              checked={parseInt(getParam('mode') || '') === i}
-              groupName="mode"
-            >
-              {scaleDegree.mode}
-            </RadioButton>
-          )
-        )}
+        {scaleBlueprints[scaleBase].map((scaleDegree, i) => (
+          <RadioButton
+            key={i}
+            value={i.toString()}
+            onChange={() => {
+              setParam(['mode', i.toString()])
+            }}
+            checked={mode === i}
+            groupName="mode"
+          >
+            {scaleDegree.mode}
+          </RadioButton>
+        ))}
       </div>
     </form>
   )

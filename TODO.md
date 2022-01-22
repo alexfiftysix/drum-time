@@ -7,8 +7,8 @@
   - [x] Store mode in URL
 
 ### To Do:
+- [ ] Encode the whole thing in a big JSON blob
 - [ ] More scales
-
 - [ ] Delete old sequencers
 - [ ] Separate the various components
 - [ ] [BUG] Buffer not set or not loaded on change

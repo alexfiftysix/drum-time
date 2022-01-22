@@ -10,8 +10,6 @@ import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import {
   makeScale,
   scaleBlueprints,
-  NoteOnly,
-  ScaleBase,
   startNotes,
 } from '../../utilities/numbered-scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
@@ -19,7 +17,7 @@ import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
 
 export const Controller = observer(() => {
-  const { getParam } = useQueryParams()
+  const { mode, scaleBase, startNote } = useQueryParams()
 
   const { sequenceStore } = useStore()
   const [loading, setLoading] = useState(true)
@@ -58,10 +56,6 @@ export const Controller = observer(() => {
       setLooping(false)
     }
   }, [looping, sequenceStore])
-
-  const scaleBase = (getParam('scaleBase') || 'major') as ScaleBase
-  const startNote = (getParam('startNote') || 'c') as NoteOnly
-  const mode = parseInt(getParam('mode') || '0')
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
