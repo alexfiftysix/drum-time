@@ -5,9 +5,13 @@
   - [x] Store mode in URL
   - [x] Store tempo in URL
   - [x] Store swing in URL
-  - [ ] Store the treble notes in URL
-  - [ ] Store the bass notes in URL
+  - [x] Store the treble notes in URL
+  - [x] Store the bass notes in URL
   - [ ] Store the drums in URL
+    - [ ] Bring back the drums
+  - [ ] Find a better way to deal with treble and bass
+    - This should work:
+      - song = {..., sequencers: [{name: "treble", ...}, {name: "bass"}]}
 
 ### To Do:
 - [x] Allow different note counts
