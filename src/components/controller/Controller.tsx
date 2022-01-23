@@ -5,13 +5,13 @@ import * as Tone from 'tone'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
-import { scales } from '../../utilities/scales'
 import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import {
+  drumScale,
   makeScale,
   scaleBlueprints,
   startNotes,
-} from '../../utilities/numbered-scales'
+} from '../../utilities/scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
@@ -81,7 +81,7 @@ export const Controller = observer(() => {
       colour: 'purple',
     },
     {
-      notes: scales.c.drums,
+      notes: drumScale,
       synth: drumSampler,
       colour: 'blue',
     },

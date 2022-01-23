@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom'
-import { NoteOnly, ScaleBase } from '../utilities/numbered-scales'
+import { NoteOnly, ScaleBase } from '../utilities/scales'
 
 export const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()

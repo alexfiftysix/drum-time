@@ -5,7 +5,7 @@ import {
   ScaleBase,
   scaleBlueprints,
   startNotesOnly,
-} from '../../utilities/numbered-scales'
+} from '../../utilities/scales'
 import { useQueryParams } from '../../hooks/use-query-params'
 
 export const ScaleSelector = () => {

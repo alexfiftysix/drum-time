@@ -1,173 +1,96 @@
-import { Note } from 'tone/build/esm/core/type/NoteUnits'
-import { zip } from './array-helpers'
+import { mtof } from 'tone'
+import { MidiNote } from 'tone/build/esm/core/type/NoteUnits'
 
-export type ScaleGroup = {
-  full: string[]
-  triad: string[]
-  bassTriad: string[]
-  drums: string[]
-}
+export type ScaleBase = 'major' | 'harmonicMinor'
 
-export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-type SimpleNoteOnly = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
-type Accidental = '#' | 'x' | 'b' | 'bb' | ''
-type NoteOnly = `${SimpleNoteOnly}${Accidental}`
+type ScaleDegree = { semitonesToNextNote: number; mode: string }
 
-const isDoubleSharp = (s: NoteOnly) => s.endsWith('x')
-const isSharp = (s: NoteOnly) => s.endsWith('#') || s.endsWith('x')
-const isDoubleFlat = (s: NoteOnly) => s.endsWith('bb')
-const isFlat = (s: NoteOnly) => s.endsWith('b')
-const sharpen = (note: NoteOnly): NoteOnly => {
-  if (isDoubleSharp(note)) throw new Error('Cannot sharpen a double-sharp')
-  if (isSharp(note)) return (note.substr(0, note.length - 1) + 'x') as NoteOnly
-  if (isFlat(note)) return note.substr(0, note.length - 1) as NoteOnly
-  return (note + '#') as NoteOnly
-}
-const flatten = (note: NoteOnly): NoteOnly => {
-  if (isDoubleFlat(note)) throw new Error('Cannot flatten a double-flat')
-  if (isDoubleSharp(note))
-    return (note.substr(0, note.length - 1) + '#') as NoteOnly
-  if (isSharp(note)) return note.substr(0, note.length - 1) as NoteOnly
-  return (note + 'b') as NoteOnly
-}
-const noteToOctave = (note: NoteOnly, octave: Octave): Note =>
-  `${note}${octave}`
-
-type MajorScale = NoteOnly[]
-const cScale: MajorScale = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C']
-const gScale: MajorScale = ['G', 'A', 'B', 'C', 'D', 'E', 'F#', 'G']
-const mySpecialScales = {
-  c: cScale,
-  g: gScale,
-}
-
-type NoteModifier = 'natural' | 'sharpen' | 'flatten'
-export type ScaleModifier = NoteModifier[]
-export const scaleModifiers = {
-  ionian: Array(8).fill('natural'),
-  dorian: [
-    'natural',
-    'natural',
-    'flatten',
-    'natural',
-    'natural',
-    'natural',
-    'flatten',
-    'natural',
+export const scaleBlueprints: Record<ScaleBase, ScaleDegree[]> = {
+  major: [
+    { semitonesToNextNote: 2, mode: 'ionan' },
+    { semitonesToNextNote: 2, mode: 'dorian' },
+    { semitonesToNextNote: 1, mode: 'phrygian' },
+    { semitonesToNextNote: 2, mode: 'lydian' },
+    { semitonesToNextNote: 2, mode: 'mixolydian' },
+    { semitonesToNextNote: 2, mode: 'aeolian' },
+    { semitonesToNextNote: 1, mode: 'locrian' },
   ],
-  phrygian: [
-    'natural',
-    'flatten',
-    'flatten',
-    'natural',
-    'natural',
-    'flatten',
-    'flatten',
-    'natural',
+  harmonicMinor: [
+    { semitonesToNextNote: 2, mode: 'ionan' },
+    { semitonesToNextNote: 1, mode: 'locrian 6' },
+    { semitonesToNextNote: 2, mode: 'ionion #5' },
+    { semitonesToNextNote: 2, mode: 'dorian #11' },
+    { semitonesToNextNote: 1, mode: 'phyrgian dominant' },
+    { semitonesToNextNote: 3, mode: 'lydian #2' },
+    { semitonesToNextNote: 1, mode: 'super locrian bb7' },
   ],
-  lydian: [
-    'natural',
-    'natural',
-    'natural',
-    'sharpen',
-    'natural',
-    'natural',
-    'natural',
-    'natural',
-  ],
-  mixolydian: [
-    'natural',
-    'natural',
-    'natural',
-    'natural',
-    'natural',
-    'natural',
-    'flatten',
-    'natural',
-  ],
-  aeolian: [
-    'natural',
-    'natural',
-    'flatten',
-    'natural',
-    'natural',
-    'flatten',
-    'flatten',
-    'natural',
-  ],
-  locrian: [
-    'natural',
-    'flatten',
-    'flatten',
-    'natural',
-    'flatten',
-    'flatten',
-    'flatten',
-    'natural',
-  ],
+  // pentatonic: [
+  //   { semitonesToNextNote: 2, mode: 'ionan' },
+  //   { semitonesToNextNote: 2, mode: 'dorian' },
+  //   { semitonesToNextNote: 3, mode: 'phrygian' },
+  //   { semitonesToNextNote: 2, mode: 'mixolydian' },
+  //   { semitonesToNextNote: 3, mode: 'aeolian' },
+  // ],
 }
 
-export const majorModifier: ScaleModifier = Array(8).fill('natural')
-export const minorModifier: ScaleModifier = [
-  'natural',
-  'natural',
-  'flatten',
-  'natural',
-  'natural',
-  'flatten',
-  'flatten',
-  'natural',
-]
-
-const modifyNote = (note: NoteOnly, mod: NoteModifier) =>
-  mod === 'natural' ? note : mod === 'sharpen' ? sharpen(note) : flatten(note)
-
-type Scale = NoteOnly[]
-const modifyScale = (scale: MajorScale, modifier: ScaleModifier): Scale => {
-  const zipped = zip(scale, modifier, (note, mod) => ({ note, mod }))
-  return zipped.map((z) => modifyNote(z.note, z.mod))
+const toUsefulBlueprint = (scaleBlueprint: number[]) => {
+  let sum = 0
+  return scaleBlueprint.map((v) => (sum += v))
 }
 
-type ScaleInOctave = Note[]
-const scaleToOctave = (scale: Scale, octave: Octave): ScaleInOctave => {
-  let currentOctave = octave
-  return scale.map((note, index) => {
-    if (index !== 0 && note.startsWith('C')) currentOctave++
-    return noteToOctave(note, currentOctave)
-  })
+export type NoteOnly = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b'
+export const startNotesOnly: NoteOnly[] = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
+
+export const startNotes = {
+  c: 24,
+  d: 26,
+  e: 28,
+  f: 29,
+  g: 31,
+  a: 33,
+  b: 35,
 }
 
-const scaleToTriad = (scale: ScaleInOctave): ScaleInOctave => {
-  if (scale.length < 8) throw Error('need 8 notes to make a triad')
-  return [scale[0], scale[2], scale[4]]
+const rotateScale = (scale: number[], mode: number) => {
+  if (mode > scale.length) throw new Error('rotation too big')
+  return scale.slice(mode).concat(scale.slice(0, mode))
 }
 
-export const getScale = (
-  scale: 'c' | 'g',
-  octave: Octave,
-  modifier: ScaleModifier,
-  type: 'full' | 'triad'
-): ScaleInOctave => {
-  let modified = scaleToOctave(
-    modifyScale(mySpecialScales[scale], modifier),
-    octave
-  )
-  return type === 'triad' ? scaleToTriad(modified) : modified
-}
+type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
-export const scales = {
-  c: {
-    full: ['C5', 'B4', 'A4', 'G4', 'F4', 'E4', 'D4', 'C4'],
-    triad: ['C5', 'G4', 'E4', 'C4'],
-    bassTriad: ['C3', 'G2', 'E2', 'C2'],
-    drums: ['G2', 'E2', 'C2'],
-  },
-  cMinor: {
-    full: ['Cb5', 'B4', 'Ab4', 'G4', 'F4', 'Eb4', 'D4', 'C4'],
-    triad: ['C5', 'G4', 'Eb4', 'C4'],
-    bassTriad: ['C3', 'G2', 'Eb2', 'C2'],
-    drums: ['G2', 'E2', 'C2'],
-  },
-}
+type Accidental = 'sharp' | 'flat' | undefined
+
+const addAccidental = (note: number, accidental: Accidental) =>
+  accidental === undefined ? note : accidental === 'sharp' ? note + 1 : note - 1
+
+export const makeScale = (
+  startNote: number,
+  accidental: Accidental,
+  scaleBlueprint: number[],
+  mode: number,
+  octave: Octave
+) =>
+  [
+    startNote + octave * 12,
+    ...toUsefulBlueprint(rotateScale(scaleBlueprint, mode)).map(
+      (n) => addAccidental(startNote, accidental) + n + octave * 12
+    ),
+  ]
+    .map((n) => mtof(n as MidiNote))
+    .reverse()
+
+export const makeMidiScale = (
+  startNote: number,
+  accidental: Accidental,
+  scaleBlueprint: number[],
+  mode: number,
+  octave: Octave
+) =>
+  [
+    startNote + octave * 12,
+    ...toUsefulBlueprint(rotateScale(scaleBlueprint, mode)).map(
+      (n) => addAccidental(startNote, accidental) + n + octave * 12
+    ),
+  ].reverse()
 
 export const drumScale = ['G2', 'E2', 'C2']
