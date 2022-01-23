@@ -6,12 +6,7 @@ import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
 import { ScaleSelector } from '../scaleSelector/ScaleSelector'
-import {
-  drumScale,
-  makeScale,
-  scaleBlueprints,
-  startNotes,
-} from '../../utilities/scales'
+import { makeScale } from '../../utilities/scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
@@ -19,18 +14,18 @@ import { useQueryParams } from '../../hooks/use-query-params'
 export const Controller = observer(() => {
   const { mode, scaleBase, startNote } = useQueryParams()
 
-  const { sequenceStore } = useStore()
+  const { transportStore } = useStore()
   const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
   const [size] = useState(8)
 
   useEffect(() => {
-    sequenceStore.setTransportCallback(
+    transportStore.setTransportCallback(
       (time: Seconds, _: string | undefined) => {
-        Tone.Draw.schedule(() => sequenceStore.increment(), time)
+        Tone.Draw.schedule(() => transportStore.increment(), time)
       }
     )
-  }, [sequenceStore])
+  }, [transportStore])
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
   const drumSampler = new Tone.Sampler({
@@ -47,44 +42,36 @@ export const Controller = observer(() => {
 
   const onClick = useCallback(() => {
     if (!looping) {
-      sequenceStore.go()
+      transportStore.go()
       Tone.Transport.start()
       setLooping(true)
     } else {
-      sequenceStore.stop()
+      transportStore.stop()
       Tone.Transport.stop()
       setLooping(false)
     }
-  }, [looping, sequenceStore])
+  }, [looping, transportStore])
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
-      notes: makeScale(
-        startNotes[startNote],
-        undefined,
-        scaleBlueprints[scaleBase].map((p) => p.semitonesToNextNote),
-        mode,
-        3
-      ),
+      name: 'treble',
+      notes: makeScale(startNote, undefined, scaleBase, mode, 3),
       synth: simpleSynth,
       colour: 'green',
     },
     {
-      notes: makeScale(
-        startNotes[startNote],
-        undefined,
-        scaleBlueprints[scaleBase].map((p) => p.semitonesToNextNote),
-        mode,
-        1
-      ),
+      name: 'bass',
+      notes: makeScale(startNote, undefined, scaleBase, mode, 1),
       synth: simpleSynth,
       colour: 'purple',
     },
-    {
-      notes: drumScale,
-      synth: drumSampler,
-      colour: 'blue',
-    },
+    // TODO: Bring this back
+    // {
+    //   name: 'drums',
+    //   notes: drumScale,
+    //   synth: drumSampler,
+    //   colour: 'blue',
+    // },
   ]
 
   return (
@@ -99,6 +86,7 @@ export const Controller = observer(() => {
           {/*<SizeSetter size={size} setSize={setSize} />*/}
           {sequencers.map((s, i) => (
             <Sequencer
+              name={s.name}
               key={i}
               size={size}
               notes={s.notes}

@@ -1,18 +1,23 @@
 import styles from './SequencerCell.module.scss'
 import cn from 'classnames'
-import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
+import { useStore } from '../../hooks/use-store'
+import { SequencerName } from '../../stores/song-store'
 
 export type SequenceCellProps = {
-  initialState: boolean
-  flip: () => void
   playingNow: boolean
   className?: string
   colour: 'green' | 'purple' | 'blue'
+  sequencerName: SequencerName
+  rowIndex: number
+  noteIndex: number
 }
 
 export const SequencerCell = observer((props: SequenceCellProps) => {
-  const [active, setActive] = useState(props.initialState)
+  const { songStore } = useStore()
+
+  const flip = () =>
+    songStore.flip(props.sequencerName, props.rowIndex, props.noteIndex)
 
   let colourStyle
   switch (props.colour) {
@@ -31,13 +36,18 @@ export const SequencerCell = observer((props: SequenceCellProps) => {
     <button
       className={cn(
         styles.root,
-        { [styles.active]: active, [styles.playingNow]: props.playingNow },
+        {
+          [styles.active]:
+            songStore.song[props.sequencerName][props.rowIndex].sequence[
+              props.noteIndex
+            ],
+          [styles.playingNow]: props.playingNow,
+        },
         colourStyle,
         props.className
       )}
       onClick={() => {
-        props.flip()
-        setActive(!active)
+        flip()
       }}
     >
       {' '}

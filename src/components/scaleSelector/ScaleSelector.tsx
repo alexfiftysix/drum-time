@@ -1,15 +1,29 @@
 import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   ScaleBase,
   scaleBlueprints,
   startNotesOnly,
 } from '../../utilities/scales'
 import { useQueryParams } from '../../hooks/use-query-params'
+import { useStore } from '../../hooks/use-store'
 
 export const ScaleSelector = () => {
+  const { songStore } = useStore()
   const { scaleBase, mode, startNote, setParam } = useQueryParams()
+
+  useEffect(() => {
+    songStore.setScaleBase(scaleBase)
+  }, [scaleBase, songStore])
+
+  useEffect(() => {
+    songStore.setMode(mode)
+  }, [mode, songStore])
+
+  useEffect(() => {
+    songStore.setStartNote(startNote)
+  }, [songStore, startNote])
 
   return (
     <form className={styles.buttons}>

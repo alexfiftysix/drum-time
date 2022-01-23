@@ -2,9 +2,8 @@ import { mtof } from 'tone'
 import { MidiNote } from 'tone/build/esm/core/type/NoteUnits'
 
 export type ScaleBase = 'major' | 'harmonicMinor'
-
-type ScaleDegree = { semitonesToNextNote: number; mode: string }
-
+export type NoteOnly = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b'
+export const startNotesOnly: NoteOnly[] = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
 export const scaleBlueprints: Record<ScaleBase, ScaleDegree[]> = {
   major: [
     { semitonesToNextNote: 2, mode: 'ionan' },
@@ -18,9 +17,9 @@ export const scaleBlueprints: Record<ScaleBase, ScaleDegree[]> = {
   harmonicMinor: [
     { semitonesToNextNote: 2, mode: 'ionan' },
     { semitonesToNextNote: 1, mode: 'locrian 6' },
-    { semitonesToNextNote: 2, mode: 'ionion #5' },
+    { semitonesToNextNote: 2, mode: 'ionian #5' },
     { semitonesToNextNote: 2, mode: 'dorian #11' },
-    { semitonesToNextNote: 1, mode: 'phyrgian dominant' },
+    { semitonesToNextNote: 1, mode: 'phrygian dominant' },
     { semitonesToNextNote: 3, mode: 'lydian #2' },
     { semitonesToNextNote: 1, mode: 'super locrian bb7' },
   ],
@@ -32,16 +31,14 @@ export const scaleBlueprints: Record<ScaleBase, ScaleDegree[]> = {
   //   { semitonesToNextNote: 3, mode: 'aeolian' },
   // ],
 }
+type ScaleDegree = { semitonesToNextNote: number; mode: string }
 
 const toUsefulBlueprint = (scaleBlueprint: number[]) => {
   let sum = 0
   return scaleBlueprint.map((v) => (sum += v))
 }
 
-export type NoteOnly = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b'
-export const startNotesOnly: NoteOnly[] = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
-
-export const startNotes = {
+const startNotes: Record<NoteOnly, MidiNote> = {
   c: 24,
   d: 26,
   e: 28,
@@ -64,33 +61,24 @@ const addAccidental = (note: number, accidental: Accidental) =>
   accidental === undefined ? note : accidental === 'sharp' ? note + 1 : note - 1
 
 export const makeScale = (
-  startNote: number,
+  startNote: NoteOnly,
   accidental: Accidental,
-  scaleBlueprint: number[],
+  scaleBase: ScaleBase,
   mode: number,
   octave: Octave
 ) =>
   [
-    startNote + octave * 12,
-    ...toUsefulBlueprint(rotateScale(scaleBlueprint, mode)).map(
-      (n) => addAccidental(startNote, accidental) + n + octave * 12
+    startNotes[startNote] + octave * 12,
+    ...toUsefulBlueprint(
+      rotateScale(
+        scaleBlueprints[scaleBase].map((p) => p.semitonesToNextNote),
+        mode
+      )
+    ).map(
+      (n) => addAccidental(startNotes[startNote], accidental) + n + octave * 12
     ),
   ]
     .map((n) => mtof(n as MidiNote))
     .reverse()
-
-export const makeMidiScale = (
-  startNote: number,
-  accidental: Accidental,
-  scaleBlueprint: number[],
-  mode: number,
-  octave: Octave
-) =>
-  [
-    startNote + octave * 12,
-    ...toUsefulBlueprint(rotateScale(scaleBlueprint, mode)).map(
-      (n) => addAccidental(startNote, accidental) + n + octave * 12
-    ),
-  ].reverse()
 
 export const drumScale = ['G2', 'E2', 'C2']

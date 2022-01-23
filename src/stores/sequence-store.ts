@@ -3,7 +3,7 @@ import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
 import { makeAutoObservable } from 'mobx'
 import { range } from '../utilities/array-helpers'
 
-type Sequence = {
+export type Sequence = {
   id: string
   sequence: Tone.Sequence
   length: number
@@ -11,17 +11,9 @@ type Sequence = {
 
 export class SequenceStore {
   bag: Sequence[] = []
-  transport: Sequence & { currentNote: number | undefined }
   stopped: boolean = true
 
   constructor() {
-    this.transport = {
-      sequence: new Tone.Sequence().start('+0.1'),
-      length: 8,
-      currentNote: undefined,
-      id: '',
-    }
-    this.transport.sequence.events = range(0, 8).map((_) => undefined)
     makeAutoObservable(this)
   }
 
@@ -63,35 +55,5 @@ export class SequenceStore {
       | undefined
   ) {
     this.getSequencer(id).sequence.set({ callback })
-  }
-
-  setTransportCallback(
-    callback:
-      | RecursivePartial<Tone.ToneEventCallback<string | undefined>>
-      | undefined
-  ) {
-    this.transport.sequence.set({ callback })
-  }
-
-  increment() {
-    if (this.stopped) {
-      return
-    }
-    this.transport = {
-      ...this.transport,
-      currentNote:
-        this.transport.currentNote === undefined
-          ? 0
-          : (this.transport.currentNote + 1) % this.transport.length,
-    }
-  }
-
-  stop() {
-    this.stopped = true
-    this.transport.currentNote = undefined
-  }
-
-  go() {
-    this.stopped = false
   }
 }
