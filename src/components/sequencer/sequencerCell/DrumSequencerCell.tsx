@@ -1,24 +1,22 @@
 import styles from './SequencerCell.module.scss'
 import cn from 'classnames'
 import { observer } from 'mobx-react-lite'
-import { useStore } from '../../hooks/use-store'
-import { SequencerName } from '../../stores/song-store'
-import { single } from '../../utilities/array-helpers'
+import { useStore } from '../../../hooks/use-store'
 
 export type SequenceCellProps = {
   playingNow: boolean
   className?: string
   colour: 'green' | 'purple' | 'blue'
-  sequencerName: SequencerName
   rowIndex: number
   noteIndex: number
 }
 
-export const SequencerCell = observer((props: SequenceCellProps) => {
+export const DrumSequencerCell = observer((props: SequenceCellProps) => {
   const { songStore } = useStore()
 
-  const flip = () =>
-    songStore.flip(props.sequencerName, props.rowIndex, props.noteIndex)
+  const flip = () => {
+    songStore.drumFlip(props.rowIndex, props.noteIndex)
+  }
 
   let colourStyle
   switch (props.colour) {
@@ -38,10 +36,8 @@ export const SequencerCell = observer((props: SequenceCellProps) => {
       className={cn(
         styles.root,
         {
-          [styles.active]: single(
-            songStore.song.sequencers,
-            (s) => s.name === props.sequencerName
-          ).rows[props.rowIndex].sequence[props.noteIndex],
+          [styles.active]:
+            songStore.song.drums[props.rowIndex].sequence[props.noteIndex],
           [styles.playingNow]: props.playingNow,
         },
         colourStyle,

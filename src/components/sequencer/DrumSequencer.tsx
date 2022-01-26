@@ -1,24 +1,22 @@
-import { SequencerRow } from './sequencerRow/SequencerRow'
 import styles from './Sequencer.module.scss'
 import { observer } from 'mobx-react-lite'
 import { SequenceCellProps } from './sequencerCell/SequencerCell'
-import { SequencerName } from '../../stores/song-store'
+import { DrumSequencerRow } from './sequencerRow/DrumSequencerRow'
+import { Note } from 'tone/build/esm/core/type/NoteUnits'
 
 export type SequencerProps = {
-  name: SequencerName
-  notes: string[] | number[]
+  notes: Note[]
   colour: SequenceCellProps['colour']
 }
 
-export const Sequencer = observer((props: SequencerProps) => (
+export const DrumSequencer = observer((props: SequencerProps) => (
   <div className={styles.root}>
     {props.notes.map((note, rowIndex) => (
-      <SequencerRow
+      <DrumSequencerRow
         key={rowIndex}
         note={note}
         colour={props.colour}
         rowIndex={rowIndex}
-        sequencerName={props.name}
       />
     ))}
   </div>

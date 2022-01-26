@@ -15,7 +15,7 @@
   - [x] Find a better way to deal with treble and bass
     - This should work:
       - song = {..., sequencers: [{name: "treble", ...}, {name: "bass"}]}
-  - [ ] Add a clear button - Now that refresh doesn't clear 
+  - [x] Add a clear button - Now that refresh doesn't clear 
 
 ### To Do:
 - [ ] Title / favicon
@@ -33,6 +33,9 @@
 - [ ] sharp and flat scales
 - [ ] Title + Favicon
 - [ ] Update the readme
+- [ ] Reset on corrupted SongData in URL
+- [ ] Repair corrupted SongData in URL
+- [ ] [BUG] Looks like yer drums are backwards
 
 ### Done:
 - [x] Modes

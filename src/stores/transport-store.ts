@@ -1,6 +1,6 @@
 import { Sequence } from './sequence-store'
 import * as Tone from 'tone'
-import { range } from '../utilities/array-helpers'
+import { makeAndFill } from '../utilities/array-helpers'
 import { makeAutoObservable } from 'mobx'
 import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
 
@@ -15,9 +15,9 @@ export class TransportStore {
       sequence: new Tone.Sequence().start('+0.1'),
       length: noteCount,
       currentNote: undefined,
-      id: '',
+      id: 'transport',
     }
-    this.transport.sequence.events = range(0, noteCount).map((_) => undefined)
+    this.transport.sequence.events = makeAndFill(noteCount, undefined)
     makeAutoObservable(this)
   }
 

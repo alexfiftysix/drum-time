@@ -1,16 +1,23 @@
-import { MidiNote } from 'tone/build/esm/core/type/NoteUnits'
-import { range } from '../utilities/array-helpers'
-import { makeScale, NoteOnly, Octave, ScaleBase } from '../utilities/scales'
+import { MidiNote, Note } from 'tone/build/esm/core/type/NoteUnits'
+import { makeAndFill } from '../utilities/array-helpers'
+import {
+  makeScale,
+  drumScale,
+  NoteOnly,
+  Octave,
+  ScaleBase,
+} from '../utilities/scales'
 import { SequenceStore } from './sequence-store'
 import { makeAutoObservable } from 'mobx'
 import { Synth } from 'tone'
 import * as Tone from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
+import { SamplerStore } from './sampler-store'
 
 export type SequencerName = 'treble' | 'bass'
 
 type Row = {
-  note: MidiNote
+  note: MidiNote | Note
   sequence: boolean[]
 }
 
@@ -23,6 +30,7 @@ type Sequencer = {
 type Song = {
   noteCount: number
   sequencers: Sequencer[]
+  drums: Row[]
   scaleBase: ScaleBase
   startNote: NoteOnly
   mode: number
@@ -40,6 +48,7 @@ const validateSong = (song: Song) => {
 
 export class SongStore {
   sequenceStore: SequenceStore = new SequenceStore()
+  samplerStore: SamplerStore = new SamplerStore()
   song: Song
 
   constructor() {
@@ -53,20 +62,22 @@ export class SongStore {
         },
         { name: 'bass', rows: this.getEmptyRow(noteCount), octave: bassOctave },
       ],
+      drums: drumScale.map((note) => ({
+        note,
+        sequence: makeAndFill(noteCount, false),
+      })),
       scaleBase: 'major',
       startNote: 'c',
       mode: 0,
     }
 
     const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
-    this.initialiseSequencers(simpleSynth)
-
+    this.initialiseSynths(simpleSynth)
     this.updateSequencers()
-
     makeAutoObservable(this)
   }
 
-  private initialiseSequencers(synth: Synth | Tone.PolySynth | Tone.Sampler) {
+  private initialiseSynths(synth: Synth | Tone.PolySynth | Tone.Sampler) {
     // This is to make the sequencers play sounds when a note is triggered
     this.song.sequencers.forEach((sequencer) => {
       sequencer.rows.forEach((row, index) =>
@@ -78,12 +89,22 @@ export class SongStore {
         )
       )
     })
+
+    this.song.drums.forEach((row, index) => {
+      this.sequenceStore.setCallback(
+        `drums-${index}`,
+        (time: Seconds, note: string | undefined) => {
+          if (note)
+            this.samplerStore.sampler.triggerAttackRelease(note, 0.1, time)
+        }
+      )
+    })
   }
 
   private getEmptyRow(noteCount: number) {
     return makeScale('c', undefined, 'major', 0, 4).map((n) => ({
       note: n as MidiNote,
-      sequence: range(0, noteCount).map(() => false),
+      sequence: makeAndFill(noteCount, false),
     }))
   }
 
@@ -100,6 +121,13 @@ export class SongStore {
         )
       )
     })
+
+    this.song.drums.forEach((row, index) =>
+      this.sequenceStore.setEvents(
+        `drums-${index}`,
+        row.sequence.map((note) => (note ? row.note : undefined))
+      )
+    )
   }
 
   getSongData() {
@@ -108,6 +136,7 @@ export class SongStore {
 
   updateTheWholeSong(encodedSongData: string) {
     this.song = JSON.parse(atob(encodedSongData))
+    // TODO: If the JSON's not valid, throw it out and start again... OR if you can be clever, take what you can and leave the rest
     this.updateSequencers()
   }
 
@@ -180,6 +209,28 @@ export class SongStore {
     this.updateSequencers()
   }
 
+  drumFlip(rowIndex: number, noteIndex: number) {
+    if (rowIndex >= this.song.noteCount) {
+      console.error('out of range drum note flip')
+    }
+
+    this.song = {
+      ...this.song,
+      drums: this.song.drums.map((row, index) =>
+        index !== rowIndex
+          ? row
+          : {
+              ...row,
+              sequence: row.sequence.map((note, index) =>
+                index !== noteIndex ? note : !note
+              ),
+            }
+      ),
+    }
+
+    this.updateSequencers()
+  }
+
   clear = () => {
     this.song = {
       noteCount: noteCount,
@@ -191,6 +242,10 @@ export class SongStore {
         },
         { name: 'bass', rows: this.getEmptyRow(noteCount), octave: bassOctave },
       ],
+      drums: drumScale.map((note) => ({
+        note,
+        sequence: makeAndFill(noteCount, false),
+      })),
       scaleBase: 'major',
       startNote: 'c',
       mode: 0,

@@ -1,5 +1,5 @@
 import { mtof } from 'tone'
-import { MidiNote } from 'tone/build/esm/core/type/NoteUnits'
+import { MidiNote, Note } from 'tone/build/esm/core/type/NoteUnits'
 
 export type ScaleBase = 'major' | 'harmonicMinor'
 export type NoteOnly = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b'
@@ -81,4 +81,4 @@ export const makeScale = (
     .map((n) => mtof(n as MidiNote))
     .reverse()
 
-export const drumScale = ['G2', 'E2', 'C2']
+export const drumScale: Note[] = ['G2', 'E2', 'C2']

@@ -1,6 +1,9 @@
 export const range = (start: number, size: number) =>
   new Array(size).fill(null).map((_, i) => start + i)
 
+export const makeAndFill = <T>(size: number, value: T) =>
+  range(0, size).map((_) => value)
+
 export const zip = <TA, TB, TResult>(
   a: TA[],
   b: TB[],

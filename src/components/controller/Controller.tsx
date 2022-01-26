@@ -12,13 +12,14 @@ import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
 import { useDebounce } from '../../hooks/use-debounce'
 import { Clear } from '../clear/Clear'
+import { DrumSequencer } from '../sequencer/DrumSequencer'
+import { Note } from 'tone/build/esm/core/type/NoteUnits'
 
 export const Controller = observer(() => {
   const { songData, setParam } = useQueryParams()
   const { songStore } = useStore()
   const { transportStore } = useStore()
   const [looping, setLooping] = useState(false)
-  const [size] = useState(8)
 
   useEffect(() => {
     if (songData.length !== 0) {
@@ -47,19 +48,6 @@ export const Controller = observer(() => {
     )
   }, [transportStore])
 
-  const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
-  // const drumSampler = new Tone.Sampler({
-  //   urls: {
-  //     G2: '/samples/hat.mp3',
-  //     E2: '/samples/snare.mp3',
-  //     C2: '/samples/kick.mp3',
-  //   },
-  //   onload: () => {
-  //     setLoading(false)
-  //   },
-  //   onerror: () => console.error('oh no'),
-  // }).toDestination()
-
   const onClick = useCallback(() => {
     if (!looping) {
       transportStore.go()
@@ -82,7 +70,6 @@ export const Controller = observer(() => {
         songStore.song.mode,
         3
       ),
-      synth: simpleSynth,
       colour: 'green',
     },
     {
@@ -94,16 +81,8 @@ export const Controller = observer(() => {
         songStore.song.mode,
         1
       ),
-      synth: simpleSynth,
       colour: 'purple',
     },
-    // TODO: Bring this back
-    // {
-    //   name: 'drums',
-    //   notes: drumScale,
-    //   synth: drumSampler,
-    //   colour: 'blue',
-    // },
   ]
 
   return (
@@ -115,15 +94,12 @@ export const Controller = observer(() => {
         {/*<Transport />*/}
         {/*<SizeSetter size={size} setSize={setSize} />*/}
         {sequencers.map((s, i) => (
-          <Sequencer
-            name={s.name}
-            key={i}
-            size={size}
-            notes={s.notes}
-            synth={s.synth}
-            colour={s.colour}
-          />
+          <Sequencer name={s.name} key={i} notes={s.notes} colour={s.colour} />
         ))}
+        <DrumSequencer
+          notes={songStore.song.drums.map((r) => r.note as Note)}
+          colour="blue"
+        />
         <TempoSetter />
         <SwingSetter />
       </>

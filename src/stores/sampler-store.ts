@@ -6,6 +6,7 @@ export class SamplerStore {
   isLoaded: boolean = false
 
   constructor() {
+    // TODO: these notes are backwards?
     this.sampler = new Tone.Sampler({
       urls: {
         G2: '/samples/hat.mp3',
