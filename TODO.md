@@ -1,10 +1,10 @@
 ### Doing:
 - [ ] Save and Load
-  - [ ] Store major vs minor in the URL
-  - [ ] Store start note in URL
-  - [ ] Store mode in URL
-  - [ ] Store tempo in URL
-  - [ ] Store swing in URL
+  - [x] Store major vs minor in the URL
+  - [x] Store start note in URL
+  - [x] Store mode in URL
+  - [x] Store tempo in URL
+  - [x] Store swing in URL
   - [x] Store the treble notes in URL
     - Methinks lzstring is a good option https://www.npmjs.com/package/lz-string
       - Turns out it's not - can use atob() and btoa() instead. 

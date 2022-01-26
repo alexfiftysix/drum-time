@@ -27,8 +27,10 @@ type Song = {
   startNote: NoteOnly
   mode: number
 }
+
 const trebleOctave = 3
 const bassOctave = 2
+const noteCount = 8
 
 const validateSong = (song: Song) => {
   return song.sequencers.every((sequencer) =>
@@ -41,8 +43,6 @@ export class SongStore {
   song: Song
 
   constructor() {
-    const noteCount = 8
-
     this.song = {
       noteCount: noteCount,
       sequencers: [
@@ -175,6 +175,25 @@ export class SongStore {
             }
           : sequencer
       ),
+    }
+
+    this.updateSequencers()
+  }
+
+  clear = () => {
+    this.song = {
+      noteCount: noteCount,
+      sequencers: [
+        {
+          name: 'treble',
+          rows: this.getEmptyRow(noteCount),
+          octave: trebleOctave,
+        },
+        { name: 'bass', rows: this.getEmptyRow(noteCount), octave: bassOctave },
+      ],
+      scaleBase: 'major',
+      startNote: 'c',
+      mode: 0,
     }
 
     this.updateSequencers()

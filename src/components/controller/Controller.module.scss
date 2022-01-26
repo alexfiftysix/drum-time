@@ -1,5 +1,4 @@
 @use 'src/styles/mixins';
-@use 'src/styles/shadows';
 @use 'src/styles/gaps';
 
 .root {
@@ -11,8 +10,4 @@
   display: grid;
   grid-auto-flow: row;
   grid-gap: gaps.$medium;
-}
-
-.goButton {
-  @include mixins.button;
 }

@@ -1,3 +1,5 @@
+@use 'src/styles/mixins';
+
 .root {
   display: flex;
   flex-direction: column;
@@ -6,4 +8,8 @@
 
   padding: 3rem 0;
   width: 100%;
+}
+
+button {
+  @include mixins.button;
 }

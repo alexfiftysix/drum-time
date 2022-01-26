@@ -11,6 +11,7 @@ import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
 import { useDebounce } from '../../hooks/use-debounce'
+import { Clear } from '../clear/Clear'
 
 export const Controller = observer(() => {
   const { songData, setParam } = useQueryParams()
@@ -108,10 +109,9 @@ export const Controller = observer(() => {
   return (
     <div className={styles.root}>
       <>
-        <button className={styles.goButton} onClick={onClick}>
-          {looping ? 'Stop' : 'Go'}
-        </button>
+        <button onClick={onClick}>{looping ? 'Stop' : 'Go'}</button>
         <ScaleSelector />
+        <Clear />
         {/*<Transport />*/}
         {/*<SizeSetter size={size} setSize={setSize} />*/}
         {sequencers.map((s, i) => (
