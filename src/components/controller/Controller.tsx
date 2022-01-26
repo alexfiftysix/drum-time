@@ -13,7 +13,7 @@ import { useQueryParams } from '../../hooks/use-query-params'
 import { useDebounce } from '../../hooks/use-debounce'
 
 export const Controller = observer(() => {
-  const { songData, mode, scaleBase, startNote, setParam } = useQueryParams()
+  const { songData, setParam } = useQueryParams()
   const { songStore } = useStore()
   const { transportStore } = useStore()
   const [looping, setLooping] = useState(false)
@@ -74,13 +74,25 @@ export const Controller = observer(() => {
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
       name: 'treble',
-      notes: makeScale(startNote, undefined, scaleBase, mode, 3),
+      notes: makeScale(
+        songStore.song.startNote,
+        undefined,
+        songStore.song.scaleBase,
+        songStore.song.mode,
+        3
+      ),
       synth: simpleSynth,
       colour: 'green',
     },
     {
       name: 'bass',
-      notes: makeScale(startNote, undefined, scaleBase, mode, 1),
+      notes: makeScale(
+        songStore.song.startNote,
+        undefined,
+        songStore.song.scaleBase,
+        songStore.song.mode,
+        1
+      ),
       synth: simpleSynth,
       colour: 'purple',
     },

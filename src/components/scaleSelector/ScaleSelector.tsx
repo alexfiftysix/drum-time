@@ -1,29 +1,37 @@
 import styles from './ScaleSelector.module.scss'
 import { RadioButton } from '../radioButton/RadioButton'
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
 import {
+  NoteOnly,
   ScaleBase,
   scaleBlueprints,
   startNotesOnly,
 } from '../../utilities/scales'
-import { useQueryParams } from '../../hooks/use-query-params'
 import { useStore } from '../../hooks/use-store'
 
 export const ScaleSelector = () => {
   const { songStore } = useStore()
-  const { scaleBase, mode, startNote, setParam } = useQueryParams()
 
-  useEffect(() => {
-    songStore.setScaleBase(scaleBase)
-  }, [scaleBase, songStore])
+  const setScaleBase = useCallback(
+    (scaleBase: ScaleBase) => {
+      songStore.setScaleBase(scaleBase)
+    },
+    [songStore]
+  )
 
-  useEffect(() => {
-    songStore.setMode(mode)
-  }, [mode, songStore])
+  const setMode = useCallback(
+    (mode: number) => {
+      songStore.setMode(mode)
+    },
+    [songStore]
+  )
 
-  useEffect(() => {
-    songStore.setStartNote(startNote)
-  }, [songStore, startNote])
+  const setStartNote = useCallback(
+    (startNote: NoteOnly) => {
+      songStore.setStartNote(startNote)
+    },
+    [songStore]
+  )
 
   return (
     <form className={styles.buttons}>
@@ -36,9 +44,9 @@ export const ScaleSelector = () => {
             value={thisScaleBase}
             onChange={(e) => {
               if (!e.target.checked) return
-              setParam(['scaleBase', thisScaleBase])
+              setScaleBase(thisScaleBase)
             }}
-            checked={scaleBase === thisScaleBase}
+            checked={songStore.song.scaleBase === thisScaleBase}
           />
         ))}
       </div>
@@ -49,21 +57,21 @@ export const ScaleSelector = () => {
             groupName="startNote"
             value={thisStartNote}
             onChange={() => {
-              setParam(['startNote', thisStartNote])
+              setStartNote(thisStartNote)
             }}
-            checked={startNote === thisStartNote}
+            checked={songStore.song.startNote === thisStartNote}
           />
         ))}
       </div>
       <div className={styles.radioGroup}>
-        {scaleBlueprints[scaleBase].map((scaleDegree, i) => (
+        {scaleBlueprints[songStore.song.scaleBase].map((scaleDegree, i) => (
           <RadioButton
             key={i}
             value={i.toString()}
             onChange={() => {
-              setParam(['mode', i])
+              setMode(i)
             }}
-            checked={mode === i}
+            checked={songStore.song.mode === i}
             groupName="mode"
           >
             {scaleDegree.mode}

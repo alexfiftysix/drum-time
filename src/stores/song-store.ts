@@ -108,6 +108,7 @@ export class SongStore {
 
   updateTheWholeSong(encodedSongData: string) {
     this.song = JSON.parse(atob(encodedSongData))
+    this.updateSequencers()
   }
 
   setScaleBase(scaleBase: ScaleBase) {

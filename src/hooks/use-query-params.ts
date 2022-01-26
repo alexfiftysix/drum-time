@@ -13,9 +13,6 @@ export const useQueryParams = () => {
   const getParam = (name: keyof Param) => searchParams.get(name) || undefined
 
   return {
-    scaleBase: (getParam('scaleBase') || 'major') as ScaleBase,
-    startNote: (getParam('startNote') || 'c') as NoteOnly,
-    mode: parseInt(getParam('mode') || '0'),
     tempo: parseInt(getParam('tempo') || '120'),
     swing: parseInt(getParam('swing') || '0'),
     songData: getParam('songData') || '',
