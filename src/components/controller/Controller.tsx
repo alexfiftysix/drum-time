@@ -19,9 +19,7 @@ export const Controller = observer(() => {
   const { mode, scaleBase, startNote } = useQueryParams()
   const { songStore } = useStore()
   const { songData } = useParams()
-
   const { transportStore } = useStore()
-  const [loading, setLoading] = useState(true)
   const [looping, setLooping] = useState(false)
   const [size] = useState(8)
 
@@ -51,17 +49,17 @@ export const Controller = observer(() => {
   }, [transportStore])
 
   const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
-  const drumSampler = new Tone.Sampler({
-    urls: {
-      G2: '/samples/hat.mp3',
-      E2: '/samples/snare.mp3',
-      C2: '/samples/kick.mp3',
-    },
-    onload: () => {
-      setLoading(false)
-    },
-    onerror: () => console.error('oh no'),
-  }).toDestination()
+  // const drumSampler = new Tone.Sampler({
+  //   urls: {
+  //     G2: '/samples/hat.mp3',
+  //     E2: '/samples/snare.mp3',
+  //     C2: '/samples/kick.mp3',
+  //   },
+  //   onload: () => {
+  //     setLoading(false)
+  //   },
+  //   onerror: () => console.error('oh no'),
+  // }).toDestination()
 
   const onClick = useCallback(() => {
     if (!looping) {
@@ -99,30 +97,26 @@ export const Controller = observer(() => {
 
   return (
     <div className={styles.root}>
-      {!loading ? (
-        <>
-          <button className={styles.goButton} onClick={onClick}>
-            {looping ? 'Stop' : 'Go'}
-          </button>
-          <ScaleSelector />
-          {/*<Transport />*/}
-          {/*<SizeSetter size={size} setSize={setSize} />*/}
-          {sequencers.map((s, i) => (
-            <Sequencer
-              name={s.name}
-              key={i}
-              size={size}
-              notes={s.notes}
-              synth={s.synth}
-              colour={s.colour}
-            />
-          ))}
-          <TempoSetter />
-          <SwingSetter />
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
+      <>
+        <button className={styles.goButton} onClick={onClick}>
+          {looping ? 'Stop' : 'Go'}
+        </button>
+        <ScaleSelector />
+        {/*<Transport />*/}
+        {/*<SizeSetter size={size} setSize={setSize} />*/}
+        {sequencers.map((s, i) => (
+          <Sequencer
+            name={s.name}
+            key={i}
+            size={size}
+            notes={s.notes}
+            synth={s.synth}
+            colour={s.colour}
+          />
+        ))}
+        <TempoSetter />
+        <SwingSetter />
+      </>
     </div>
   )
 })

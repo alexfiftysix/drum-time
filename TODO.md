@@ -1,24 +1,26 @@
 ### Doing:
 - [ ] Save and Load
-  - [x] Store major vs minor in the URL
-  - [x] Store start note in URL
-  - [x] Store mode in URL
-  - [x] Store tempo in URL
-  - [x] Store swing in URL
-  - [ ] Store the treble notes in URL
+  - [ ] Store major vs minor in the URL
+  - [ ] Store start note in URL
+  - [ ] Store mode in URL
+  - [ ] Store tempo in URL
+  - [ ] Store swing in URL
+  - [x] Store the treble notes in URL
     - Methinks lzstring is a good option https://www.npmjs.com/package/lz-string
+      - Turns out it's not - can use atob() and btoa() instead. 
       - TSPlayground has a 'share' button which triggers compression + saves into the URL
-  - [ ] Store the bass notes in URL
+  - [x] Store the bass notes in URL
   - [ ] Store the drums in URL
     - [ ] Bring back the drums
-  - [ ] Find a better way to deal with treble and bass
+  - [x] Find a better way to deal with treble and bass
     - This should work:
       - song = {..., sequencers: [{name: "treble", ...}, {name: "bass"}]}
+  - [ ] Add a clear button - Now that refresh doesn't clear 
 
 ### To Do:
-- [x] Allow different note counts
+- [ ] Title / favicon
+- [ ] Allow different note counts
   - [ ] Update note count visualization right away
-- [ ] Encode the whole thing in a big JSON blob
 - [ ] More scales
 - [ ] Delete old sequencers
 - [ ] Separate the various components
@@ -27,9 +29,7 @@
 - [ ] Make a transport bar
 - [ ] Some keyboard control
   - [ ] Space to go/stop
-- [ ] Reset button
 - [ ] Allow scales with different note counts
-- [ ] Title / favicon
 - [ ] sharp and flat scales
 - [ ] Title + Favicon
 
