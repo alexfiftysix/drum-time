@@ -10,21 +10,19 @@ import { makeScale } from '../../utilities/scales'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
-import { useNavigate, useParams } from 'react-router-dom'
 import { useDebounce } from '../../hooks/use-debounce'
 
 export const Controller = observer(() => {
-  const navigate = useNavigate()
-  const params = useParams()
-  const { mode, scaleBase, startNote } = useQueryParams()
+  const { songData, mode, scaleBase, startNote, setParam } = useQueryParams()
   const { songStore } = useStore()
-  const { songData } = useParams()
   const { transportStore } = useStore()
   const [looping, setLooping] = useState(false)
   const [size] = useState(8)
 
   useEffect(() => {
-    if (songData !== undefined) songStore.updateTheWholeSong(songData)
+    if (songData.length !== 0) {
+      songStore.updateTheWholeSong(songData)
+    }
     // We only want this to run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -34,10 +32,10 @@ export const Controller = observer(() => {
     () => {
       const newSongData = songStore.getSongData()
       if (songData !== newSongData) {
-        navigate(`/${newSongData}`)
+        setParam(['songData', newSongData])
       }
     },
-    [navigate, params, songStore.getSongData]
+    [setParam, songStore]
   )
 
   useEffect(() => {

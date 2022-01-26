@@ -32,6 +32,7 @@
 - [ ] Allow scales with different note counts
 - [ ] sharp and flat scales
 - [ ] Title + Favicon
+- [ ] Update the readme
 
 ### Done:
 - [x] Modes

@@ -18,6 +18,7 @@ export const useQueryParams = () => {
     mode: parseInt(getParam('mode') || '0'),
     tempo: parseInt(getParam('tempo') || '120'),
     swing: parseInt(getParam('swing') || '0'),
+    songData: getParam('songData') || '',
 
     setParam,
   }
@@ -29,6 +30,7 @@ type Param = {
   mode: number
   tempo: number
   swing: number
+  songData: string
 }
 
 type MyParamKeyValuePair<T extends keyof Param> = [T, Param[T]]
