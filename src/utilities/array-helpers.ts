@@ -11,3 +11,18 @@ export const zip = <TA, TB, TResult>(
   }
   return a.map((aa, i) => map(aa, b[i]))
 }
+
+export const first = <T, Predicate extends (x: T) => boolean>(
+  array: T[],
+  predicate: Predicate
+) => array.filter(predicate)[0]
+
+export const single = <T, Predicate extends (x: T) => boolean>(
+  array: T[],
+  predicate: Predicate
+) => {
+  const filtered = array.filter(predicate)
+  if (filtered.length !== 1)
+    throw new Error(`array does not have 1 matching element`)
+  return filtered[0]
+}

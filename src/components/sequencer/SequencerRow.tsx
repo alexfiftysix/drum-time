@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 import { useStore } from '../../hooks/use-store'
 import { SequencerName } from '../../stores/song-store'
+import { single } from '../../utilities/array-helpers'
 
 type SequencerRowProps = {
   id: string
@@ -20,7 +21,10 @@ type SequencerRowProps = {
 export const SequencerRow = observer((props: SequencerRowProps) => {
   const { transportStore, songStore } = useStore()
 
-  const myRow = toJS(songStore.song[props.sequencerName][props.rowIndex])
+  const myRow = toJS(
+    single(songStore.song.sequencers, (s) => s.name === props.sequencerName)
+      .rows[props.rowIndex]
+  )
   return (
     <div className={styles.blocks}>
       {myRow.sequence.map((note, noteIndex) => (

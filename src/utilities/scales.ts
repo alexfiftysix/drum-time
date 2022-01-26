@@ -53,7 +53,7 @@ const rotateScale = (scale: number[], mode: number) => {
   return scale.slice(mode).concat(scale.slice(0, mode))
 }
 
-type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+export type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 type Accidental = 'sharp' | 'flat' | undefined
 

@@ -5,8 +5,10 @@
   - [x] Store mode in URL
   - [x] Store tempo in URL
   - [x] Store swing in URL
-  - [x] Store the treble notes in URL
-  - [x] Store the bass notes in URL
+  - [ ] Store the treble notes in URL
+    - Methinks lzstring is a good option https://www.npmjs.com/package/lz-string
+      - TSPlayground has a 'share' button which triggers compression + saves into the URL
+  - [ ] Store the bass notes in URL
   - [ ] Store the drums in URL
     - [ ] Bring back the drums
   - [ ] Find a better way to deal with treble and bass

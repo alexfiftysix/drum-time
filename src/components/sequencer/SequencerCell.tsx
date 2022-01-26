@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../../hooks/use-store'
 import { SequencerName } from '../../stores/song-store'
+import { single } from '../../utilities/array-helpers'
 
 export type SequenceCellProps = {
   playingNow: boolean
@@ -37,10 +38,10 @@ export const SequencerCell = observer((props: SequenceCellProps) => {
       className={cn(
         styles.root,
         {
-          [styles.active]:
-            songStore.song[props.sequencerName][props.rowIndex].sequence[
-              props.noteIndex
-            ],
+          [styles.active]: single(
+            songStore.song.sequencers,
+            (s) => s.name === props.sequencerName
+          ).rows[props.rowIndex].sequence[props.noteIndex],
           [styles.playingNow]: props.playingNow,
         },
         colourStyle,
