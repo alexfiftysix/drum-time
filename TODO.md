@@ -10,12 +10,13 @@
       - Turns out it's not - can use atob() and btoa() instead. 
       - TSPlayground has a 'share' button which triggers compression + saves into the URL
   - [x] Store the bass notes in URL
-  - [ ] Store the drums in URL
-    - [ ] Bring back the drums
+  - [x] Store the drums in URL
+    - [x] Bring back the drums
   - [x] Find a better way to deal with treble and bass
     - This should work:
       - song = {..., sequencers: [{name: "treble", ...}, {name: "bass"}]}
-  - [x] Add a clear button - Now that refresh doesn't clear 
+  - [x] Add a clear button - Now that refresh doesn't clear
+  - [ ] Add a Share link (just needs to make sure the URL is fresh, and copy it to the clipboard)
 
 ### To Do:
 - [ ] Title / favicon
@@ -36,6 +37,7 @@
 - [ ] Reset on corrupted SongData in URL
 - [ ] Repair corrupted SongData in URL
 - [ ] [BUG] Looks like yer drums are backwards
+- [ ] This separation between the standard and drums samplers is a bit crappy
 
 ### Done:
 - [x] Modes

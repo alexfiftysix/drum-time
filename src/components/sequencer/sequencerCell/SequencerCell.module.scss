@@ -10,6 +10,7 @@ $darkenAmount: 15%;
   background: $off;
 
   border: gaps.$tiny solid #fff;
+  box-shadow: none;
 
   &:hover {
     background: darken($off, $darkenAmount);
