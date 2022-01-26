@@ -102,6 +102,14 @@ export class SongStore {
     })
   }
 
+  getSongData() {
+    return btoa(JSON.stringify(this.song))
+  }
+
+  updateTheWholeSong(encodedSongData: string) {
+    this.song = JSON.parse(atob(encodedSongData))
+  }
+
   setScaleBase(scaleBase: ScaleBase) {
     this.song.scaleBase = scaleBase
     this.updateScale()

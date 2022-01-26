@@ -11,6 +11,7 @@ export const App = () => (
   <StoreContext.Provider value={new RootStore()}>
     <div className={styles.root}>
       <Routes>
+        <Route path="/:songData" element={<Controller />} />
         <Route path="*" element={<Controller />} />
       </Routes>
     </div>
