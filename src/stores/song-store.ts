@@ -40,36 +40,13 @@ const trebleOctave = 3
 const bassOctave = 2
 const noteCount = 8
 
-const validateSong = (song: Song) => {
-  return song.sequencers.every((sequencer) =>
-    sequencer.rows.every((row) => row.sequence.length === song.noteCount)
-  )
-}
-
 export class SongStore {
   sequenceStore: SequenceStore = new SequenceStore()
   samplerStore: SamplerStore = new SamplerStore()
   song: Song
 
   constructor() {
-    this.song = {
-      noteCount: noteCount,
-      sequencers: [
-        {
-          name: 'treble',
-          rows: this.getEmptyRow(noteCount),
-          octave: trebleOctave,
-        },
-        { name: 'bass', rows: this.getEmptyRow(noteCount), octave: bassOctave },
-      ],
-      drums: drumScale.map((note) => ({
-        note,
-        sequence: makeAndFill(noteCount, false),
-      })),
-      scaleBase: 'major',
-      startNote: 'c',
-      mode: 0,
-    }
+    this.song = { ...emptySong }
 
     const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
     this.initialiseSynths(simpleSynth)
@@ -101,18 +78,7 @@ export class SongStore {
     })
   }
 
-  private getEmptyRow(noteCount: number) {
-    return makeScale('c', undefined, 'major', 0, 4).map((n) => ({
-      note: n as MidiNote,
-      sequence: makeAndFill(noteCount, false),
-    }))
-  }
-
   private updateSequencers() {
-    if (!validateSong(this.song)) {
-      console.error('song invalid')
-    }
-
     this.song.sequencers.forEach((sequencer) => {
       sequencer.rows.forEach((row, index) =>
         this.sequenceStore.setEvents(
@@ -232,25 +198,36 @@ export class SongStore {
   }
 
   clear = () => {
-    this.song = {
-      noteCount: noteCount,
-      sequencers: [
-        {
-          name: 'treble',
-          rows: this.getEmptyRow(noteCount),
-          octave: trebleOctave,
-        },
-        { name: 'bass', rows: this.getEmptyRow(noteCount), octave: bassOctave },
-      ],
-      drums: drumScale.map((note) => ({
-        note,
-        sequence: makeAndFill(noteCount, false),
-      })),
-      scaleBase: 'major',
-      startNote: 'c',
-      mode: 0,
-    }
-
+    this.song = { ...emptySong }
     this.updateSequencers()
   }
+}
+
+const getEmptyRow = (noteCount: number, octave: Octave) =>
+  makeScale('c', undefined, 'major', 0, octave).map((n) => ({
+    note: n as MidiNote,
+    sequence: makeAndFill(noteCount, false),
+  }))
+
+const emptySong: Song = {
+  noteCount: noteCount,
+  sequencers: [
+    {
+      name: 'treble',
+      rows: getEmptyRow(noteCount, trebleOctave),
+      octave: trebleOctave,
+    },
+    {
+      name: 'bass',
+      rows: getEmptyRow(noteCount, bassOctave),
+      octave: bassOctave,
+    },
+  ],
+  drums: drumScale.map((note) => ({
+    note,
+    sequence: makeAndFill(noteCount, false),
+  })),
+  scaleBase: 'major',
+  startNote: 'c',
+  mode: 0,
 }

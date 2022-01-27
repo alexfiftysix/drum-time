@@ -19,7 +19,9 @@
   - [ ] Add a Share link (just needs to make sure the URL is fresh, and copy it to the clipboard)
 
 ### To Do:
+- [ ] [TECH] Combine drums and treble and bass into one object somehow
 - [ ] Title / favicon
+- [ ] Volume slider
 - [ ] Allow different note counts
   - [ ] Update note count visualization right away
 - [ ] More scales
@@ -30,6 +32,7 @@
 - [ ] Make a transport bar
 - [ ] Some keyboard control
   - [ ] Space to go/stop
+  - [ ] Arrow keys to go up/down/left/right on sequencerCells
 - [ ] Allow scales with different note counts
 - [ ] sharp and flat scales
 - [ ] Title + Favicon
@@ -48,5 +51,8 @@
   - Do I need to store the state in mobx, and update the sequencer accordingly?
 - [x] [BUG] All components should be visible on load
 - [x] Swing
+- [x] [BUG] What happened to the bass?
+  - Need to change scale once for the notes to be in the right octaves 🤔
+- [x] [BUG] Why are modes changing the octave so much?
 
 
