@@ -14,6 +14,7 @@ import { useDebounce } from '../../hooks/use-debounce'
 import { Clear } from '../clear/Clear'
 import { DrumSequencer } from '../sequencer/DrumSequencer'
 import { Note } from 'tone/build/esm/core/type/NoteUnits'
+import { Share } from '../share/Share'
 
 export const Controller = observer(() => {
   const { songData, setParam } = useQueryParams()
@@ -102,6 +103,7 @@ export const Controller = observer(() => {
         />
         <TempoSetter />
         <SwingSetter />
+        <Share />
       </>
     </div>
   )

@@ -1,27 +1,11 @@
 ### Doing:
-- [ ] Save and Load
-  - [x] Store major vs minor in the URL
-  - [x] Store start note in URL
-  - [x] Store mode in URL
-  - [x] Store tempo in URL
-  - [x] Store swing in URL
-  - [x] Store the treble notes in URL
-    - Methinks lzstring is a good option https://www.npmjs.com/package/lz-string
-      - Turns out it's not - can use atob() and btoa() instead. 
-      - TSPlayground has a 'share' button which triggers compression + saves into the URL
-  - [x] Store the bass notes in URL
-  - [x] Store the drums in URL
-    - [x] Bring back the drums
-  - [x] Find a better way to deal with treble and bass
-    - This should work:
-      - song = {..., sequencers: [{name: "treble", ...}, {name: "bass"}]}
-  - [x] Add a clear button - Now that refresh doesn't clear
-  - [ ] Add a Share link (just needs to make sure the URL is fresh, and copy it to the clipboard)
+- [ ] Title / favicon
 
 ### To Do:
 - [ ] [TECH] Combine drums and treble and bass into one object somehow
-- [ ] Title / favicon
+- [ ] [BUG] The first harmonic minor mode isn't ionian 
 - [ ] Volume slider
+  - [ ] Individual volume slider per sequencer
 - [ ] Allow different note counts
   - [ ] Update note count visualization right away
 - [ ] More scales
@@ -43,6 +27,24 @@
 - [ ] This separation between the standard and drums samplers is a bit crappy
 
 ### Done:
+- [x] Save and Load
+  - [x] Store major vs minor in the URL
+  - [x] Store start note in URL
+  - [x] Store mode in URL
+  - [x] Store tempo in URL
+  - [x] Store swing in URL
+  - [x] Store the treble notes in URL
+    - Methinks lzstring is a good option https://www.npmjs.com/package/lz-string
+      - Turns out it's not - can use atob() and btoa() instead.
+      - TSPlayground has a 'share' button which triggers compression + saves into the URL
+  - [x] Store the bass notes in URL
+  - [x] Store the drums in URL
+    - [x] Bring back the drums
+  - [x] Find a better way to deal with treble and bass
+    - This should work:
+      - song = {..., sequencers: [{name: "treble", ...}, {name: "bass"}]}
+  - [x] Add a clear button - Now that refresh doesn't clear
+  - [x] Add a Share link (just needs to make sure the URL is fresh, and copy it to the clipboard)
 - [x] Modes
   - [x] Change notes to midi
   - [x] Change scale def to [2, 1, 2] (semitones) style
