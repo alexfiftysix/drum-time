@@ -17,6 +17,7 @@ export class SamplerStore {
         this.isLoaded = true
       },
       onerror: () => console.error('sampler failed to initialize'),
+      volume: -4.5,
     }).toDestination()
 
     makeAutoObservable(this)
