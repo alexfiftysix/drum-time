@@ -2,37 +2,29 @@ import { Sequence } from './sequence-store'
 import * as Tone from 'tone'
 import { makeAndFill } from '../utilities/array-helpers'
 import { makeAutoObservable } from 'mobx'
-import { RecursivePartial } from 'tone/build/esm/core/util/Interface'
-
-const noteCount = 8
+import { DEFAULT_NOTE_COUNT } from '../utilities/constants'
+import { Seconds } from 'tone/build/esm/core/type/Units'
 
 export class TransportStore {
   transport: Sequence & { currentNote: number | undefined }
-  stopped: boolean = true
 
   constructor() {
     this.transport = {
       sequence: new Tone.Sequence().start('+0.1'),
-      length: noteCount,
+      length: DEFAULT_NOTE_COUNT,
       currentNote: undefined,
       id: 'transport',
     }
-    this.transport.sequence.events = makeAndFill(noteCount, undefined)
+    this.transport.sequence.events = makeAndFill(DEFAULT_NOTE_COUNT, undefined)
+    this.transport.sequence.set({
+      callback: (time: Seconds, _: string | undefined) => {
+        Tone.Draw.schedule(() => this.increment(), time)
+      },
+    })
     makeAutoObservable(this)
   }
 
-  setTransportCallback(
-    callback:
-      | RecursivePartial<Tone.ToneEventCallback<string | undefined>>
-      | undefined
-  ) {
-    this.transport.sequence.set({ callback })
-  }
-
   increment() {
-    if (this.stopped) {
-      return
-    }
     this.transport = {
       ...this.transport,
       currentNote:
@@ -43,11 +35,11 @@ export class TransportStore {
   }
 
   stop() {
-    this.stopped = true
     this.transport.currentNote = undefined
   }
 
-  go() {
-    this.stopped = false
+  setNoteCount(newCount: number) {
+    this.transport.sequence.events = makeAndFill(newCount, undefined)
+    this.transport.length = newCount
   }
 }

@@ -11,7 +11,7 @@ type DrumSequencerRowProps = {
 }
 
 export const DrumSequencerRow = observer((props: DrumSequencerRowProps) => {
-  const { transportStore, songStore } = useStore()
+  const { songStore } = useStore()
 
   return (
     <div className={styles.blocks}>
@@ -19,7 +19,9 @@ export const DrumSequencerRow = observer((props: DrumSequencerRowProps) => {
         <DrumSequencerCell
           key={noteIndex}
           className={styles.cell}
-          playingNow={transportStore.transport.currentNote === noteIndex}
+          playingNow={
+            songStore.transportStore.transport.currentNote === noteIndex
+          }
           colour={props.colour}
           rowIndex={props.rowIndex}
           noteIndex={noteIndex}

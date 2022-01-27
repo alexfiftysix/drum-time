@@ -1,5 +1,5 @@
 export const range = (start: number, size: number) =>
-  new Array(size).fill(null).map((_, i) => start + i)
+  new Array(size).fill(undefined).map((_, i) => start + i)
 
 export const makeAndFill = <T>(size: number, value: T) =>
   range(0, size).map((_) => value)
@@ -28,4 +28,11 @@ export const single = <T, Predicate extends (x: T) => boolean>(
   if (filtered.length !== 1)
     throw new Error(`array does not have 1 matching element`)
   return filtered[0]
+}
+
+export const resize = <T>(array: T[], newSize: number, fill: T): T[] => {
+  if (newSize === array.length) return array
+  if (newSize > array.length)
+    return [...array, ...makeAndFill(newSize - array.length, fill)]
+  return array.slice(0, newSize)
 }

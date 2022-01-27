@@ -3,13 +3,13 @@ import styles from './Transport.module.scss'
 import { observer } from 'mobx-react-lite'
 
 export const Transport = observer(() => {
-  const { transportStore } = useStore()
+  const { songStore } = useStore()
 
   return (
     <div className={styles.root}>
       <p>
-        {transportStore.transport.currentNote !== undefined
-          ? transportStore.transport.currentNote + 1
+        {songStore.transportStore.transport.currentNote !== undefined
+          ? songStore.transportStore.transport.currentNote + 1
           : '-'}
       </p>
     </div>

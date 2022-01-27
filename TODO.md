@@ -1,13 +1,10 @@
 ### Doing:
-- [ ] Title / favicon
 
 ### To Do:
 - [ ] [TECH] Combine drums and treble and bass into one object somehow
 - [ ] [BUG] The first harmonic minor mode isn't ionian 
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
-- [ ] Allow different note counts
-  - [ ] Update note count visualization right away
 - [ ] More scales
 - [ ] Delete old sequencers
 - [ ] Separate the various components
@@ -27,6 +24,9 @@
 - [ ] This separation between the standard and drums samplers is a bit crappy
 
 ### Done:
+- [x] Allow different note counts
+  - [x] Update note count visualization right away
+- [x] Title / favicon
 - [x] Save and Load
   - [x] Store major vs minor in the URL
   - [x] Store start note in URL

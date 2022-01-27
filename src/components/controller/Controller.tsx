@@ -7,7 +7,6 @@ import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
 import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import { makeScale } from '../../utilities/scales'
-import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
 import { useDebounce } from '../../hooks/use-debounce'
@@ -15,16 +14,16 @@ import { Clear } from '../clear/Clear'
 import { DrumSequencer } from '../sequencer/DrumSequencer'
 import { Note } from 'tone/build/esm/core/type/NoteUnits'
 import { Share } from '../share/Share'
+import { NoteCountSetter } from '../noteCountSetter/NoteCountSetter'
 
 export const Controller = observer(() => {
   const { songData, setParam } = useQueryParams()
   const { songStore } = useStore()
-  const { transportStore } = useStore()
   const [looping, setLooping] = useState(false)
 
   useEffect(() => {
     if (songData.length !== 0) {
-      songStore.updateTheWholeSong(songData)
+      songStore.loadSong(songData)
     }
     // We only want this to run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,25 +40,16 @@ export const Controller = observer(() => {
     [setParam, songStore]
   )
 
-  useEffect(() => {
-    transportStore.setTransportCallback(
-      (time: Seconds, _: string | undefined) => {
-        Tone.Draw.schedule(() => transportStore.increment(), time)
-      }
-    )
-  }, [transportStore])
-
   const onClick = useCallback(() => {
     if (!looping) {
-      transportStore.go()
       Tone.Transport.start()
       setLooping(true)
     } else {
-      transportStore.stop()
+      songStore.transportStore.stop()
       Tone.Transport.stop()
       setLooping(false)
     }
-  }, [looping, transportStore])
+  }, [looping, songStore.transportStore])
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
@@ -93,7 +83,7 @@ export const Controller = observer(() => {
         <ScaleSelector />
         <Clear />
         {/*<Transport />*/}
-        {/*<SizeSetter size={size} setSize={setSize} />*/}
+        <NoteCountSetter />
         {sequencers.map((s, i) => (
           <Sequencer name={s.name} key={i} notes={s.notes} colour={s.colour} />
         ))}

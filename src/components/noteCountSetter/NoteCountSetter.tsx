@@ -1,21 +1,17 @@
 import styles from '../range/Range.module.scss'
 import React, { useCallback } from 'react'
+import { useStore } from '../../hooks/use-store'
+import { observer } from 'mobx-react-lite'
 
-type SizeSetterProps = {
-  size: number
-  setSize: (x: number) => void
-}
+export const NoteCountSetter = observer(() => {
+  const { songStore } = useStore()
 
-const minSize = 1
-
-export const SizeSetter = (props: SizeSetterProps) => {
   const handleSetSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = parseInt(event.target.value)
-      if (Number.isNaN(value) || value < minSize) return
-      props.setSize(value)
+      songStore.setNoteCount(value)
     },
-    [props]
+    [songStore]
   )
 
   return (
@@ -24,10 +20,11 @@ export const SizeSetter = (props: SizeSetterProps) => {
       <input
         type="number"
         min={1}
+        max={32}
         step={1}
         onInput={handleSetSize}
-        value={props.size}
+        value={songStore.song.noteCount}
       />
     </label>
   )
-}
+})

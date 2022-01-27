@@ -1,5 +1,5 @@
 import { MidiNote, Note } from 'tone/build/esm/core/type/NoteUnits'
-import { makeAndFill } from '../utilities/array-helpers'
+import { makeAndFill, resize } from '../utilities/array-helpers'
 import {
   makeScale,
   drumScale,
@@ -13,6 +13,8 @@ import { Synth } from 'tone'
 import * as Tone from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SamplerStore } from './sampler-store'
+import { DEFAULT_NOTE_COUNT } from '../utilities/constants'
+import { TransportStore } from './transport-store'
 
 export type SequencerName = 'treble' | 'bass'
 
@@ -38,11 +40,11 @@ type Song = {
 
 const trebleOctave = 3
 const bassOctave = 2
-const noteCount = 8
 
 export class SongStore {
   sequenceStore: SequenceStore = new SequenceStore()
   samplerStore: SamplerStore = new SamplerStore()
+  transportStore: TransportStore = new TransportStore()
   song: Song
 
   constructor() {
@@ -100,9 +102,10 @@ export class SongStore {
     return btoa(JSON.stringify(this.song))
   }
 
-  updateTheWholeSong(encodedSongData: string) {
+  loadSong(encodedSongData: string) {
     this.song = JSON.parse(atob(encodedSongData))
     // TODO: If the JSON's not valid, throw it out and start again... OR if you can be clever, take what you can and leave the rest
+    this.setNoteCount(this.song.noteCount)
     this.updateSequencers()
   }
 
@@ -197,6 +200,28 @@ export class SongStore {
     this.updateSequencers()
   }
 
+  setNoteCount = (newCount: number) => {
+    this.song = {
+      ...this.song,
+      noteCount: newCount,
+      sequencers: this.song.sequencers.map((sequencer) => ({
+        ...sequencer,
+        rows: sequencer.rows.map((row) => ({
+          ...row,
+          sequence: resize(row.sequence, newCount, false),
+        })),
+      })),
+      drums: this.song.drums.map((row) => ({
+        ...row,
+        sequence: resize(row.sequence, newCount, false),
+      })),
+    }
+
+    this.transportStore.setNoteCount(newCount)
+    this.sequenceStore.setEvents('transport', makeAndFill(newCount, undefined))
+    this.updateSequencers()
+  }
+
   clear = () => {
     this.song = { ...emptySong }
     this.updateSequencers()
@@ -210,22 +235,22 @@ const getEmptyRow = (noteCount: number, octave: Octave) =>
   }))
 
 const emptySong: Song = {
-  noteCount: noteCount,
+  noteCount: DEFAULT_NOTE_COUNT,
   sequencers: [
     {
       name: 'treble',
-      rows: getEmptyRow(noteCount, trebleOctave),
+      rows: getEmptyRow(DEFAULT_NOTE_COUNT, trebleOctave),
       octave: trebleOctave,
     },
     {
       name: 'bass',
-      rows: getEmptyRow(noteCount, bassOctave),
+      rows: getEmptyRow(DEFAULT_NOTE_COUNT, bassOctave),
       octave: bassOctave,
     },
   ],
   drums: drumScale.map((note) => ({
     note,
-    sequence: makeAndFill(noteCount, false),
+    sequence: makeAndFill(DEFAULT_NOTE_COUNT, false),
   })),
   scaleBase: 'major',
   startNote: 'c',

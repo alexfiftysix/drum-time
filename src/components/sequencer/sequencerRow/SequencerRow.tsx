@@ -17,7 +17,7 @@ type SequencerRowProps = {
 }
 
 export const SequencerRow = observer((props: SequencerRowProps) => {
-  const { transportStore, songStore } = useStore()
+  const { songStore } = useStore()
 
   const myRow = toJS(
     single(songStore.song.sequencers, (s) => s.name === props.sequencerName)
@@ -30,7 +30,9 @@ export const SequencerRow = observer((props: SequencerRowProps) => {
         <SequencerCell
           key={noteIndex}
           className={styles.cell}
-          playingNow={transportStore.transport.currentNote === noteIndex}
+          playingNow={
+            songStore.transportStore.transport.currentNote === noteIndex
+          }
           colour={props.colour}
           rowIndex={props.rowIndex}
           noteIndex={noteIndex}
