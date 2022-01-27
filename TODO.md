@@ -1,6 +1,8 @@
 ### Doing:
+- [ ] Play note on click when paused
 
 ### To Do:
+- [ ] [TECH/BUG] Performance! How do we make this thing run better?
 - [ ] [TECH] Combine drums and treble and bass into one object somehow
 - [ ] [BUG] The first harmonic minor mode isn't ionian 
 - [ ] Volume slider

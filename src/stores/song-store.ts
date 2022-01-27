@@ -45,6 +45,7 @@ export class SongStore {
   sequenceStore: SequenceStore = new SequenceStore()
   samplerStore: SamplerStore = new SamplerStore()
   transportStore: TransportStore = new TransportStore()
+  playing: boolean = false
   song: Song
 
   constructor() {
@@ -220,6 +221,17 @@ export class SongStore {
     this.transportStore.setNoteCount(newCount)
     this.sequenceStore.setEvents('transport', makeAndFill(newCount, undefined))
     this.updateSequencers()
+  }
+
+  start = () => {
+    Tone.Transport.start()
+    this.playing = true
+  }
+
+  stop = () => {
+    this.playing = false
+    Tone.Transport.stop()
+    this.transportStore.stop()
   }
 
   clear = () => {

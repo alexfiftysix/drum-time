@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../../hooks/use-store'
-import React, { useCallback, useEffect, useState } from 'react'
-import * as Tone from 'tone'
+import React, { useEffect } from 'react'
 import styles from './Controller.module.scss'
 import { TempoSetter } from '../sequencer/tempoSetter/TempoSetter'
 import { Sequencer, SequencerProps } from '../sequencer/Sequencer'
@@ -15,11 +14,11 @@ import { DrumSequencer } from '../sequencer/DrumSequencer'
 import { Note } from 'tone/build/esm/core/type/NoteUnits'
 import { Share } from '../share/Share'
 import { NoteCountSetter } from '../noteCountSetter/NoteCountSetter'
+import { GoStop } from '../goStop/GoStop'
 
 export const Controller = observer(() => {
   const { songData, setParam } = useQueryParams()
   const { songStore } = useStore()
-  const [looping, setLooping] = useState(false)
 
   useEffect(() => {
     if (songData.length !== 0) {
@@ -39,17 +38,6 @@ export const Controller = observer(() => {
     },
     [setParam, songStore]
   )
-
-  const onClick = useCallback(() => {
-    if (!looping) {
-      Tone.Transport.start()
-      setLooping(true)
-    } else {
-      songStore.transportStore.stop()
-      Tone.Transport.stop()
-      setLooping(false)
-    }
-  }, [looping, songStore.transportStore])
 
   const sequencers: Omit<SequencerProps, 'size'>[] = [
     {
@@ -79,9 +67,9 @@ export const Controller = observer(() => {
   return (
     <div className={styles.root}>
       <>
-        <button onClick={onClick}>{looping ? 'Stop' : 'Go'}</button>
-        <ScaleSelector />
+        <GoStop />
         <Clear />
+        <ScaleSelector />
         {/*<Transport />*/}
         <NoteCountSetter />
         {sequencers.map((s, i) => (
