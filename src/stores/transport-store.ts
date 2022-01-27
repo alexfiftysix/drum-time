@@ -7,6 +7,7 @@ import { Seconds } from 'tone/build/esm/core/type/Units'
 
 export class TransportStore {
   transport: Sequence & { currentNote: number | undefined }
+  playing: boolean = false
 
   constructor() {
     this.transport = {
@@ -25,6 +26,8 @@ export class TransportStore {
   }
 
   increment() {
+    // this.playing is used because sometimes tone.js stops a little late, and we get an unwanted increment
+    if (!this.playing) return
     this.transport = {
       ...this.transport,
       currentNote:
@@ -34,8 +37,14 @@ export class TransportStore {
     }
   }
 
+  start() {
+    this.playing = true
+  }
+
   stop() {
+    this.playing = false
     this.transport.currentNote = undefined
+    console.log('stop transport!')
   }
 
   setNoteCount(newCount: number) {

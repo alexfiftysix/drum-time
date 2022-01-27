@@ -226,11 +226,12 @@ export class SongStore {
   start = () => {
     Tone.Transport.start()
     this.playing = true
+    this.transportStore.start()
   }
 
   stop = () => {
-    this.playing = false
     Tone.Transport.stop()
+    this.playing = false
     this.transportStore.stop()
   }
 
