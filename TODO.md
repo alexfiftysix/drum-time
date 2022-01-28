@@ -19,11 +19,14 @@
 - [ ] Repair corrupted SongData in URL
   - i.e, rather than ditching the whole thing on corrupt, take what you can and put the rest in the default state
 - [ ] Delete old sequencers
-- [ ] [BUG] Buffer not set or not loaded on change
 - [ ] [BUG] Why am I seeing 38 rows rendered in logging and only 19 are visible?
 - [ ] Make a transport bar
 
 ### Done:
+- [x] [BUG] When switching note count by a lot, note on/offs get a bit screwed
+  - Because when you type 16, it's switching to 1, then to 16 (so losing everything after 1)
+  - Debounce the set slightly to make up for that
+- [x] [BUG] Buffer not set or not loaded on change
 - [x] Animate favicon while playing
 - [x] [BUG] The first harmonic minor mode isn't ionian
 - [x] Allow different note counts
