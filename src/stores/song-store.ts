@@ -1,5 +1,5 @@
 import { MidiNote, Note } from 'tone/build/esm/core/type/NoteUnits'
-import { makeAndFill, resize } from '../utilities/array-helpers'
+import { makeAndFill, resize, single } from '../utilities/array-helpers'
 import {
   makeScale,
   drumScale,
@@ -176,7 +176,15 @@ export class SongStore {
       ),
     }
 
-    this.updateSequencers()
+    const updatedRow = single(
+      this.song.sequencers,
+      (s) => s.name === sequencerName
+    ).rows[rowIndex]
+
+    this.sequenceStore.setEvents(
+      `${sequencerName}-${rowIndex}`,
+      updatedRow.sequence.map((note) => (note ? updatedRow.note : undefined))
+    )
   }
 
   drumFlip(rowIndex: number, noteIndex: number) {

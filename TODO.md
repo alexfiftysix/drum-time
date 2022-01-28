@@ -1,31 +1,31 @@
 ### Doing:
-- [ ] Play note on click when paused
-
-### To Do:
-- [ ] [TECH/BUG] Performance! How do we make this thing run better?
-- [ ] [TECH] Combine drums and treble and bass into one object somehow
-- [ ] [BUG] The first harmonic minor mode isn't ionian 
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
+
+### To Do:
+- [ ] Reset on corrupted SongData in URL
+- [ ] [TECH/BUG] Performance! How do we make this thing run better?
+- [ ] Play note on click when paused
+
+- [ ] [TECH] Combine drums and treble and bass into one object somehow
 - [ ] More scales
-- [ ] Delete old sequencers
-- [ ] Separate the various components
-- [ ] [BUG] Buffer not set or not loaded on change
-- [ ] [BUG] Why am I seeing 38 rows rendered in logging and only 19 are visible?
-- [ ] Make a transport bar
+- [ ] [BUG] Looks like yer drums are backwards
 - [ ] Some keyboard control
   - [ ] Space to go/stop
   - [ ] Arrow keys to go up/down/left/right on sequencerCells
 - [ ] Allow scales with different note counts
 - [ ] sharp and flat scales
-- [ ] Title + Favicon
 - [ ] Update the readme
-- [ ] Reset on corrupted SongData in URL
 - [ ] Repair corrupted SongData in URL
-- [ ] [BUG] Looks like yer drums are backwards
-- [ ] This separation between the standard and drums samplers is a bit crappy
+  - i.e, rather than ditching the whole thing on corrupt, take what you can and put the rest in the default state
+- [ ] Delete old sequencers
+- [ ] [BUG] Buffer not set or not loaded on change
+- [ ] [BUG] Why am I seeing 38 rows rendered in logging and only 19 are visible?
+- [ ] Make a transport bar
 
 ### Done:
+- [x] Animate favicon while playing
+- [x] [BUG] The first harmonic minor mode isn't ionian
 - [x] Allow different note counts
   - [x] Update note count visualization right away
 - [x] Title / favicon

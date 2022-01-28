@@ -44,7 +44,6 @@ export class TransportStore {
   stop() {
     this.playing = false
     this.transport.currentNote = undefined
-    console.log('stop transport!')
   }
 
   setNoteCount(newCount: number) {
