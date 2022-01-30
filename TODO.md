@@ -3,6 +3,8 @@
   - [ ] Individual volume slider per sequencer
 
 ### To Do:
+- [ ] [BUG] Big problems! Why are the notes no longer playing consistently?
+- [ ] [BUG] Is it broken on Chromium?
 - [ ] Reset on corrupted SongData in URL
 - [ ] [TECH/BUG] Performance! How do we make this thing run better?
 - [ ] Play note on click when paused
