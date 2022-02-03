@@ -3,6 +3,7 @@
   - [ ] Individual volume slider per sequencer
 
 ### To Do:
+- [ ] [BUG] Pretty sure your useDebounce is a mess. https://dev.to/rajeshroyal/how-to-make-a-custom-debounce-hook-in-react-js-4gcc
 - [ ] [BUG] Big problems! Why are the notes no longer playing consistently?
 - [ ] [BUG] Is it broken on Chromium?
 - [ ] Reset on corrupted SongData in URL

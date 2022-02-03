@@ -8,13 +8,13 @@ import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import { makeScale } from '../../utilities/scales'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { useQueryParams } from '../../hooks/use-query-params'
-import { useDebounce } from '../../hooks/use-debounce'
 import { Clear } from '../clear/Clear'
 import { DrumSequencer } from '../sequencer/DrumSequencer'
 import { Note } from 'tone/build/esm/core/type/NoteUnits'
 import { Share } from '../share/Share'
 import { NoteCountSetter } from '../noteCountSetter/NoteCountSetter'
 import { GoStop } from '../goStop/GoStop'
+import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 
 export const Controller = observer(() => {
   const { songData, setParam } = useQueryParams()
@@ -28,14 +28,14 @@ export const Controller = observer(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useDebounce(
-    1000,
+  useDebouncedEffect(
     () => {
       const newSongData = songStore.getSongData()
       if (songData !== newSongData) {
         setParam(['songData', newSongData])
       }
     },
+    1000,
     [setParam, songStore]
   )
 

@@ -2,7 +2,7 @@ import styles from '../range/Range.module.scss'
 import React, { useCallback, useState } from 'react'
 import { useStore } from '../../hooks/use-store'
 import { observer } from 'mobx-react-lite'
-import { useDebounce } from '../../hooks/use-debounce'
+import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 
 const minSize = 1
 const maxSize = 64
@@ -19,11 +19,11 @@ export const NoteCountSetter = observer(() => {
     []
   )
 
-  useDebounce(
-    200,
+  useDebouncedEffect(
     () => {
       songStore.setNoteCount(newSize)
     },
+    200,
     [newSize, songStore]
   )
 
