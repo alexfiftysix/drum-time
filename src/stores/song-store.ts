@@ -8,9 +8,8 @@ import {
   ScaleBase,
 } from '../utilities/scales'
 import { SequenceStore } from './sequence-store'
-import { makeAutoObservable } from 'mobx'
-import { Synth } from 'tone'
-import * as Tone from 'tone'
+import { makeAutoObservable, runInAction } from 'mobx'
+import { Synth, start, PolySynth, Sampler, Transport } from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SamplerStore } from './sampler-store'
 import { DEFAULT_NOTE_COUNT } from '../utilities/constants'
@@ -51,13 +50,13 @@ export class SongStore {
   constructor() {
     this.song = { ...emptySong }
 
-    const simpleSynth = new Tone.PolySynth(Tone.Synth).toDestination()
+    const simpleSynth = new PolySynth(Synth).toDestination()
     this.initialiseSynths(simpleSynth)
     this.updateSequencers()
     makeAutoObservable(this)
   }
 
-  private initialiseSynths(synth: Synth | Tone.PolySynth | Tone.Sampler) {
+  private initialiseSynths(synth: Synth | PolySynth | Sampler) {
     // This is to make the sequencers play sounds when a note is triggered
     this.song.sequencers.forEach((sequencer) => {
       sequencer.rows.forEach((row, index) =>
@@ -231,14 +230,17 @@ export class SongStore {
     this.updateSequencers()
   }
 
-  start = () => {
-    Tone.Transport.start()
-    this.playing = true
-    this.transportStore.start()
+  start = async () => {
+    await start()
+    runInAction(() => {
+      Transport.start()
+      this.playing = true
+      this.transportStore.start()
+    })
   }
 
   stop = () => {
-    Tone.Transport.stop()
+    Transport.stop()
     this.playing = false
     this.transportStore.stop()
   }

@@ -1,15 +1,11 @@
 ### Doing:
-- [ ] Volume slider
-  - [ ] Individual volume slider per sequencer
 
 ### To Do:
-- [ ] [BUG] Pretty sure your useDebounce is a mess. https://dev.to/rajeshroyal/how-to-make-a-custom-debounce-hook-in-react-js-4gcc
-- [ ] [BUG] Big problems! Why are the notes no longer playing consistently?
-- [ ] [BUG] Is it broken on Chromium?
+- [ ] Volume slider
+  - [ ] Individual volume slider per sequencer
 - [ ] Reset on corrupted SongData in URL
 - [ ] [TECH/BUG] Performance! How do we make this thing run better?
 - [ ] Play note on click when paused
-
 - [ ] [TECH] Combine drums and treble and bass into one object somehow
 - [ ] More scales
 - [ ] [BUG] Looks like yer drums are backwards
@@ -26,6 +22,15 @@
 - [ ] Make a transport bar
 
 ### Done:
+- [x] [BUG] Is it broken on Chromium?
+  - Chrome is waiting for user input to allow the audio context
+    - Hit start does that, but doesn't allow play.
+    - Now hitting start 'stops', but it should start.
+  - Add another button earlier on just for a 'let me in' step
+  - OR actually look to see if your playing on the StopGo button
+  - Solution was to start the audio context (separate from starting the song)
+- [x] [BUG] Pretty sure your useDebounce is a mess. https://dev.to/rajeshroyal/how-to-make-a-custom-debounce-hook-in-react-js-4gcc
+  - [x] [BUG] Big problems! Why are the notes no longer playing consistently?
 - [x] [BUG] When switching note count by a lot, note on/offs get a bit screwed
   - Because when you type 16, it's switching to 1, then to 16 (so losing everything after 1)
   - Debounce the set slightly to make up for that
