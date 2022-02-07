@@ -1,6 +1,8 @@
 ### Doing:
 
 ### To Do:
+- [ ] [BUG] Doesn't store tempo/note count in URL
+- [ ] [BUG] After clear, note count resets to 8 but note-count text box still shows previous count
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
 - [ ] Reset on corrupted SongData in URL
@@ -22,6 +24,7 @@
 - [ ] Make a transport bar
 
 ### Done:
+- [x] [BUG] Web site created using create-react-app
 - [x] [BUG] Is it broken on Chromium?
   - Chrome is waiting for user input to allow the audio context
     - Hit start does that, but doesn't allow play.
