@@ -1,0 +1,18 @@
+@use '../../styles/gaps';
+@use '../../styles/screenSize';
+
+.root {
+  padding: 1rem 1rem 1rem gaps.$large;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  gap: gaps.$medium;
+
+  @include screenSize.desktop {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}

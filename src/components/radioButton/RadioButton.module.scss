@@ -3,6 +3,7 @@
 
 .radioButton {
   @include mixins.button;
+  text-align: center;
 
   &.checked {
     background: #b8ffff;

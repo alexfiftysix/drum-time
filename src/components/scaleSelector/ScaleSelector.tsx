@@ -8,6 +8,7 @@ import {
   startNotesOnly,
 } from '../../utilities/scales'
 import { useStore } from '../../hooks/use-store'
+import { displayScaleBase } from '../../utilities/scaleBaseDisplay'
 
 export const ScaleSelector = () => {
   const { songStore } = useStore()
@@ -47,7 +48,9 @@ export const ScaleSelector = () => {
               setScaleBase(thisScaleBase)
             }}
             checked={songStore.song.scaleBase === thisScaleBase}
-          />
+          >
+            {displayScaleBase(thisScaleBase)}
+          </RadioButton>
         ))}
       </div>
       <div className={styles.radioGroup}>
