@@ -1,3 +1,4 @@
+@use '../../styles/screenSize';
 @use '../../styles/mixins';
 @use '../../styles/gaps';
 
@@ -9,4 +10,10 @@
   display: grid;
   grid-auto-flow: row;
   grid-gap: gaps.$medium;
+
+  width: 100%;
+
+  @include screenSize.desktop {
+    width: auto;
+  }
 }
