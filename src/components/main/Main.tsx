@@ -19,7 +19,6 @@ export const Main = observer(() => {
 
   useDebouncedEffect(
     () => {
-      console.log('effect!')
       const newSongData = songStore.getSongData()
       if (songData !== newSongData) {
         setParam(['songData', newSongData])

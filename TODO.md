@@ -1,6 +1,7 @@
 ### Doing:
 
 ### To Do:
+- [ ] Ultra wide screen support
 - [ ] Check out the Deluge synth (a hardware synth with similar interface)
 - [ ] Allow different length sequences
 - [ ] Label each row with a scale degree/drum
