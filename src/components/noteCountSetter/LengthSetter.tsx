@@ -1,5 +1,5 @@
 import styles from '../range/Range.module.scss'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useStore } from '../../hooks/use-store'
 import { observer } from 'mobx-react-lite'
 import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
@@ -7,36 +7,42 @@ import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 const minSize = 1
 const maxSize = 64
 
-export const NoteCountSetter = observer(() => {
+export const LengthSetter = observer(() => {
   const { songStore } = useStore()
-  const [newSize, setNewSize] = useState(songStore.song.noteCount)
+  const [newLength, setNewLength] = useState(songStore.song.noteCount)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    setNewLength(songStore.song.noteCount)
+    setLoaded(true)
+  }, [songStore.song.noteCount])
 
   const handleSetSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = parseInt(event.target.value)
-      setNewSize(clamp(value, minSize, maxSize))
+      setNewLength(clamp(value, minSize, maxSize))
     },
     []
   )
 
   useDebouncedEffect(
     () => {
-      songStore.setNoteCount(newSize)
+      if (loaded) songStore.setNoteCount(newLength)
     },
     200,
-    [newSize, songStore]
+    [newLength, songStore, loaded]
   )
 
   return (
     <label className={styles.root}>
-      <span className={styles.label}>Size</span>
+      <span className={styles.label}>Length</span>
       <input
         type="number"
         min={minSize}
         max={maxSize}
         step={1}
         onInput={handleSetSize}
-        value={newSize}
+        value={newLength}
       />
     </label>
   )

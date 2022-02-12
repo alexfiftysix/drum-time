@@ -45,6 +45,7 @@ export class SongStore {
   samplerStore: SamplerStore = new SamplerStore()
   transportStore: TransportStore = new TransportStore()
   playing: boolean = false
+  loaded: boolean = false
   song: Song
 
   constructor() {
@@ -103,10 +104,15 @@ export class SongStore {
   }
 
   loadSong(encodedSongData: string) {
+    if (encodedSongData.length === 0) {
+      this.loaded = true
+      return
+    }
     this.song = JSON.parse(atob(encodedSongData))
     // TODO: If the JSON's not valid, throw it out and start again... OR if you can be clever, take what you can and leave the rest
     this.setNoteCount(this.song.noteCount)
     this.updateSequencers()
+    this.loaded = true
   }
 
   setScaleBase(scaleBase: ScaleBase) {

@@ -1,7 +1,20 @@
 ### Doing:
+- [ ] [BUG] Doesn't store tempo count in URL
 
 ### To Do:
-- [ ] [BUG] Doesn't store tempo/note count in URL
+- [ ] Check out the Deluge synth (a hardware synth with similar interface)
+
+- [ ] Allow different length sequences
+- [ ] Label each row with a scale degree/drum
+- [ ] Scale/Transport controls can live to the side, so they are always accessible
+  - Collapse on smaller screens to above/below
+- [ ] Swing usually goes from -50 to 50
+- [ ] Random feature per sequencer - adds some random notes in
+- [ ] Left/centre align things which can move around, so that the controls don't move when you change length 
+- ------ Prioritized below here ------
+- [ ] Name it!
+  - Dotify? Like Spotify but it's dots??
+- [ ] [BUG] It goes out of sync if you tab in/out while it's playing
 - [ ] [BUG] After clear, note count resets to 8 but note-count text box still shows previous count
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
@@ -22,8 +35,11 @@
 - [ ] Delete old sequencers
 - [ ] [BUG] Why am I seeing 38 rows rendered in logging and only 19 are visible?
 - [ ] Make a transport bar
+- [ ] Multiple sequences, which can be switched between on the fly
 
 ### Done:
+- [x] [BUG] 'size' should be called 'length'
+- [x] [BUG] Doesn't store length in URL
 - [x] [BUG] Web site created using create-react-app
 - [x] [BUG] Is it broken on Chromium?
   - Chrome is waiting for user input to allow the audio context

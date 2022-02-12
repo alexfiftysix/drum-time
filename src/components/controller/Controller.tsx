@@ -12,7 +12,7 @@ import { Clear } from '../clear/Clear'
 import { DrumSequencer } from '../sequencer/DrumSequencer'
 import { Note } from 'tone/build/esm/core/type/NoteUnits'
 import { Share } from '../share/Share'
-import { NoteCountSetter } from '../noteCountSetter/NoteCountSetter'
+import { LengthSetter } from '../noteCountSetter/LengthSetter'
 import { GoStop } from '../goStop/GoStop'
 import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 
@@ -21,9 +21,7 @@ export const Controller = observer(() => {
   const { songStore } = useStore()
 
   useEffect(() => {
-    if (songData.length !== 0) {
-      songStore.loadSong(songData)
-    }
+    songStore.loadSong(songData)
     // We only want this to run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -71,7 +69,7 @@ export const Controller = observer(() => {
         <Clear />
         <ScaleSelector />
         {/*<Transport />*/}
-        <NoteCountSetter />
+        <LengthSetter />
         {sequencers.map((s, i) => (
           <Sequencer name={s.name} key={i} notes={s.notes} colour={s.colour} />
         ))}
