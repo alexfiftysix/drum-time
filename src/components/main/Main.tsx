@@ -5,9 +5,10 @@ import { useQueryParams } from '../../hooks/use-query-params'
 import { useStore } from '../../hooks/use-store'
 import { useEffect } from 'react'
 import styles from './Main.module.scss'
+import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 
 export const Main = observer(() => {
-  const { songData } = useQueryParams()
+  const { songData, setParam } = useQueryParams()
   const { songStore } = useStore()
 
   useEffect(() => {
@@ -15,6 +16,18 @@ export const Main = observer(() => {
     // We only want this to run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useDebouncedEffect(
+    () => {
+      console.log('effect!')
+      const newSongData = songStore.getSongData()
+      if (songData !== newSongData) {
+        setParam(['songData', newSongData])
+      }
+    },
+    1000,
+    [setParam, songStore, songStore.song]
+  )
 
   return (
     <div className={styles.root}>

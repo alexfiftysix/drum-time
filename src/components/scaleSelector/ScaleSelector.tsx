@@ -9,8 +9,9 @@ import {
 } from '../../utilities/scales'
 import { useStore } from '../../hooks/use-store'
 import { displayScaleBase } from '../../utilities/scaleBaseDisplay'
+import { observer } from 'mobx-react-lite'
 
-export const ScaleSelector = () => {
+export const ScaleSelector = observer(() => {
   const { songStore } = useStore()
 
   const setScaleBase = useCallback(
@@ -43,10 +44,7 @@ export const ScaleSelector = () => {
             key={thisScaleBase}
             groupName="scaleBase"
             value={thisScaleBase}
-            onChange={(e) => {
-              if (!e.target.checked) return
-              setScaleBase(thisScaleBase)
-            }}
+            onChange={() => setScaleBase(thisScaleBase)}
             checked={songStore.song.scaleBase === thisScaleBase}
           >
             {displayScaleBase(thisScaleBase)}
@@ -59,9 +57,7 @@ export const ScaleSelector = () => {
             key={thisStartNote}
             groupName="startNote"
             value={thisStartNote}
-            onChange={() => {
-              setStartNote(thisStartNote)
-            }}
+            onChange={() => setStartNote(thisStartNote)}
             checked={songStore.song.startNote === thisStartNote}
           />
         ))}
@@ -71,9 +67,7 @@ export const ScaleSelector = () => {
           <RadioButton
             key={i}
             value={i.toString()}
-            onChange={() => {
-              setMode(i)
-            }}
+            onChange={() => setMode(i)}
             checked={songStore.song.mode === i}
             groupName="mode"
           >
@@ -83,4 +77,4 @@ export const ScaleSelector = () => {
       </div>
     </form>
   )
-}
+})
