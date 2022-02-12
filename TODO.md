@@ -1,9 +1,7 @@
 ### Doing:
-- [ ] [BUG] Doesn't store tempo count in URL
 
 ### To Do:
 - [ ] Check out the Deluge synth (a hardware synth with similar interface)
-
 - [ ] Allow different length sequences
 - [ ] Label each row with a scale degree/drum
 - [ ] Scale/Transport controls can live to the side, so they are always accessible
@@ -15,7 +13,6 @@
 - [ ] Name it!
   - Dotify? Like Spotify but it's dots??
 - [ ] [BUG] It goes out of sync if you tab in/out while it's playing
-- [ ] [BUG] After clear, note count resets to 8 but note-count text box still shows previous count
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
 - [ ] Reset on corrupted SongData in URL
@@ -38,6 +35,8 @@
 - [ ] Multiple sequences, which can be switched between on the fly
 
 ### Done:
+- [x] [BUG] After clear, note count resets to 8 but note-count text box still shows previous count
+- [x] [BUG] Doesn't store tempo count in URL
 - [x] [BUG] 'size' should be called 'length'
 - [x] [BUG] Doesn't store length in URL
 - [x] [BUG] Web site created using create-react-app
