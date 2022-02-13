@@ -3,3 +3,9 @@
     @content;
   }
 }
+
+@mixin tallScreen {
+  @media (min-height: 1200px) {
+    @content;
+  }
+}
