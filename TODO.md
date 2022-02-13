@@ -1,13 +1,10 @@
 ### Doing:
 
 ### To Do:
-- [ ] Ultra wide screen support
 - [ ] Check out the Deluge synth (a hardware synth with similar interface)
 - [ ] Allow different length sequences
 - [ ] Label each row with a scale degree/drum
-- [ ] Scale/Transport controls can live to the side, so they are always accessible
-  - Collapse on smaller screens to above/below
-- [ ] Swing usually goes from -50 to 50
+- [ ] Swing traditionally goes from -50 to 50
 - [ ] Random feature per sequencer - adds some random notes in
 - [ ] Left/centre align things which can move around, so that the controls don't move when you change length 
 - ------ Prioritized below here ------
@@ -17,7 +14,8 @@
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
 - [ ] Reset on corrupted SongData in URL
-- [ ] [TECH/BUG] Performance! How do we make this thing run better?
+- [ ] [TECH] Share links are very long and ugly, and there is definitely a way to make them less horrible 
+- [ ] [TECH/BUG/ONGOING] Performance! How do we make this thing run better?
 - [ ] Play note on click when paused
 - [ ] [TECH] Combine drums and treble and bass into one object somehow
 - [ ] More scales
@@ -27,7 +25,6 @@
   - [ ] Arrow keys to go up/down/left/right on sequencerCells
 - [ ] Allow scales with different note counts
 - [ ] sharp and flat scales
-- [ ] Update the readme
 - [ ] Repair corrupted SongData in URL
   - i.e, rather than ditching the whole thing on corrupt, take what you can and put the rest in the default state
 - [ ] Delete old sequencers
@@ -36,6 +33,10 @@
 - [ ] Multiple sequences, which can be switched between on the fly
 
 ### Done:
+- [x] Update the readme
+- [x] Scale/Transport controls can live to the side, so they are always accessible
+  - Collapse on smaller screens to above/below
+- [x] Ultra wide screen support
 - [x] [BUG] After clear, note count resets to 8 but note-count text box still shows previous count
 - [x] [BUG] Doesn't store tempo count in URL
 - [x] [BUG] 'size' should be called 'length'
