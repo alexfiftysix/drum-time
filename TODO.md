@@ -1,6 +1,10 @@
 ### Doing:
 
 ### To Do:
+- [ ] MIDI export
+  - It would be great to be able to export this midi, import it to a DAW and get more sounds
+- [ ] Dark mode
+  - Generally somewhat prettier colours
 - [ ] Check out the Deluge synth (a hardware synth with similar interface)
 - [ ] Allow different length sequences
 - [ ] Label each row with a scale degree/drum
