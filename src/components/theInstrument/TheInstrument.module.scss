@@ -11,10 +11,4 @@
   display: grid;
   grid-auto-flow: row;
   grid-gap: gaps.$medium;
-
-  min-width: 100%;
-
-  @include screenSize.desktop {
-    min-width: auto;
-  }
 }
