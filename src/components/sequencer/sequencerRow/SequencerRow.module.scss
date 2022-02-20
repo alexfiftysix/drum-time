@@ -2,12 +2,4 @@
 
 .blocks {
   display: flex;
-
-  &:first-child {
-    border-top: 1px solid colours.$onPrimary;
-  }
-
-  &:last-child {
-    border-bottom: 1px solid colours.$onPrimary;
-  }
 }

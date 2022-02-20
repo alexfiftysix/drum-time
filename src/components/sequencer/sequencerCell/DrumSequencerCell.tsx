@@ -18,19 +18,6 @@ export const DrumSequencerCell = observer((props: SequenceCellProps) => {
     songStore.drumFlip(props.rowIndex, props.noteIndex)
   }
 
-  let colourStyle
-  switch (props.colour) {
-    case 'purple':
-      colourStyle = styles.purple
-      break
-    case 'green':
-      colourStyle = styles.green
-      break
-    case 'blue':
-      colourStyle = styles.blue
-      break
-  }
-
   return (
     <button
       className={cn(
@@ -39,8 +26,9 @@ export const DrumSequencerCell = observer((props: SequenceCellProps) => {
           [styles.active]:
             songStore.song.drums[props.rowIndex].sequence[props.noteIndex],
           [styles.playingNow]: props.playingNow,
+          [styles.first]: props.rowIndex === 0,
+          [styles.last]: props.rowIndex === 2,
         },
-        colourStyle,
         props.className
       )}
       onClick={() => {

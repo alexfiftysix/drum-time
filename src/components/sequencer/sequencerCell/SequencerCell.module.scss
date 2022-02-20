@@ -10,6 +10,14 @@ $darkenAmount: 15%;
 
   box-shadow: none;
 
+  &.first {
+    border-top-width: 2px;
+  }
+
+  &.last {
+    border-bottom-width: 2px;
+  }
+
   &:first-child {
     border-left-width: 2px;
   }
