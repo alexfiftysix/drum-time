@@ -1,12 +1,14 @@
 @use 'src/styles/mixins';
 @use 'src/styles/shadows';
+@use 'src/styles/colours';
 
 .radioButton {
   @include mixins.button;
   text-align: center;
 
   &.checked {
-    background: #b8ffff;
+    background: colours.$secondary;
+    color: colours.$onSecondary;
   }
 
   input {

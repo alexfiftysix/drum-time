@@ -1,4 +1,5 @@
 @use 'src/styles/screenSize';
+@use 'src/styles/colours';
 @use 'src/styles/mixins';
 
 .root {
@@ -7,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  color: colours.$onPrimary;
 
   @include screenSize.tallScreen {
     align-items: center;
@@ -15,4 +17,39 @@
 
 button {
   @include mixins.button;
+}
+
+body {
+  background: colours.$background;
+}
+
+input {
+  background: colours.$onSecondary;
+  color: colours.$secondary;
+  border: solid 1px colours.$secondary;
+  text-align: center;
+}
+
+input[type='range'] {
+  background: none;
+  border: none;
+}
+
+input[type='range']::-moz-range-track {
+  background: colours.$secondary;
+}
+
+input[type='range']::-moz-range-thumb {
+  background: colours.$secondary;
+  border: none;
+}
+
+input[type='number'] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }

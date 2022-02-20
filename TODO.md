@@ -12,6 +12,9 @@
 - [ ] Random feature per sequencer - adds some random notes in
 - [ ] Left/centre align things which can move around, so that the controls don't move when you change length 
 - ------ Prioritized below here ------
+- [ ] [BUG] Sharing
+  - Can't share tempo
+  - Can't share swing
 - [ ] Name it!
   - Dotify? Like Spotify but it's dots??
 - [ ] [BUG] It goes out of sync if you tab in/out while it's playing

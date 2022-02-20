@@ -1,8 +1,0 @@
-@use 'src/styles/mixins';
-@use 'src/styles/shadows';
-
-.root {
-  @include mixins.paper;
-  padding: 1rem;
-  box-shadow: shadows.$low;
-}

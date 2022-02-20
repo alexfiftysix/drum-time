@@ -24,13 +24,13 @@ export const SequencerCell = observer((props: SequenceCellProps) => {
   let colourStyle
   switch (props.colour) {
     case 'purple':
-      colourStyle = styles.purple
+      colourStyle = styles.treble
       break
     case 'green':
-      colourStyle = styles.green
+      colourStyle = styles.bass
       break
     case 'blue':
-      colourStyle = styles.blue
+      colourStyle = styles.drums
       break
   }
 

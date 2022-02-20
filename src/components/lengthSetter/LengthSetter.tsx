@@ -1,8 +1,9 @@
 import styles from '../range/Range.module.scss'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStore } from '../../hooks/use-store'
 import { observer } from 'mobx-react-lite'
 import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
+import { NumberInput } from '../numberInput/NumberInput'
 
 const minSize = 1
 const maxSize = 64
@@ -17,13 +18,8 @@ export const LengthSetter = observer(() => {
     setLoaded(true)
   }, [songStore.song.noteCount])
 
-  const handleSetSize = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = parseInt(event.target.value)
-      setNewLength(clamp(value, minSize, maxSize))
-    },
-    []
-  )
+  const handleSetSize = (value: number) =>
+    setNewLength(clamp(value, minSize, maxSize))
 
   useDebouncedEffect(
     () => {
@@ -34,17 +30,18 @@ export const LengthSetter = observer(() => {
   )
 
   return (
-    <label className={styles.root}>
-      <span className={styles.label}>Length</span>
-      <input
-        type="number"
-        min={minSize}
-        max={maxSize}
-        step={1}
-        onInput={handleSetSize}
+    <div className={styles.root}>
+      <label htmlFor={'length'} className={styles.label}>
+        Length
+      </label>
+      <NumberInput
         value={newLength}
+        minSize={minSize}
+        maxSize={maxSize}
+        handleSetSize={handleSetSize}
+        inputId={'length'}
       />
-    </label>
+    </div>
   )
 })
 

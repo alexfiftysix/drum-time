@@ -1,9 +1,10 @@
 @use 'src/styles/shadows';
+@use 'src/styles/colours';
 
-@mixin paper {
+@mixin paper() {
   padding: 0.5rem;
-  border: 1px solid black;
-  background: white;
+  border: 1px solid colours.$onPrimary;
+  background: colours.$primary;
   box-shadow: shadows.$medium;
 }
 
@@ -19,12 +20,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: colours.$onPrimary;
 
   &:hover {
-    background: #eee;
+    background: lighten(colours.$secondary, 10);
+    color: colours.$onSecondary;
   }
 
   &:active {
-    background: #ddd;
+    background: lighten(colours.$secondary, 5);
+    color: colours.$onSecondary;
   }
 }

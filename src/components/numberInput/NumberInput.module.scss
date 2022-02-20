@@ -1,0 +1,18 @@
+@use '../../styles/colours';
+
+.root {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid colours.$onPrimary;
+}
+
+.increment {
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
+.input {
+  border: none;
+  text-align: center;
+}

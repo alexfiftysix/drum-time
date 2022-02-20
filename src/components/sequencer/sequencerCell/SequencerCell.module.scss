@@ -1,45 +1,41 @@
-@use '../../../styles/gaps';
+@use 'src/styles/gaps';
+@use 'src/styles/colours';
 
-$off: #ddd;
-$active: chartreuse;
-$playing: cyan;
+$off: colours.$primary;
 $darkenAmount: 15%;
 
 .root {
   padding: gaps.$medium;
   background: $off;
 
-  border: gaps.$tiny solid #fff;
   box-shadow: none;
 
+  &:first-child {
+    border-left-width: 2px;
+  }
+  &:last-child {
+    border-right-width: 2px;
+  }
+
   &:hover {
-    background: darken($off, $darkenAmount);
+    background: lighten(colours.$onPrimary, 10);
   }
 
   &.active {
-    &.green {
-      background: chartreuse;
-      &:hover {
-        background: darken(chartreuse, $darkenAmount);
-      }
-    }
-
-    &.purple {
-      background: #d400d4;
-      &:hover {
-        background: darken(#d400d4, $darkenAmount);
-      }
-    }
-
-    &.blue {
-      background: #0053ff;
-      &:hover {
-        background: darken(#0053ff, $darkenAmount);
-      }
-    }
+    background: colours.$secondary;
   }
 
   &.playingNow {
-    border-color: $playing;
+    &:not(.active) {
+      background: colours.$background;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      background: colours.$background;
+      width: gaps.$small;
+      height: gaps.$small;
+      border-radius: 50%;
+    }
   }
 }

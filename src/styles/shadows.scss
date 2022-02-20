@@ -1,3 +1,5 @@
-$high: 7.5px 7.5px #0003;
-$medium: 5px 5px #0003;
-$low: 2.5px 2.5px #0003;
+@use './colours';
+
+$high: 7.5px 7.5px colours.$shadow;
+$medium: 5px 5px colours.$shadow;
+$low: 2.5px 2.5px colours.$shadow;

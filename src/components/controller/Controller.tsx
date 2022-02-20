@@ -5,7 +5,7 @@ import { ScaleSelector } from '../scaleSelector/ScaleSelector'
 import { SwingSetter } from '../sequencer/swingSetter/SwingSetter'
 import { Clear } from '../clear/Clear'
 import { Share } from '../share/Share'
-import { LengthSetter } from '../noteCountSetter/LengthSetter'
+import { LengthSetter } from '../lengthSetter/LengthSetter'
 import { GoStop } from '../goStop/GoStop'
 
 export const Controller = observer(() => (

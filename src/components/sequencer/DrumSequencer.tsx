@@ -1,4 +1,3 @@
-import styles from './Sequencer.module.scss'
 import { observer } from 'mobx-react-lite'
 import { SequenceCellProps } from './sequencerCell/SequencerCell'
 import { DrumSequencerRow } from './sequencerRow/DrumSequencerRow'
@@ -10,7 +9,7 @@ export type SequencerProps = {
 }
 
 export const DrumSequencer = observer((props: SequencerProps) => (
-  <div className={styles.root}>
+  <div>
     {props.notes.map((note, rowIndex) => (
       <DrumSequencerRow
         key={rowIndex}
