@@ -14,27 +14,31 @@ import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SamplerStore } from './sampler-store'
 import { DEFAULT_NOTE_COUNT } from '../utilities/constants'
 import { TransportStore } from './transport-store'
+import {
+  compressSong,
+  unCompressSong,
+} from '../utilities/compression/compression'
 
 export type SequencerName = 'treble' | 'bass'
 
-type Row = {
+export type Row = {
   note: MidiNote | Note
   sequence: boolean[]
 }
 
-type Sequencer = {
+export type Sequencer = {
   name: SequencerName
   rows: Row[]
   octave: Octave
 }
 
-type Song = {
-  noteCount: number
-  sequencers: Sequencer[]
-  drums: Row[]
+export type Song = {
+  length: number
   scaleBase: ScaleBase
   startNote: NoteOnly
   mode: number
+  sequencers: Sequencer[]
+  drums: Row[]
 }
 
 const trebleOctave = 3
@@ -100,18 +104,16 @@ export class SongStore {
   }
 
   getSongData() {
-    return btoa(JSON.stringify(this.song))
+    return btoa(compressSong(this.song))
   }
 
   loadSong(encodedSongData: string) {
-    if (encodedSongData.length === 0) {
-      this.loaded = true
-      return
+    try {
+      this.song = unCompressSong(atob(encodedSongData))
+    } catch (e) {
+      console.error(e)
+      this.song = emptySong
     }
-    this.song = JSON.parse(atob(encodedSongData))
-    // TODO: If the JSON's not valid, throw it out and start again... OR if you can be clever, take what you can and leave the rest
-    this.setNoteCount(this.song.noteCount)
-    this.updateSequencers()
     this.loaded = true
   }
 
@@ -156,7 +158,7 @@ export class SongStore {
   }
 
   flip(sequencerName: SequencerName, rowIndex: number, noteIndex: number) {
-    if (rowIndex >= this.song.noteCount) {
+    if (rowIndex >= this.song.length) {
       console.error('out of range note flip')
     }
 
@@ -193,7 +195,7 @@ export class SongStore {
   }
 
   drumFlip(rowIndex: number, noteIndex: number) {
-    if (rowIndex >= this.song.noteCount) {
+    if (rowIndex >= this.song.length) {
       console.error('out of range drum note flip')
     }
 
@@ -217,7 +219,7 @@ export class SongStore {
   setNoteCount = (newCount: number) => {
     this.song = {
       ...this.song,
-      noteCount: newCount,
+      length: newCount,
       sequencers: this.song.sequencers.map((sequencer) => ({
         ...sequencer,
         rows: sequencer.rows.map((row) => ({
@@ -264,7 +266,7 @@ const getEmptyRow = (noteCount: number, octave: Octave) =>
   }))
 
 const emptySong: Song = {
-  noteCount: DEFAULT_NOTE_COUNT,
+  length: DEFAULT_NOTE_COUNT,
   sequencers: [
     {
       name: 'treble',

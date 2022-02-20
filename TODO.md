@@ -1,10 +1,10 @@
 ### Doing:
+- [ ] [TECH] Share links are very long and ugly, and there is definitely a way to make them less horrible
 
 ### To Do:
 - [ ] MIDI export
-  - It would be great to be able to export this midi, import it to a DAW and get more sounds
+  - It would be great to be able to export this midi, import it to a DAW and play with more sounds
 - [ ] Dark mode
-  - Generally somewhat prettier colours
 - [ ] Check out the Deluge synth (a hardware synth with similar interface)
 - [ ] Allow different length sequences
 - [ ] Label each row with a scale degree/drum
@@ -12,16 +12,13 @@
 - [ ] Random feature per sequencer - adds some random notes in
 - [ ] Left/centre align things which can move around, so that the controls don't move when you change length 
 - ------ Prioritized below here ------
-- [ ] [BUG] Sharing
-  - Can't share tempo
-  - Can't share swing
+- [ ] [BUG] Share button only copies the song-data, not the tempo/swing
 - [ ] Name it!
   - Dotify? Like Spotify but it's dots??
 - [ ] [BUG] It goes out of sync if you tab in/out while it's playing
 - [ ] Volume slider
   - [ ] Individual volume slider per sequencer
-- [ ] Reset on corrupted SongData in URL
-- [ ] [TECH] Share links are very long and ugly, and there is definitely a way to make them less horrible 
+- [ ] Reset on corrupted SongData in URL 
 - [ ] [TECH/BUG/ONGOING] Performance! How do we make this thing run better?
 - [ ] Play note on click when paused
 - [ ] [TECH] Combine drums and treble and bass into one object somehow
@@ -40,6 +37,7 @@
 - [ ] Multiple sequences, which can be switched between on the fly
 
 ### Done:
+- [x] Generally somewhat prettier colours
 - [x] Update the readme
 - [x] Scale/Transport controls can live to the side, so they are always accessible
   - Collapse on smaller screens to above/below
