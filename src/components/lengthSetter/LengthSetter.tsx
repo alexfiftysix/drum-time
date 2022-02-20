@@ -10,13 +10,13 @@ const maxSize = 64
 
 export const LengthSetter = observer(() => {
   const { songStore } = useStore()
-  const [newLength, setNewLength] = useState(songStore.song.noteCount)
+  const [newLength, setNewLength] = useState(songStore.song.length)
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    setNewLength(songStore.song.noteCount)
+    setNewLength(songStore.song.length)
     setLoaded(true)
-  }, [songStore.song.noteCount])
+  }, [songStore.song.length])
 
   const handleSetSize = (value: number) =>
     setNewLength(clamp(value, minSize, maxSize))

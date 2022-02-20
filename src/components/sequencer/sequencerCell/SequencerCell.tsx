@@ -32,7 +32,7 @@ export const SequencerCell = observer((props: SequenceCellProps) => {
           ).rows[props.rowIndex].sequence[props.noteIndex],
           [styles.playingNow]: props.playingNow,
           [styles.first]: props.rowIndex === 0,
-          [styles.last]: props.rowIndex === songStore.song.noteCount - 1,
+          [styles.last]: props.rowIndex === songStore.song.length - 1,
         },
         props.className
       )}
