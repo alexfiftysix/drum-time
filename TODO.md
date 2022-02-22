@@ -1,5 +1,5 @@
 ### Doing:
-- [ ] [TECH] Share links are very long and ugly, and there is definitely a way to make them less horrible
+
 
 ### To Do:
 - [ ] MIDI export
@@ -10,9 +10,10 @@
 - [ ] Label each row with a scale degree/drum
 - [ ] Swing traditionally goes from -50 to 50
 - [ ] Random feature per sequencer - adds some random notes in
-- [ ] Left/centre align things which can move around, so that the controls don't move when you change length 
+- [ ] A variety of colour schemes
 - ------ Prioritized below here ------
 - [ ] [BUG] Share button only copies the song-data, not the tempo/swing
+- [ ] [TECH] Share links are very long and ugly, and there is definitely a way to make them less horrible
 - [ ] Name it!
   - Dotify? Like Spotify but it's dots??
 - [ ] [BUG] It goes out of sync if you tab in/out while it's playing
