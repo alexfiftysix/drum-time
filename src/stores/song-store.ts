@@ -8,8 +8,8 @@ import {
   ScaleBase,
 } from '../utilities/scales'
 import { SequenceStore } from './sequence-store'
-import { makeAutoObservable, runInAction } from 'mobx'
-import { Synth, start, PolySynth, Sampler, Transport } from 'tone'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { Synth, start, PolySynth, Sampler, Transport, mtof } from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SamplerStore } from './sampler-store'
 import { DEFAULT_NOTE_COUNT } from '../utilities/constants'
@@ -41,8 +41,8 @@ export type Song = {
   drums: Row[]
 }
 
-const trebleOctave = 3
-const bassOctave = 2
+export const trebleOctave = 4
+export const bassOctave = 3
 
 export class SongStore {
   sequenceStore: SequenceStore = new SequenceStore()
@@ -67,12 +67,15 @@ export class SongStore {
       sequencer.rows.forEach((row, index) =>
         this.sequenceStore.setCallback(
           `${sequencer.name}-${index}`,
-          (time: Seconds, note: string | undefined) => {
-            if (note) synth.triggerAttackRelease(note, 0.1, time)
+          (time: Seconds, note: unknown) => {
+            if (note)
+              synth.triggerAttackRelease(mtof(note as MidiNote), 0.1, time)
           }
         )
       )
     })
+
+    console.log('song', toJS(this.song))
 
     this.song.drums.forEach((row, index) => {
       this.sequenceStore.setCallback(
@@ -108,6 +111,12 @@ export class SongStore {
   }
 
   loadSong(encodedSongData: string) {
+    if (encodedSongData.length === 0) {
+      this.song = emptySong
+      this.loaded = true
+      return
+    }
+
     try {
       this.song = unCompressSong(atob(encodedSongData))
     } catch (e) {
