@@ -101,7 +101,7 @@ test('can compress a sequencer', () => {
 
   const compressed = compressSequencer(sequencer)
 
-  expect(compressed).toBe('treble;3;0,1,2,3,4,5,6,7')
+  expect(compressed).toBe('t;3;0,1,2,3,4,5,6,7')
 })
 
 test('unCompressRows', () => {
@@ -129,7 +129,7 @@ test('unCompressRows', () => {
 
 test('unCompressSequencer', () => {
   const length = 3
-  const compressed = 'treble;4;7,6,5,3,4,5,6,7'
+  const compressed = 't;4;7,6,5,3,4,5,6,7'
   const unCompressed = unCompressSequencer(compressed, length, {
     type: 'instructions',
     mode: 0,
@@ -189,12 +189,12 @@ test('compressSequencers', () => {
 
   const compressed = compressSequencers(sequencers)
 
-  expect(compressed).toBe('bass;1;0,1,2,3,4,5,6,7|treble;8;7,6,5,4,3,2,1,0')
+  expect(compressed).toBe('b;1;0,1,2,3,4,5,6,7|t;8;7,6,5,4,3,2,1,0')
 })
 
 test('unCompressSequencers', () => {
   const length = 3
-  const compressed = 'bass;1;0,1,2,3,4,5,6,7|treble;8;7,6,5,4,3,2,1,0'
+  const compressed = 'b;1;0,1,2,3,4,5,6,7|t;8;7,6,5,4,3,2,1,0'
   const unCompressed = unCompressSequencers(compressed, length, 'major', 'c', 0)
 
   const expected: Sequencer[] = [
@@ -276,8 +276,8 @@ test('compressSong', () => {
 
   const compressed = compressSong(song)
 
-  const expectedBassSequencer = 'bass;1;0,1,2,3,4,5,6,7'
-  const expectedTrebleSequencer = 'treble;8;7,6,5,4,3,2,1,0'
+  const expectedBassSequencer = 'b;1;0,1,2,3,4,5,6,7'
+  const expectedTrebleSequencer = 't;8;7,6,5,4,3,2,1,0'
   const expectedSequencers = `${expectedBassSequencer}|${expectedTrebleSequencer}`
   const expectedDrums = '0,1,7'
 
@@ -285,7 +285,7 @@ test('compressSong', () => {
 })
 
 test('unCompressSong', () => {
-  const compressed = `3*m*e*0*bass;1;0,1,2,3,4,5,6,7|treble;8;7,6,5,4,3,2,1,0*0,1,7`
+  const compressed = `3*m*e*0*b;1;0,1,2,3,4,5,6,7|t;8;7,6,5,4,3,2,1,0*0,1,7`
 
   const unCompressed = unCompressSong(compressed)
 
