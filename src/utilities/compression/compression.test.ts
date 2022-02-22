@@ -281,11 +281,11 @@ test('compressSong', () => {
   const expectedSequencers = `${expectedBassSequencer}|${expectedTrebleSequencer}`
   const expectedDrums = '0,1,7'
 
-  expect(compressed).toBe(`3*major*e*0*${expectedSequencers}*${expectedDrums}`)
+  expect(compressed).toBe(`3*m*e*0*${expectedSequencers}*${expectedDrums}`)
 })
 
 test('unCompressSong', () => {
-  const compressed = `3*major*e*0*bass;1;0,1,2,3,4,5,6,7|treble;8;7,6,5,4,3,2,1,0*0,1,7`
+  const compressed = `3*m*e*0*bass;1;0,1,2,3,4,5,6,7|treble;8;7,6,5,4,3,2,1,0*0,1,7`
 
   const unCompressed = unCompressSong(compressed)
 
