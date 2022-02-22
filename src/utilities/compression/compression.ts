@@ -119,11 +119,13 @@ export const unCompressSequencers = (
 }
 
 export const compressSong = (song: Song) => {
-  return `${song.length}${separators.song}${song.scaleBase}${separators.song}${
-    song.startNote
-  }${separators.song}${song.mode}${separators.song}${compressSequencers(
-    song.sequencers
-  )}${separators.song}${compressRows(song.drums)}`
+  return `${song.length}${separators.song}${
+    scaleBaseShortener[song.scaleBase]
+  }${separators.song}${song.startNote}${separators.song}${song.mode}${
+    separators.song
+  }${compressSequencers(song.sequencers)}${separators.song}${compressRows(
+    song.drums
+  )}`
 }
 
 export const unCompressSong = (compressed: string): Song => {
@@ -131,7 +133,7 @@ export const unCompressSong = (compressed: string): Song => {
   const length = parseInt(split[0])
   if (isNaN(length)) throw new Error('Song data is bad')
 
-  const scaleBase = split[1] as ScaleBase
+  const scaleBase = scaleBaseExpander[split[1]]
   const startNote = split[2] as NoteOnly
   const mode = parseInt(split[3])
 
@@ -149,4 +151,14 @@ export const unCompressSong = (compressed: string): Song => {
     ),
     drums: unCompressRows(split[5], length, drumScale),
   }
+}
+
+const scaleBaseShortener: Record<ScaleBase, string> = {
+  major: 'm',
+  harmonicMinor: 'h',
+}
+
+const scaleBaseExpander: Record<string, ScaleBase> = {
+  m: 'major',
+  h: 'harmonicMinor',
 }
