@@ -1,4 +1,3 @@
-import { mtof } from 'tone'
 import { MidiNote, Note } from 'tone/build/esm/core/type/NoteUnits'
 
 export type ScaleBase = 'major' | 'harmonicMinor'
@@ -31,24 +30,24 @@ export const scaleBlueprints: Record<ScaleBase, ScaleDegree[]> = {
   //   { semitonesToNextNote: 3, mode: 'aeolian' },
   // ],
 }
-type ScaleDegree = { semitonesToNextNote: number; mode: string }
+type ScaleDegree = { semitonesToNextNote: MidiNote; mode: string }
 
-const toUsefulBlueprint = (scaleBlueprint: number[]) => {
+const toUsefulBlueprint = (scaleBlueprint: MidiNote[]) => {
   let sum = 0
   return scaleBlueprint.map((v) => (sum += v))
 }
 
 const startNotes: Record<NoteOnly, MidiNote> = {
-  c: 24,
-  d: 26,
-  e: 28,
-  f: 29,
-  g: 31,
-  a: 33,
-  b: 35,
+  c: 12,
+  d: 14,
+  e: 16,
+  f: 17,
+  g: 19,
+  a: 21,
+  b: 23,
 }
 
-const rotateScale = (scale: number[], mode: number) => {
+const rotateScale = (scale: MidiNote[], mode: number) => {
   if (mode > scale.length) throw new Error('rotation too big')
   return scale.slice(mode).concat(scale.slice(0, mode))
 }
@@ -57,8 +56,12 @@ export type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 type Accidental = 'sharp' | 'flat' | undefined
 
-const addAccidental = (note: number, accidental: Accidental) =>
-  accidental === undefined ? note : accidental === 'sharp' ? note + 1 : note - 1
+const addAccidental = (note: MidiNote, accidental: Accidental): MidiNote =>
+  (accidental === undefined
+    ? note
+    : accidental === 'sharp'
+    ? note + 1
+    : note - 1) as MidiNote
 
 export const makeScale = (
   startNote: NoteOnly,
@@ -66,7 +69,7 @@ export const makeScale = (
   scaleBase: ScaleBase,
   mode: number,
   octave: Octave
-) =>
+): MidiNote[] =>
   [
     startNotes[startNote] + octave * 12,
     ...toUsefulBlueprint(
@@ -77,8 +80,6 @@ export const makeScale = (
     ).map(
       (n) => addAccidental(startNotes[startNote], accidental) + n + octave * 12
     ),
-  ]
-    .map((n) => mtof(n as MidiNote))
-    .reverse()
+  ].reverse() as MidiNote[]
 
 export const drumScale: Note[] = ['G2', 'E2', 'C2']

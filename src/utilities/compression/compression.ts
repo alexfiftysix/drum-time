@@ -1,9 +1,8 @@
 import { Row, Sequencer, SequencerName, Song } from '../../stores/song-store'
-import { MidiNote } from 'tone/build/esm/core/type/NoteUnits'
-import { NoteOnly, Octave, ScaleBase } from '../scales'
+import { MidiNote, Note } from 'tone/build/esm/core/type/NoteUnits'
+import { drumScale, makeScale, NoteOnly, Octave, ScaleBase } from '../scales'
 
 const separators = {
-  row: '+',
   rows: ',',
   sequencer: ';',
   sequencers: '|',
@@ -16,7 +15,10 @@ export const sequenceToBinary = (sequence: boolean[]) =>
 export const decimalToBinary = (decimal: number, length: number) =>
   (decimal >>> 0).toString(2).padStart(length, '0')
 
-export const unCompressSequence = (compressed: string, length: number) => {
+export const unCompressSequence = (
+  compressed: string,
+  length: number
+): boolean[] => {
   const asNumber = parseInt(compressed)
   if (isNaN(asNumber)) {
     throw new Error('That is not a compress sequence')
@@ -27,15 +29,17 @@ export const unCompressSequence = (compressed: string, length: number) => {
 }
 
 export const compressRow = (row: Row) => {
-  return `${row.note}${separators.row}${sequenceToBinary(row.sequence)}`
+  return `${sequenceToBinary(row.sequence)}`
 }
 
-export const unCompressRow = (compressedRow: string, length: number): Row => {
-  const split = compressedRow.split(separators.row)
-
+export const unCompressRow = (
+  compressedRow: string,
+  length: number,
+  note: MidiNote | Note
+): Row => {
   return {
-    note: parseInt(split[0]) as MidiNote,
-    sequence: unCompressSequence(split[1], length),
+    note,
+    sequence: unCompressSequence(compressedRow, length),
   }
 }
 
@@ -49,23 +53,46 @@ export const compressSequencer = (sequencer: Sequencer) => {
 
 export const unCompressRows = (
   compressedRows: string,
-  length: number
+  length: number,
+  scale: MidiNote[] | Note[]
 ): Row[] => {
   const split = compressedRows.split(separators.rows)
-  return split.map((s) => unCompressRow(s, length))
+  return split.map((s, i) => unCompressRow(s, length, scale[i]))
 }
+
+type ScaleOrInstructions =
+  | {
+      type: 'instructions'
+      scaleBase: ScaleBase
+      startNote: NoteOnly
+      mode: number
+    }
+  | { type: 'scale'; notes: Note[] }
 
 export const unCompressSequencer = (
   compressedSequencer: string,
-  length: number
+  length: number,
+  seqThing: ScaleOrInstructions
 ): Sequencer => {
   const pieces = compressedSequencer.split(separators.sequencer)
+  const name = pieces[0] as SequencerName
+  const octave = parseInt(pieces[1]) as Octave
   const compressedRows = pieces[2]
+  const scale =
+    seqThing.type === 'scale'
+      ? seqThing.notes
+      : makeScale(
+          seqThing.startNote,
+          undefined,
+          seqThing.scaleBase,
+          seqThing.mode,
+          octave
+        )
 
   return {
-    name: pieces[0] as SequencerName,
-    octave: parseInt(pieces[1]) as Octave,
-    rows: unCompressRows(compressedRows, length),
+    name,
+    octave,
+    rows: unCompressRows(compressedRows, length, scale),
   }
 }
 
@@ -73,9 +100,22 @@ export const compressSequencers = (sequencers: Sequencer[]): string => {
   return sequencers.map((s) => compressSequencer(s)).join(separators.sequencers)
 }
 
-export const unCompressSequencers = (compressed: string, length: number) => {
+export const unCompressSequencers = (
+  compressed: string,
+  length: number,
+  scaleBase: ScaleBase,
+  startNote: NoteOnly,
+  mode: number
+) => {
   const split = compressed.split(separators.sequencers)
-  return split.map((s) => unCompressSequencer(s, length))
+  return split.map((s) =>
+    unCompressSequencer(s, length, {
+      type: 'instructions',
+      scaleBase,
+      startNote,
+      mode,
+    })
+  )
 }
 
 export const compressSong = (song: Song) => {
@@ -91,12 +131,22 @@ export const unCompressSong = (compressed: string): Song => {
   const length = parseInt(split[0])
   if (isNaN(length)) throw new Error('Song data is bad')
 
+  const scaleBase = split[1] as ScaleBase
+  const startNote = split[2] as NoteOnly
+  const mode = parseInt(split[3])
+
   return {
     length,
-    scaleBase: split[1] as ScaleBase,
-    startNote: split[2] as NoteOnly,
-    mode: parseInt(split[3]),
-    sequencers: unCompressSequencers(split[4], length),
-    drums: unCompressRows(split[5], length),
+    scaleBase,
+    startNote,
+    mode,
+    sequencers: unCompressSequencers(
+      split[4],
+      length,
+      scaleBase,
+      startNote,
+      mode
+    ),
+    drums: unCompressRows(split[5], length, drumScale),
   }
 }
