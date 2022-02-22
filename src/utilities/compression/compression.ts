@@ -48,7 +48,9 @@ const compressRows = (rows: Row[]) =>
 
 export const compressSequencer = (sequencer: Sequencer) => {
   const rows = compressRows(sequencer.rows)
-  return `${sequencer.name}${separators.sequencer}${sequencer.octave}${separators.sequencer}${rows}`
+  return `${sequencerNameShortener[sequencer.name]}${separators.sequencer}${
+    sequencer.octave
+  }${separators.sequencer}${rows}`
 }
 
 export const unCompressRows = (
@@ -75,7 +77,7 @@ export const unCompressSequencer = (
   seqThing: ScaleOrInstructions
 ): Sequencer => {
   const pieces = compressedSequencer.split(separators.sequencer)
-  const name = pieces[0] as SequencerName
+  const name = sequencerNameExpander[pieces[0]]
   const octave = parseInt(pieces[1]) as Octave
   const compressedRows = pieces[2]
   const scale =
@@ -161,4 +163,14 @@ const scaleBaseShortener: Record<ScaleBase, string> = {
 const scaleBaseExpander: Record<string, ScaleBase> = {
   m: 'major',
   h: 'harmonicMinor',
+}
+
+const sequencerNameShortener: Record<SequencerName, string> = {
+  treble: 't',
+  bass: 'b',
+}
+
+const sequencerNameExpander: Record<string, SequencerName> = {
+  t: 'treble',
+  b: 'bass',
 }
