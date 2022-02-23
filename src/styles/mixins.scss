@@ -3,8 +3,8 @@
 
 @mixin paper() {
   padding: 0.5rem;
-  border: 1px solid colours.$onPrimary;
-  background: colours.$primary;
+  border: 1px solid var(--on-primary);
+  background: var(--primary);
   box-shadow: shadows.$medium;
 }
 
@@ -20,15 +20,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: colours.$onPrimary;
+  color: var(--on-primary);
 
   &:hover {
-    background: lighten(colours.$secondary, 10);
-    color: colours.$onSecondary;
+    background: var(--secondary-lighter);
+    color: var(--on-secondary);
   }
 
   &:active {
-    background: lighten(colours.$secondary, 5);
-    color: colours.$onSecondary;
+    background: var(--secondary-light);
+    color: var(--on-secondary);
   }
 }

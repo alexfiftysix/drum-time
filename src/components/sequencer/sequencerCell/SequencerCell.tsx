@@ -15,7 +15,7 @@ export type SequenceCellProps = {
 }
 
 export const SequencerCell = observer((props: SequenceCellProps) => {
-  const { songStore } = useStore()
+  const { songStore, themeStore } = useStore()
 
   const flip = () => {
     songStore.flip(props.sequencerName, props.rowIndex, props.noteIndex)
@@ -33,6 +33,7 @@ export const SequencerCell = observer((props: SequenceCellProps) => {
           [styles.playingNow]: props.playingNow,
           [styles.first]: props.rowIndex === 0,
           [styles.last]: props.rowIndex === songStore.song.length - 1,
+          [styles.switching]: themeStore.switching,
         },
         props.className
       )}

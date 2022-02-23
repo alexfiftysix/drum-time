@@ -1,7 +1,7 @@
 @use 'src/styles/gaps';
 @use 'src/styles/colours';
 
-$off: colours.$primary;
+$off: var(--primary);
 $darkenAmount: 15%;
 
 .root {
@@ -9,6 +9,10 @@ $darkenAmount: 15%;
   background: $off;
 
   box-shadow: none;
+
+  &:not(.switching) {
+    transition: background-color 0ms; // TODO: How to make this not effect the actual transition..
+  }
 
   &.first {
     border-top-width: 2px;
@@ -25,25 +29,25 @@ $darkenAmount: 15%;
     border-right-width: 2px;
   }
 
-  &:hover {
-    background: lighten(colours.$onPrimary, 10);
-  }
-
   &.active {
-    background: colours.$secondary;
+    background: var(--secondary);
   }
 
   &.playingNow {
     &:not(.active) {
-      background: colours.$background;
+      background: var(--background);
     }
     &::after {
       content: '';
       position: absolute;
-      background: colours.$background;
+      background: var(--background);
       width: gaps.$small;
+
       height: gaps.$small;
       border-radius: 50%;
+      &.switching {
+        transition: background-color 200ms;
+      }
     }
   }
 }
