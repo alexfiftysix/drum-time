@@ -6,6 +6,7 @@ import { useStore } from '../../hooks/use-store'
 import { useEffect } from 'react'
 import styles from './Main.module.scss'
 import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
+import { ThemeSwitcher } from '../themer/ThemeSwitcher'
 
 export const Main = observer(() => {
   const { songData, setParam } = useQueryParams()
@@ -32,6 +33,7 @@ export const Main = observer(() => {
     <div className={styles.root}>
       <Controller />
       <TheInstrument />
+      <ThemeSwitcher />
     </div>
   )
 })

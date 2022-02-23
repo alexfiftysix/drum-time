@@ -7,8 +7,8 @@
   text-align: center;
 
   &.checked {
-    background: colours.$secondary;
-    color: colours.$onSecondary;
+    background: var(--secondary);
+    color: var(--on-secondary);
   }
 
   input {

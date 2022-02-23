@@ -3,7 +3,7 @@
 .root {
   display: flex;
   flex-direction: row;
-  border: 1px solid colours.$onPrimary;
+  border: 1px solid var(--on-primary);
 }
 
 .increment {
