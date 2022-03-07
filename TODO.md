@@ -12,6 +12,7 @@
 - [ ] Random feature per sequencer - adds some random notes in
 - [ ] A variety of colour schemes
 - ------ Prioritized below here ------
+- [ ] Run tests on GitHub PRs
 - [ ] [BUG] Share button only copies the song-data, not the tempo/swing
 - [ ] [TECH] Share links are very long and ugly, and there is definitely a way to make them less horrible
 - [ ] Name it!
