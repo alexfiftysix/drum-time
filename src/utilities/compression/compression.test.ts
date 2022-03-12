@@ -14,6 +14,7 @@ import {
 } from './compression'
 import { Row, Sequencer, Song } from '../../stores/song-store'
 
+// TODO: These all need fixing
 test('sequenceToBinary', () => {
   const sequence = [false, true, true, false, true, true, true, true]
 
@@ -87,6 +88,7 @@ test('can compress a sequencer', () => {
   const sequencer: Sequencer = {
     name: 'treble',
     octave: 3,
+    synth: 'simple',
     rows: [
       { note: 1, sequence: [false, false, false] },
       { note: 2, sequence: [false, false, true] },
@@ -140,6 +142,7 @@ test('unCompressSequencer', () => {
   const expected: Sequencer = {
     name: 'treble',
     octave: 4,
+    synth: 'simple',
     rows: [
       { note: 72, sequence: [true, true, true] },
       { note: 71, sequence: [true, true, false] },
@@ -160,6 +163,7 @@ test('compressSequencers', () => {
     {
       name: 'bass',
       octave: 1,
+      synth: 'simple',
       rows: [
         { note: 1, sequence: [false, false, false] },
         { note: 2, sequence: [false, false, true] },
@@ -174,6 +178,7 @@ test('compressSequencers', () => {
     {
       name: 'treble',
       octave: 8,
+      synth: 'simple',
       rows: [
         { note: 1, sequence: [true, true, true] },
         { note: 2, sequence: [true, true, false] },
@@ -201,6 +206,7 @@ test('unCompressSequencers', () => {
     {
       name: 'bass',
       octave: 1,
+      synth: 'simple',
       rows: [
         { note: 36, sequence: [false, false, false] },
         { note: 35, sequence: [false, false, true] },
@@ -215,6 +221,7 @@ test('unCompressSequencers', () => {
     {
       name: 'treble',
       octave: 8,
+      synth: 'simple',
       rows: [
         { note: 120, sequence: [true, true, true] },
         { note: 119, sequence: [true, true, false] },
@@ -241,6 +248,7 @@ test('compressSong', () => {
       {
         name: 'bass',
         octave: 1,
+        synth: 'simple',
         rows: [
           { note: 40, sequence: [false, false, false] },
           { note: 39, sequence: [false, false, true] },
@@ -255,6 +263,7 @@ test('compressSong', () => {
       {
         name: 'treble',
         octave: 8,
+        synth: 'simple',
         rows: [
           { note: 124, sequence: [true, true, true] },
           { note: 123, sequence: [true, true, false] },
@@ -298,6 +307,7 @@ test('unCompressSong', () => {
       {
         name: 'bass',
         octave: 1,
+        synth: 'simple',
         rows: [
           { note: 40, sequence: [false, false, false] },
           { note: 39, sequence: [false, false, true] },
@@ -312,6 +322,7 @@ test('unCompressSong', () => {
       {
         name: 'treble',
         octave: 8,
+        synth: 'simple',
         rows: [
           { note: 124, sequence: [true, true, true] },
           { note: 123, sequence: [true, true, false] },

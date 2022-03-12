@@ -1,0 +1,6 @@
+@use 'src/styles/gaps';
+
+.root {
+  margin-bottom: gaps.$tiny;
+  box-shadow: none;
+}

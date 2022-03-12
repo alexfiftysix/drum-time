@@ -94,6 +94,7 @@ export const unCompressSequencer = (
   return {
     name,
     octave,
+    synth: 'simple', // TODO: Bad!
     rows: unCompressRows(compressedRows, length, scale),
   }
 }

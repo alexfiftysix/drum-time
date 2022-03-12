@@ -9,7 +9,7 @@ import {
 } from '../utilities/scales'
 import { SequenceStore } from './sequence-store'
 import { makeAutoObservable, runInAction } from 'mobx'
-import { Synth, start, PolySynth, Sampler, Transport, mtof } from 'tone'
+import { start, Transport, mtof } from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SamplerStore } from './sampler-store'
 import { DEFAULT_NOTE_COUNT } from '../utilities/constants'
@@ -18,6 +18,7 @@ import {
   compressSong,
   unCompressSong,
 } from '../utilities/compression/compression'
+import { SynthName, SynthStore } from './synth-store'
 
 export type SequencerName = 'treble' | 'bass'
 
@@ -30,6 +31,7 @@ export type Sequencer = {
   name: SequencerName
   rows: Row[]
   octave: Octave
+  synth: SynthName
 }
 
 export type Song = {
@@ -48,6 +50,7 @@ export class SongStore {
   sequenceStore: SequenceStore = new SequenceStore()
   samplerStore: SamplerStore = new SamplerStore()
   transportStore: TransportStore = new TransportStore()
+  synthStore: SynthStore = new SynthStore()
   playing: boolean = false
   loaded: boolean = false
   song: Song
@@ -55,13 +58,12 @@ export class SongStore {
   constructor() {
     this.song = { ...emptySong }
 
-    const simpleSynth = new PolySynth(Synth).toDestination()
-    this.initialiseSynths(simpleSynth)
+    this.initialiseSynths()
     this.updateSequencers()
     makeAutoObservable(this)
   }
 
-  private initialiseSynths(synth: Synth | PolySynth | Sampler) {
+  private initialiseSynths() {
     // This is to make the sequencers play sounds when a note is triggered
     this.song.sequencers.forEach((sequencer) => {
       sequencer.rows.forEach((row, index) =>
@@ -69,7 +71,11 @@ export class SongStore {
           `${sequencer.name}-${index}`,
           (time: Seconds, note: unknown) => {
             if (note)
-              synth.triggerAttackRelease(mtof(note as MidiNote), 0.1, time)
+              this.synthStore.bag[sequencer.synth].triggerAttackRelease(
+                mtof(note as MidiNote),
+                0.1,
+                time
+              )
           }
         )
       )
@@ -264,6 +270,33 @@ export class SongStore {
     this.song = { ...emptySong }
     this.updateSequencers()
   }
+
+  setSynth = (sequencer: SequencerName, synth: SynthName) => {
+    this.song = this.song = {
+      ...this.song,
+      sequencers: this.song.sequencers.map((s) =>
+        s.name !== sequencer ? s : { ...s, synth: synth }
+      ),
+    }
+
+    this.song.sequencers.forEach((s) =>
+      s.name !== sequencer
+        ? undefined
+        : s.rows.forEach((row, index) => {
+            this.sequenceStore.setCallback(
+              `${sequencer}-${index}`,
+              (time: Seconds, note: unknown) => {
+                if (note)
+                  this.synthStore.bag[synth].triggerAttackRelease(
+                    mtof(note as MidiNote),
+                    0.1,
+                    time
+                  )
+              }
+            )
+          })
+    )
+  }
 }
 
 const getEmptyRow = (noteCount: number, octave: Octave) =>
@@ -279,11 +312,13 @@ const emptySong: Song = {
       name: 'treble',
       rows: getEmptyRow(DEFAULT_NOTE_COUNT, trebleOctave),
       octave: trebleOctave,
+      synth: 'sawtooth',
     },
     {
       name: 'bass',
       rows: getEmptyRow(DEFAULT_NOTE_COUNT, bassOctave),
       octave: bassOctave,
+      synth: 'simple',
     },
   ],
   drums: drumScale.map((note) => ({

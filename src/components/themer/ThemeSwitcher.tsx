@@ -7,7 +7,7 @@ export const ThemeSwitcher = observer(() => {
 
   return (
     <button className={styles.root} onClick={() => themeStore.switch()}>
-      ?
+      Theme
     </button>
   )
 })

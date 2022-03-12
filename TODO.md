@@ -1,4 +1,5 @@
 ### Doing:
+- [ ] different instruments
 
 
 ### To Do:
@@ -10,7 +11,6 @@
 - [ ] Label each row with a scale degree/drum
 - [ ] Swing traditionally goes from -50 to 50
 - [ ] Random feature per sequencer - adds some random notes in
-- [ ] A variety of colour schemes
 - ------ Prioritized below here ------
 - [ ] Run tests on GitHub PRs
 - [ ] [BUG] Share button only copies the song-data, not the tempo/swing
@@ -39,6 +39,7 @@
 - [ ] Multiple sequences, which can be switched between on the fly
 
 ### Done:
+- [x] A variety of colour schemes
 - [x] Generally somewhat prettier colours
 - [x] Update the readme
 - [x] Scale/Transport controls can live to the side, so they are always accessible
