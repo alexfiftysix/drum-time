@@ -8,9 +8,7 @@ export const Share = observer(() => {
   const location = window.location
 
   const onClick = async () => {
-    const songData = songStore.getSongData()
-    const link = `${location.protocol}//${location.host}${location.pathname}?songData=${songData}`
-    await navigator.clipboard.writeText(link)
+    await navigator.clipboard.writeText(location.href)
     setClicked(true)
   }
 

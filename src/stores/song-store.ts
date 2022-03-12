@@ -8,7 +8,7 @@ import {
   ScaleBase,
 } from '../utilities/scales'
 import { SequenceStore } from './sequence-store'
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { Synth, start, PolySynth, Sampler, Transport, mtof } from 'tone'
 import { Seconds } from 'tone/build/esm/core/type/Units'
 import { SamplerStore } from './sampler-store'
@@ -74,8 +74,6 @@ export class SongStore {
         )
       )
     })
-
-    console.log('song', toJS(this.song))
 
     this.song.drums.forEach((row, index) => {
       this.sequenceStore.setCallback(
