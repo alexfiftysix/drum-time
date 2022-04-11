@@ -14,7 +14,7 @@ export const SwingSetter = () => {
     <Range
       value={swing}
       setValue={(v) => setParam(['swing', v])}
-      label="swing"
+      label="Swing"
       min={0}
       max={100}
       step={1}

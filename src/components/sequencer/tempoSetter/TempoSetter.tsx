@@ -17,7 +17,7 @@ export const TempoSetter = () => {
     <Range
       value={tempo}
       setValue={(v) => setParam(['tempo', v])}
-      label="bpm"
+      label="Bpm"
       min={minTempo}
       max={maxTempo}
       step={0}

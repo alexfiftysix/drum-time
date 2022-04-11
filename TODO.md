@@ -2,6 +2,10 @@
 
 
 ### To Do:
+- [ ] iOS styling
+  - The background colour doesn't extend all the way
+  - The boxes have awkward space around them (should have no space)
+  - Sliders aren't styled correctly 
 - [ ] MIDI export
   - It would be great to be able to export this midi, import it to a DAW and play with more sounds
 - [ ] Dark mode

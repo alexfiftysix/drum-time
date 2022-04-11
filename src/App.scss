@@ -23,17 +23,46 @@ input {
 }
 
 input[type='range'] {
-  background: none;
+  background: transparent;
   border: none;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
 input[type='range']::-moz-range-track {
   background: var(--secondary);
+  height: 2px;
+  border-radius: 2px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  background: var(--secondary);
+  height: 2px;
+  border-radius: 2px;
 }
 
 input[type='range']::-moz-range-thumb {
-  background: var(--secondary);
+  background-color: var(--secondary);
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  margin-top: -5px;
+  height: 12px;
+  width: 12px;
+  border-radius: 8px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  background-color: var(--secondary);
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  margin-top: -5px;
+  height: 12px;
+  width: 12px;
+  border-radius: 8px;
 }
 
 input[type='number'] {
