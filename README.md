@@ -1,19 +1,21 @@
 # Hello
 
-👋 Welcome to the drum-time music maker (yet to be named).
+👋 Welcome to BeepSquares
 
 🎶 This is a fun little sequencer which makes use of the tone.js library to allow users to write and share music 🎶
+The fun thing with _this_ sequencer is that it allows you to easily try out your track in all the modes of the major and harmonic minor scale.
+I made this to get more familiar with the sound of different modes - maybe you can use it to get more familiar with modes yourself 😊
 
-# Getting started
+## Getting started
 
 In the root folder, run `npm run start` to get going.
 
-# Deployments
+## Deployments
 
-The site is hosted on Azure Static Web Apps, over [here](https://green-island-0e07cbb00.azurestaticapps.net/).
+The site is hosted on Azure Static Web Apps, over [here](https://www.beepsquares.com/).
 
 Any Pull Requests will deploy a test env, which can be found on the PR in GitHub.
 
-# Contributing
+## Contributing
 
 The TODO.md file has a vague backlog which can be used for finding things to do.
