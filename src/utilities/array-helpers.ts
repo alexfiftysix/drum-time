@@ -36,3 +36,6 @@ export const resize = <T>(array: T[], newSize: number, fill: T): T[] => {
     return [...array, ...makeAndFill(newSize - array.length, fill)]
   return array.slice(0, newSize)
 }
+
+export const randomChoice = <T>(array: T[]) =>
+  array[Math.floor(Math.random() * array.length)]

@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import styles from './Main.module.scss'
 import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 import { ThemeSwitcher } from '../themer/ThemeSwitcher'
+import { Exciter } from '../exciter/Exciter'
 
 export const Main = observer(() => {
   const { songData, setParam } = useQueryParams()
@@ -34,6 +35,7 @@ export const Main = observer(() => {
       <Controller />
       <TheInstrument />
       <ThemeSwitcher />
+      <Exciter />
     </div>
   )
 })
