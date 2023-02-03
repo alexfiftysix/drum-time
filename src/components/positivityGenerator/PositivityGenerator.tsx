@@ -34,6 +34,25 @@ const adjectives: string[] = [
   'awesome',
   'stellar',
   'absolute',
+  'dynamic',
+  'diligent',
+  'generous',
+  'fabulous',
+  'stunning',
+  'wondrous',
+  'brave',
+  'breathtaking',
+  'dazzling',
+  'enchanting',
+  'fearless',
+  'magnificent',
+  'plucky',
+  'vibrant',
+  'organized',
+  'resourceful',
+  'fantastic',
+  'powerful',
+  'first-class',
 ]
 
 const nouns: string[] = [
@@ -48,4 +67,6 @@ const nouns: string[] = [
   'star',
   'standout',
   'winner',
+  'comrade',
+  'prodigy',
 ]
