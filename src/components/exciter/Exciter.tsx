@@ -57,13 +57,14 @@ export const Exciter = () => {
     const primary = style.getPropertyValue('--primary')
     const secondary = style.getPropertyValue('--secondary')
     const onSecondary = style.getPropertyValue('--on-secondary')
+    const background = style.getPropertyValue('--background')
 
     const origin = randomChoice(confettiOrigins)
 
     makeConfetti({
       particleCount: 100,
       spread: 90,
-      colors: [primary, secondary, onSecondary],
+      colors: [primary, secondary, onSecondary, background],
       ...origin,
     })
   }, [])
