@@ -8,6 +8,7 @@ import styles from './Main.module.scss'
 import { useDebouncedEffect } from '../../hooks/use-debounced-effect'
 import { ThemeSwitcher } from '../themer/ThemeSwitcher'
 import { Exciter } from '../exciter/Exciter'
+import { PositivityGenerator } from '../positivityGenerator/PositivityGenerator'
 
 export const Main = observer(() => {
   const { songData, setParam } = useQueryParams()
@@ -36,6 +37,7 @@ export const Main = observer(() => {
       <TheInstrument />
       <ThemeSwitcher />
       <Exciter />
+      <PositivityGenerator />
     </div>
   )
 })

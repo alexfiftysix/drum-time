@@ -1,0 +1,10 @@
+.root {
+  border: none;
+
+  &:disabled {
+    &:hover {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+  }
+}
