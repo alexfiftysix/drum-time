@@ -66,7 +66,6 @@ export const Exciter = () => {
       colors: [primary, secondary, onSecondary],
       ...origin,
     })
-    console.log('confetti!', makeConfetti)
   }, [])
 
   return (
