@@ -17,6 +17,11 @@
       "sizes": "192x192"
     },
     {
+      "src": "logo-180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
       "src": "logo-128.png",
       "type": "image/png",
       "sizes": "128x128"
