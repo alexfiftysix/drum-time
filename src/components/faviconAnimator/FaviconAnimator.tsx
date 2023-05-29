@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 export const FaviconAnimator = observer(() => {
   const { songStore } = useStore()
   const [faviconImages, setFaviconImages] = useState<string | string[]>([
-    '/favicon.ico',
+    defaultFavicon,
   ])
 
   useEffect(() => {
