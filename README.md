@@ -8,7 +8,8 @@ I made this to get more familiar with the sound of different modes - maybe you c
 
 ## Getting started
 
-In the root folder, run `npm run start` to get going.
+First up, run `npm install` from the root folder to sort out any dependencies.
+Then run `npm run start` to get going.
 
 ## Deployments
 
